@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'agungdh.com', 
-    'username' => 'agungdhc_tika_son', 
-    'password' => 'tikason123', 
-    'database' => 'agungdhc_proyek_pkl_1_fix',
+	'hostname' => 'localhost', 
+    'username' => 'root', 
+    'password' => '', 
+    'database' => 'limbah_ade_menel',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
