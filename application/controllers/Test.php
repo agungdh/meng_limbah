@@ -51,7 +51,7 @@ class Test extends CI_Controller {
 			    	?>
 			    	<tr>
 				    	<td><?php echo '1'; ?></td>
-				    	<td><?php echo $item2->limbah; ?></td>
+				    	<td><?php echo $item2->sub_limbah; ?></td>
 				    	<td><?php echo $this->pustaka->tanggal_indo($item2->tanggal); ?></td>
 				    	<td><?php echo $item2->sumber; ?></td>
 				    	<td><?php echo $item2->buah; ?></td>
