@@ -31,6 +31,7 @@
           <th>Tanggal Masuk</th>
           <th>Sumber</th>
           <th>Jumlah (KG)</th>
+          <th>Proses</th>
         </tr>
       </thead>
       <tbody>
@@ -71,6 +72,10 @@
               <td><?php echo $this->pustaka->tanggal_indo_string($item2->tanggal); ?></td>
               <td><?php echo $item2->sumber; ?></td>
               <td><?php echo $item_jumlah; ?></td>
+               <td>
+                <a class="btn btn-info" href="<?php echo base_url('masuk/ubah/'.$item2->id_masuk) ?>"><i class="fa fa-pencil"></i> </a>
+                <a class="btn btn-danger" onclick="hapus('<?php echo $item2->id_masuk; ?>')"><i class="fa fa-trash"></i> </a>
+              </td>
             </tr>
             <?php
           }

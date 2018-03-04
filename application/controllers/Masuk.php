@@ -15,46 +15,53 @@ class Masuk extends CI_Controller {
 		$this->load->view("template/template", $data);
 	}
 
-	// function tambah() {
-	// 	$data['isi'] = "masuk/tambah";
-	// 	$data['data']['prodi'] = $this->m_masuk->ambil_prodi();
+	function tambah() {
+		$data['isi'] = "masuk/tambah";
+		$data['data']['sub_limbah'] = $this->m_masuk->ambil_sub_limbah();
+		$data['data']['sumber'] = $this->m_masuk->ambil_sumber();
 
-	// 	$this->load->view("template/template", $data);	
-	// }
+		$this->load->view("template/template", $data);	
+	}
 
-	// function aksi_tambah() {
-	// 	$this->m_masuk->tambah_masuk(
-	// 		$this->input->post('masukname'),
-	// 		hash('sha512', $this->input->post('password')),
-	// 		$this->input->post('level'),
-	// 		$this->input->post('prodi')
-	// 	);
+	function aksi_tambah() {
+		$this->m_masuk->tambah_limbah_masuk(
+			$this->session->id,
+			$this->input->post('sub_limbah'),
+			$this->input->post('tanggal'),
+			$this->input->post('sumber'),
+			$this->input->post('jumlah')
+		);
 
-	// 	redirect(base_url('masuk'));
-	// }
+		redirect(base_url('masuk'));
+	}
 
-	// function ubah($id_masuk) {
-	// 	$data['isi'] = "masuk/ubah";
-	// 	$data['data']['masuk'] = $this->m_masuk->ambil_masuk_id($id_masuk);
+	function ubah($id_masuk) {
+		$data['isi'] = "masuk/ubah";
+		$data['data']['sub_limbah'] = $this->m_masuk->ambil_sub_limbah();
+		$data['data']['sumber'] = $this->m_masuk->ambil_sumber();
+		$data['data']['masuk'] = $this->m_masuk->ambil_masuk_id($id_masuk);
 
-	// 	$this->load->view("template/template", $data);
-	// }
+		$this->load->view("template/template", $data);
+	}
 
-	// function aksi_ubah() {
-	// 	$this->m_masuk->ubah_masuk(
-	// 		hash("sha512", $this->input->post('password')),
-	// 		$this->input->post('id')
-	// 	);
+	function aksi_ubah() {
+		$this->m_masuk->ubah_limbah_masuk(
+			$this->input->post('id'),
+			$this->input->post('sub_limbah'),
+			$this->input->post('tanggal'),
+			$this->input->post('sumber'),
+			$this->input->post('jumlah')
+		);
 
-	// 	redirect(base_url('masuk'));
-	// }
+		redirect(base_url('masuk'));
+	}
 
-	// function aksi_hapus($id) {
-	// 	$this->m_masuk->hapus_masuk(
-	// 		$id
-	// 	);
+	function aksi_hapus($id) {
+		$this->m_masuk->hapus_limbah_masuk(
+			$id
+		);
 
-	// 	redirect(base_url('masuk'));
-	// }
+		redirect(base_url('masuk'));
+	}
 
 }
