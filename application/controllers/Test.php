@@ -31,6 +31,8 @@ class Test extends CI_Controller {
 			</thead>
 			<tbody>
 			<?php 
+			$buah = 0;
+			$jumlah = 0;
 			foreach ($this->m_test->ambil_parent_limbah() as $item) {
 				?>
 				<tr>
@@ -38,6 +40,14 @@ class Test extends CI_Controller {
 			    </tr>
 			    <?php
 			    foreach ($this->m_test->ambil_child_limbah($item->id_limbah) as $item2) {
+			    	$buah += $item2->buah;
+			    	$jumlah += $item2->jumlah;
+			    	$item_jumlah = explode('.', $item2->jumlah);
+			    	if ($item_jumlah[1] == 0) {
+			    		$item_jumlah = $item_jumlah[0];
+			    	} else {
+			    		$item_jumlah = $item2->jumlah;
+			    	}
 			    	?>
 			    	<tr>
 				    	<td><?php echo '1'; ?></td>
@@ -45,17 +55,19 @@ class Test extends CI_Controller {
 				    	<td><?php echo $this->pustaka->tanggal_indo($item2->tanggal); ?></td>
 				    	<td><?php echo $item2->sumber; ?></td>
 				    	<td><?php echo $item2->buah; ?></td>
-				    	<td><?php echo $item2->jumlah; ?></td>
+				    	<td><?php echo $item_jumlah; ?></td>
 			    	</tr>
 			    	<?php
 			    }
 			    ?>
 			    <tr>
 				    <td colspan="4">Total</td>
-				    <td>300</td>
-				    <td>6000</td>
+				    <td><?php echo $buah; ?></td>
+				    <td><?php echo $jumlah; ?></td>
 			    </tr>
 				<?php
+				$buah = 0;
+				$jumlah = 0;
 			}
 			?>
 			</tbody>
