@@ -1,8 +1,8 @@
 <li class="header">MENU UTAMA</li>
 
 <li>
-	<a href="<?php echo base_url("pengajuan"); ?>">
+	<a href="<?php echo base_url("masuk"); ?>">
 		<i class="fa fa-users text-aqua"></i>
-		<span>Data Pengajuan</span>
+		<span>Data Limbah Masuk</span>
 	</a>
 </li>
