@@ -23,6 +23,11 @@ class Welcome extends CI_Controller {
 				'login'  => true
 			);
 
+			if ($data_user->id_unit != null) {
+				$array_data_user['id_unit'] = $data_user->id_unit;
+				$array_data_user['unit'] = $this->m_welcome->ambil_unit_id($data_user->id_unit)->unit;			
+			}
+
 			$this->session->set_userdata($array_data_user);
 
 			redirect(base_url());

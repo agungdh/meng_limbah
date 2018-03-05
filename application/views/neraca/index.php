@@ -13,7 +13,7 @@
 
 <div class="box box-primary">
   <div class="box-header with-border">
-    <h4><strong><font color=blue>DATA NERACA LIMBAH</font></strong></h4>
+    <h4><strong><font color=blue>DATA NERACA LIMBAH<br>UNIT : <?php echo $this->session->unit; ?></font></strong></h4>
   </div><!-- /.box-header -->
 
     <div class="box-body">
