@@ -44,12 +44,15 @@
         <?php
         foreach ($data['limbah'] as $item) {
           $limbah = $item->limbah;
-          $lalu = 0;
-          $masuk = $this->m_neraca->ambil_jumlah_masuk_dari_limbah($item->id, $data['bulan'], $data['tahun'])->total != null ? $this->m_neraca->ambil_jumlah_masuk_dari_limbah($item->id, $data['bulan'], $data['tahun'])->total : 0;
-          $keluar = $this->m_neraca->ambil_jumlah_keluar_dari_limbah($item->id, $data['bulan'], $data['tahun'])->total != null ? $this->m_neraca->ambil_jumlah_keluar_dari_limbah($item->id, $data['bulan'], $data['tahun'])->total : 0;
+          $tanggal = $data['tahun'] . '-' . str_pad($data['bulan'],2,"0",STR_PAD_LEFT) . '-' . '01';
+          $lalu1 = $this->m_neraca->ambil_jumlah_masuk_dari_limbah_lalu($this->session->id, $item->id, $tanggal)->total != null ? $this->m_neraca->ambil_jumlah_masuk_dari_limbah_lalu($this->session->id, $item->id, $tanggal)->total : 0;
+          $lalu2 = $this->m_neraca->ambil_jumlah_keluar_dari_limbah_lalu($this->session->id, $item->id, $tanggal)->total != null ? $this->m_neraca->ambil_jumlah_keluar_dari_limbah_lalu($this->session->id, $item->id, $tanggal)->total : 0;
+          $lalu = $lalu1 - $lalu2;
+          $masuk = $this->m_neraca->ambil_jumlah_masuk_dari_limbah($this->session->id, $item->id, $data['bulan'], $data['tahun'])->total != null ? $this->m_neraca->ambil_jumlah_masuk_dari_limbah($this->session->id, $item->id, $data['bulan'], $data['tahun'])->total : 0;
+          $keluar = $this->m_neraca->ambil_jumlah_keluar_dari_limbah($this->session->id, $item->id, $data['bulan'], $data['tahun'])->total != null ? $this->m_neraca->ambil_jumlah_keluar_dari_limbah($this->session->id, $item->id, $data['bulan'], $data['tahun'])->total : 0;
           $sisa = $lalu + $masuk - $keluar;
-          $sumber = $masuk == 0 ? '-' : $this->m_neraca->ambil_masuk_dari_limbah($item->id)->sumber;
-          $pengangkut = $keluar == 0 ? '-' : $this->m_neraca->ambil_keluar_dari_limbah($item->id)->pengangkut;
+          $sumber = $masuk == 0 ? '-' : $this->m_neraca->ambil_masuk_dari_limbah($this->session->id, $item->id)->sumber;
+          $pengangkut = $keluar == 0 ? '-' : $this->m_neraca->ambil_keluar_dari_limbah($this->session->id, $item->id)->pengangkut;
           ?>
           <tr>
             <td><?php echo $limbah; ?></td>
