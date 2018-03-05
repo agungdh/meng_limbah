@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.7
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 04, 2018 at 05:27 PM
+-- Host: localhost
+-- Generation Time: Mar 05, 2018 at 07:09 PM
 -- Server version: 10.1.30-MariaDB
--- PHP Version: 7.1.13
+-- PHP Version: 7.1.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -71,10 +71,23 @@ INSERT INTO `jenis` (`id`, `jenis`) VALUES
 
 CREATE TABLE `keluar` (
   `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
   `id_limbah` int(11) NOT NULL,
+  `id_pengangkut` int(11) NOT NULL,
   `tanggal` date NOT NULL,
-  `jumlah` int(11) NOT NULL
+  `jumlah` decimal(10,2) NOT NULL,
+  `no_dokumen` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `keluar`
+--
+
+INSERT INTO `keluar` (`id`, `id_user`, `id_limbah`, `id_pengangkut`, `tanggal`, `jumlah`, `no_dokumen`) VALUES
+(11, 1, 7, 1, '2018-03-06', '1.50', 'wraw'),
+(12, 1, 7, 1, '2018-03-08', '1.00', '23'),
+(13, 1, 7, 1, '2018-04-07', '1.00', '1247'),
+(15, 1, 7, 1, '2018-03-06', '6.00', '3');
 
 -- --------------------------------------------------------
 
@@ -84,9 +97,9 @@ CREATE TABLE `keluar` (
 
 CREATE TABLE `limbah` (
   `id` int(11) NOT NULL,
-  `kode` varchar(255) NOT NULL,
   `id_jenis` int(11) NOT NULL,
   `id_golongan` int(11) NOT NULL,
+  `kode` varchar(255) NOT NULL,
   `limbah` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -94,9 +107,9 @@ CREATE TABLE `limbah` (
 -- Dumping data for table `limbah`
 --
 
-INSERT INTO `limbah` (`id`, `kode`, `id_jenis`, `id_golongan`, `limbah`) VALUES
-(7, 'B105-d', 1, 2, 'Oli Bekas'),
-(8, 'B104-d', 2, 2, 'Kemasan Terkontaminasi B3');
+INSERT INTO `limbah` (`id`, `id_jenis`, `id_golongan`, `kode`, `limbah`) VALUES
+(7, 1, 2, 'B105-d', 'Oli Bekas'),
+(8, 2, 2, 'B104-d', 'Kemasan Terkontaminasi B3');
 
 -- --------------------------------------------------------
 
@@ -118,16 +131,28 @@ CREATE TABLE `masuk` (
 --
 
 INSERT INTO `masuk` (`id`, `id_user`, `id_sub_limbah`, `id_sumber`, `tanggal`, `jumlah`) VALUES
-(8, 1, 1, 1, '2017-10-19', '1000.00'),
-(9, 1, 3, 5, '2020-11-23', '1401.23'),
-(10, 1, 2, 2, '2017-03-24', '15.60'),
-(11, 1, 1, 1, '2017-04-28', '5.47'),
-(12, 1, 3, 2, '2017-03-24', '9.70'),
-(13, 1, 3, 2, '2017-04-28', '7.30'),
-(14, 1, 4, 2, '2017-03-24', '20.00'),
-(15, 1, 4, 2, '2017-04-28', '10.00'),
-(16, 1, 2, 2, '2017-09-24', '15.60'),
-(20, 1, 2, 3, '2017-12-29', '12.00');
+(30, 1, 1, 1, '2018-03-06', '2.50'),
+(31, 1, 1, 1, '2018-03-07', '3.00'),
+(32, 1, 1, 1, '2018-04-30', '7.00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pengangkut`
+--
+
+CREATE TABLE `pengangkut` (
+  `id` int(11) NOT NULL,
+  `pengangkut` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pengangkut`
+--
+
+INSERT INTO `pengangkut` (`id`, `pengangkut`) VALUES
+(1, 'PT Rama Manunggal Perkasa'),
+(2, 'PT Rama Manunggal Perkasa 2');
 
 -- --------------------------------------------------------
 
@@ -237,7 +262,10 @@ ALTER TABLE `jenis`
 --
 ALTER TABLE `keluar`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_limbah` (`id_limbah`);
+  ADD UNIQUE KEY `no_dokumen` (`no_dokumen`),
+  ADD KEY `id_limbah` (`id_limbah`),
+  ADD KEY `id_pengangkut` (`id_pengangkut`),
+  ADD KEY `id_user` (`id_user`);
 
 --
 -- Indexes for table `limbah`
@@ -255,6 +283,12 @@ ALTER TABLE `masuk`
   ADD KEY `id_sumber` (`id_sumber`),
   ADD KEY `id_sub_limbah` (`id_sub_limbah`),
   ADD KEY `id_user` (`id_user`);
+
+--
+-- Indexes for table `pengangkut`
+--
+ALTER TABLE `pengangkut`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `sub_limbah`
@@ -303,7 +337,7 @@ ALTER TABLE `jenis`
 -- AUTO_INCREMENT for table `keluar`
 --
 ALTER TABLE `keluar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `limbah`
@@ -315,7 +349,13 @@ ALTER TABLE `limbah`
 -- AUTO_INCREMENT for table `masuk`
 --
 ALTER TABLE `masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+
+--
+-- AUTO_INCREMENT for table `pengangkut`
+--
+ALTER TABLE `pengangkut`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `sub_limbah`
@@ -349,7 +389,9 @@ ALTER TABLE `user`
 -- Constraints for table `keluar`
 --
 ALTER TABLE `keluar`
-  ADD CONSTRAINT `keluar_ibfk_1` FOREIGN KEY (`id_limbah`) REFERENCES `limbah` (`id`);
+  ADD CONSTRAINT `keluar_ibfk_1` FOREIGN KEY (`id_limbah`) REFERENCES `limbah` (`id`),
+  ADD CONSTRAINT `keluar_ibfk_2` FOREIGN KEY (`id_pengangkut`) REFERENCES `pengangkut` (`id`),
+  ADD CONSTRAINT `keluar_ibfk_3` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
 
 --
 -- Constraints for table `limbah`
