@@ -24,7 +24,7 @@ class Masuk extends CI_Controller {
 			$data['data']['tahun'] = $this->input->get('tahun');
 		}
 		$data['data']['masuk'] = $this->m_masuk->ambil_parent_limbah($this->session->id, $data['data']['awal_akhir_triwulan'][0], $data['data']['awal_akhir_triwulan'][1], $data['data']['tahun']);
-		// var_dump($data['data']['masuk']); exit();
+		
 		$this->load->view("template/template", $data);
 	}
 

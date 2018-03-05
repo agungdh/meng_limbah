@@ -4,94 +4,70 @@ class M_keluar extends CI_Model{
 		parent::__construct();		
 	}
 
-	function ambil_parent_limbah($id_user, $b1, $b2, $thn){
-		$sql = "SELECT id_limbah, limbah
-				FROM sub_limbah sl, limbah l, golongan g, jenis j, masuk m, sumber s
-				WHERE sl.id_limbah = l.id
-				AND l.id_jenis = j.id
-				AND l.id_golongan = g.id
-				AND m.id_sub_limbah = sl.id
-				AND m.id_sumber = s.id
-				AND m.id_user = ?
+	function ambil_limbah_keluar($id_user, $b1, $b2, $thn){
+		$sql = "SELECT *, k.id id_keluar
+				FROM keluar k, limbah l, pengangkut p
+				WHERE k.id_limbah = l.id
+				AND k.id_pengangkut = p.id
+				AND k.id_user = ?
 				AND month(tanggal) BETWEEN ? AND ?
-				AND year(tanggal) = ?
-				GROUP BY id_limbah";
+				AND year(tanggal) = ?";
 		$query = $this->db->query($sql, array($id_user, $b1, $b2, $thn));
 		$row = $query->result();
 		return $row;
 	}
 
-	function ambil_child_limbah($id_limbah, $id_user, $b1, $b2, $thn){
-		$sql = "SELECT *, m.id id_masuk
-				FROM sub_limbah sl, limbah l, golongan g, jenis j, masuk m, sumber s
-				WHERE sl.id_limbah = l.id
-				AND l.id_jenis = j.id
-				AND l.id_golongan = g.id
-				AND m.id_sub_limbah = sl.id
-				AND m.id_sumber = s.id
-				AND l.id = ?
-				AND m.id_user = ?
-				AND month(tanggal) BETWEEN ? AND ?
-				AND year(tanggal) = ?
-				ORDER BY sl.id, m.tanggal";
-		$query = $this->db->query($sql, array($id_limbah, $id_user, $b1, $b2, $thn));
-		$row = $query->result();
-
-		return $row;
-	}
-
-	function ambil_sub_limbah(){
+	function ambil_limbah(){
 		$sql = "SELECT *
-				FROM sub_limbah";
+				FROM limbah";
 		$query = $this->db->query($sql, array());
 		$row = $query->result();
-
 		return $row;
 	}
 
-	function ambil_sumber(){
+	function ambil_pengangkut(){
 		$sql = "SELECT *
-				FROM sumber";
+				FROM pengangkut";
 		$query = $this->db->query($sql, array());
 		$row = $query->result();
-
 		return $row;
 	}
 
-	function ambil_masuk_id($id_masuk){
+	function ambil_keluar_id($id_keluar){
 		$sql = "SELECT *
-				FROM masuk
+				FROM keluar
 				WHERE id = ?";
-		$query = $this->db->query($sql, array($id_masuk));
+		$query = $this->db->query($sql, array($id_keluar));
 		$row = $query->row();
-
 		return $row;
 	}
 
-	function tambah_limbah_masuk($id_user, $sub_limbah, $tanggal, $sumber, $jumlah){
-		$sql = "INSERT INTO masuk
+	function tambah_limbah_keluar($id_user, $id_limbah, $tanggal, $id_pengangkut, $jumlah, $no_dokumen){
+		$sql = "INSERT INTO keluar
 				SET id_user = ?,
-				id_sub_limbah = ?,
+				id_limbah = ?,
 				tanggal = ?,
-				id_sumber = ?,
-				jumlah = ?";
-		$query = $this->db->query($sql, array($id_user, $sub_limbah, $tanggal, $sumber, $jumlah));
+				id_pengangkut = ?,
+				jumlah = ?,
+				no_dokumen = ?";
+		$query = $this->db->query($sql, array($id_user, $id_limbah, $tanggal, $id_pengangkut, $jumlah, $no_dokumen));
 	}
 
-	function ubah_limbah_masuk($id_masuk, $sub_limbah, $tanggal, $sumber, $jumlah){
-		$sql = "UPDATE masuk
-				SET id_sub_limbah = ?,
+	function ubah_limbah_keluar($id_keluar, $id_limbah, $tanggal, $id_pengangkut, $jumlah, $no_dokumen){
+		$sql = "UPDATE keluar
+				SET id_limbah = ?,
 				tanggal = ?,
-				id_sumber = ?,
-				jumlah = ?
+				id_pengangkut = ?,
+				jumlah = ?,
+				no_dokumen = ?
 				WHERE id = ?";
-		$query = $this->db->query($sql, array($sub_limbah, $tanggal, $sumber, $jumlah, $id_masuk));
+		$query = $this->db->query($sql, array($id_limbah, $tanggal, $id_pengangkut, $jumlah, $no_dokumen, $id_keluar));
 	}
 
-	function hapus_limbah_masuk($id_masuk){
-		$sql = "DELETE FROM masuk
+	function hapus_limbah_keluar($id_keluar){
+		$sql = "DELETE FROM keluar
 				WHERE id = ?";
-		$query = $this->db->query($sql, array($id_masuk));
+		$query = $this->db->query($sql, array($id_keluar));
 	}
 
 }

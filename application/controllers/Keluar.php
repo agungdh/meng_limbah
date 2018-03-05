@@ -23,58 +23,60 @@ class Keluar extends CI_Controller {
 		} else {
 			$data['data']['tahun'] = $this->input->get('tahun');
 		}
-		$data['data']['masuk'] = $this->m_keluar->ambil_parent_limbah($this->session->id, $data['data']['awal_akhir_triwulan'][0], $data['data']['awal_akhir_triwulan'][1], $data['data']['tahun']);
-		// var_dump($data['data']['masuk']); exit();
+		$data['data']['keluar'] = $this->m_keluar->ambil_limbah_keluar($this->session->id, $data['data']['awal_akhir_triwulan'][0], $data['data']['awal_akhir_triwulan'][1], $data['data']['tahun']);
+		
 		$this->load->view("template/template", $data);
 	}
 
 	function tambah() {
 		$data['isi'] = "keluar/tambah";
-		$data['data']['sub_limbah'] = $this->m_keluar->ambil_sub_limbah();
-		$data['data']['sumber'] = $this->m_keluar->ambil_sumber();
+		$data['data']['limbah'] = $this->m_keluar->ambil_limbah();
+		$data['data']['pengangkut'] = $this->m_keluar->ambil_pengangkut();
 
 		$this->load->view("template/template", $data);	
 	}
 
 	function aksi_tambah() {
-		$this->m_keluar->tambah_limbah_masuk(
+		$this->m_keluar->tambah_limbah_keluar(
 			$this->session->id,
-			$this->input->post('sub_limbah'),
+			$this->input->post('limbah'),
 			$this->input->post('tanggal'),
-			$this->input->post('sumber'),
-			$this->input->post('jumlah')
+			$this->input->post('pengangkut'),
+			$this->input->post('jumlah'),
+			$this->input->post('no_dokumen')
 		);
 
-		redirect(base_url('masuk'));
+		redirect(base_url('keluar'));
 	}
 
-	function ubah($id_masuk) {
+	function ubah($id_keluar) {
 		$data['isi'] = "keluar/ubah";
-		$data['data']['sub_limbah'] = $this->m_keluar->ambil_sub_limbah();
-		$data['data']['sumber'] = $this->m_keluar->ambil_sumber();
-		$data['data']['masuk'] = $this->m_keluar->ambil_masuk_id($id_masuk);
+		$data['data']['limbah'] = $this->m_keluar->ambil_limbah();
+		$data['data']['pengangkut'] = $this->m_keluar->ambil_pengangkut();
+		$data['data']['keluar'] = $this->m_keluar->ambil_keluar_id($id_keluar);
 
 		$this->load->view("template/template", $data);
 	}
 
 	function aksi_ubah() {
-		$this->m_keluar->ubah_limbah_masuk(
+		$this->m_keluar->ubah_limbah_keluar(
 			$this->input->post('id'),
-			$this->input->post('sub_limbah'),
+			$this->input->post('limbah'),
 			$this->input->post('tanggal'),
-			$this->input->post('sumber'),
-			$this->input->post('jumlah')
+			$this->input->post('pengangkut'),
+			$this->input->post('jumlah'),
+			$this->input->post('no_dokumen')
 		);
 
-		redirect(base_url('masuk'));
+		redirect(base_url('keluar'));
 	}
 
 	function aksi_hapus($id) {
-		$this->m_keluar->hapus_limbah_masuk(
+		$this->m_keluar->hapus_limbah_keluar(
 			$id
 		);
 
-		redirect(base_url('masuk'));
+		redirect(base_url('keluar'));
 	}
 
 }

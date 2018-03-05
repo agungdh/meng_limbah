@@ -3,15 +3,15 @@
     <h4><strong><font color=blue>TAMBAH LIMBAH KELUAR</font></strong></h4> </div><!-- /.box-header -->
 
   <!-- form start -->
-  <form name="form" id="form" role="form" method="post" action="<?php echo base_url('masuk/aksi_tambah'); ?>"> <div class="box-body">
+  <form name="form" id="form" role="form" method="post" action="<?php echo base_url('keluar/aksi_tambah'); ?>"> <div class="box-body">
 
     <div class="form-group">
-      <label for="sub_limbah">Limbah</label>
-          <select id="sub_limbah" class="form-control select2" name="sub_limbah">
+      <label for="limbah">Limbah</label>
+          <select id="limbah" class="form-control select2" name="limbah">
             <?php
-            foreach ($data['sub_limbah'] as $item) {
+            foreach ($data['limbah'] as $item) {
               ?>
-              <option value="<?php echo $item->id; ?>"><?php echo $item->sub_limbah; ?></option>
+              <option value="<?php echo $item->id; ?>"><?php echo $item->limbah; ?></option>
               <?php
             }
             ?>
@@ -24,12 +24,12 @@
     </div>
 
       <div class="form-group">
-      <label for="sumber">Sumber</label>
-          <select id="sumber" class="form-control select2" name="sumber">
+      <label for="pengangkut">Pengangkut</label>
+          <select id="pengangkut" class="form-control select2" name="pengangkut">
             <?php
-            foreach ($data['sumber'] as $item) {
+            foreach ($data['pengangkut'] as $item) {
               ?>
-              <option value="<?php echo $item->id; ?>"><?php echo $item->sumber; ?></option>
+              <option value="<?php echo $item->id; ?>"><?php echo $item->pengangkut; ?></option>
               <?php
             }
             ?>
@@ -38,7 +38,12 @@
 
     <div class="form-group">
       <label for="jumlah">Jumlah (KG)</label>
-          <input required type="number" class="form-control" id="jumlah" placeholder="Isi Jumlah" name="jumlah">          
+          <input required type="number" step="0.01" class="form-control" id="jumlah" placeholder="Isi Jumlah" name="jumlah">          
+    </div>
+
+    <div class="form-group">
+      <label for="no_dokumen">NO Dokumen</label>
+          <input required type="text" class="form-control" id="no_dokumen" placeholder="Isi NO Dokumen" name="no_dokumen">          
     </div>
 
 
@@ -46,7 +51,7 @@
 
     <div class="box-footer">
       <input class="btn btn-success" name="proses" type="submit" value="Simpan Data" />
-      <a href="<?php echo base_url('masuk'); ?>" class="btn btn-info">Batal</a>
+      <a href="<?php echo base_url('keluar'); ?>" class="btn btn-info">Batal</a>
     </div>
   </form>
 </div><!-- /.box -->

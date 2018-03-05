@@ -38,7 +38,7 @@
 
     <div class="form-group">
       <label for="jumlah">Jumlah (KG)</label>
-          <input required type="number" class="form-control" id="jumlah" placeholder="Isi Jumlah" name="jumlah">          
+          <input required type="number" step="0.01" class="form-control" id="jumlah" placeholder="Isi Jumlah" name="jumlah">          
     </div>
 
 
