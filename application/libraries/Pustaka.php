@@ -2,6 +2,96 @@
 
 class Pustaka {
 
+	function ambil_awal_dan_akhir_triwulan($triwulan) {
+		switch ($triwulan) {
+			case 1:
+				$awal = 1;
+				$akhir = 3;
+				break;
+			
+			case 2:
+				$awal = 4;
+				$akhir = 6;
+				break;
+			
+			case 3:
+				$awal = 7;
+				$akhir = 9;
+				break;
+			
+			case 4:
+				$awal = 10;
+				$akhir = 12;
+				break;
+			
+			default:
+				$triwulan = "ERROR !!!";
+				break;
+		}
+
+		return array($awal, $akhir);
+	}
+
+	function ambil_triwulan_dari_tanggal($tanggal) {
+		$bulan = date("n", strtotime($tanggal));
+		
+		switch ($bulan) {
+			case 1:
+				$triwulan = 1;
+				break;
+			
+			case 2:
+				$triwulan = 1;
+				break;
+			
+			case 3:
+				$triwulan = 1;
+				break;
+			
+			case 4:
+				$triwulan = 2;
+				break;
+			
+			case 5:
+				$triwulan = 2;
+				break;
+			
+			case 6:
+				$triwulan = 2;
+				break;
+			
+			case 7:
+				$triwulan = 3;
+				break;
+			
+			case 8:
+				$triwulan = 3;
+				break;
+			
+			case 9:
+				$triwulan = 3;
+				break;
+			
+			case 10:
+				$triwulan = 4;
+				break;
+			
+			case 11:
+				$triwulan = 4;
+				break;
+			
+			case 12:
+				$triwulan = 4;
+				break;
+						
+			default:
+				$triwulan = "ERROR !!!";
+				break;
+		}
+
+		return $triwulan;
+	}	
+
 	function tanggal_indo($tanggal) {
 		return date("d-m-Y", strtotime($tanggal));
 	}	

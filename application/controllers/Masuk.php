@@ -10,8 +10,21 @@ class Masuk extends CI_Controller {
 
 	function index() {
 		$data['isi'] = "masuk/index";
-		$data['data']['masuk'] = $this->m_masuk->ambil_parent_limbah($this->session->id);
-
+		if ($this->input->get('triwulan') == null) {
+			$triwulan = $this->pustaka->ambil_triwulan_dari_tanggal(date('Y-m-d'));
+			$data['data']['triwulan'] = $triwulan;
+			$data['data']['awal_akhir_triwulan'] = $this->pustaka->ambil_awal_dan_akhir_triwulan($triwulan);	
+		} else {
+			$data['data']['triwulan'] = $this->input->get('triwulan');
+			$data['data']['awal_akhir_triwulan'] = $this->pustaka->ambil_awal_dan_akhir_triwulan($this->input->get('triwulan'));
+		}
+		if ($this->input->get('tahun') == null) {
+			$data['data']['tahun'] = date('Y');
+		} else {
+			$data['data']['tahun'] = $this->input->get('tahun');
+		}
+		$data['data']['masuk'] = $this->m_masuk->ambil_parent_limbah($this->session->id, $data['data']['awal_akhir_triwulan'][0], $data['data']['awal_akhir_triwulan'][1], $data['data']['tahun']);
+		// var_dump($data['data']['masuk']); exit();
 		$this->load->view("template/template", $data);
 	}
 
