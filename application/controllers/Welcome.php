@@ -18,6 +18,7 @@ class Welcome extends CI_Controller {
 			$array_data_user = array(
 				'id'  => $data_user->id,
 				'username'  => $data_user->username,
+				'nama'  => $data_user->nama,
 				'level'  => $data_user->level,
 				'login'  => true
 			);
