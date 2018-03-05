@@ -8,7 +8,7 @@
   
     <link rel="shortcut icon" href="<?php echo base_url() . "assets/"; ?>logo.jpg" type="image/vnd.microsoft.icon">
 
-    <title>Aplikasi Borang - Universitas Budi Luhur</title>
+    <title>Aplikasi Pengolahan Limbah PLN</title>
     <!-- Tell the browser to be responsive to screen width -->
 
     <!-- Bootstrap 3.3.5 -->
