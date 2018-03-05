@@ -4,23 +4,13 @@
     <!-- Indicators -->
     <ol class="carousel-indicators">
       <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-      <li data-target="#myCarousel" data-slide-to="2"></li>
     </ol>
 
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
 
       <div class="item active">
-        <img src="<?php echo base_url("assets/gambar/ubl.jpg"); ?>" alt="Photo1" width="100%">
-      </div>
-
-      <div class="item">
-        <img src="<?php echo base_url("assets/gambar/ubl3.jpg"); ?>" alt="Photo2" width="100%">
-      </div>
-
-      <div class="item">
-        <img src="<?php echo base_url("assets/gambar/ubl2.jpg"); ?>" alt="Photo3" width="100%">
+        <img src="<?php echo base_url("assets/gambar/1.jpg"); ?>" alt="Photo1" width="100%">
       </div>
 
     </div>
