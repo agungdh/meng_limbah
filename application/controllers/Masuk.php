@@ -45,7 +45,9 @@ class Masuk extends CI_Controller {
 			$this->input->post('jumlah')
 		);
 
-		redirect(base_url('masuk'));
+		$triwulan = $this->pustaka->ambil_triwulan_dari_tanggal($this->input->post('tanggal'));
+		$tahun = date('Y', strtotime($this->input->post('tanggal')));
+		redirect(base_url('masuk?tahun=' . $tahun . '&triwulan=' . $triwulan));
 	}
 
 	function ubah($id_masuk) {
@@ -66,15 +68,21 @@ class Masuk extends CI_Controller {
 			$this->input->post('jumlah')
 		);
 
-		redirect(base_url('masuk'));
+		$triwulan = $this->pustaka->ambil_triwulan_dari_tanggal($this->input->post('tanggal'));
+		$tahun = date('Y', strtotime($this->input->post('tanggal')));
+		redirect(base_url('masuk?tahun=' . $tahun . '&triwulan=' . $triwulan));
 	}
 
 	function aksi_hapus($id) {
+		$tanggal = $this->m_masuk->ambil_masuk_id($id)->tanggal;
+
 		$this->m_masuk->hapus_limbah_masuk(
 			$id
 		);
-
-		redirect(base_url('masuk'));
+		
+		$triwulan = $this->pustaka->ambil_triwulan_dari_tanggal($tanggal);
+		$tahun = date('Y', strtotime($tanggal));
+		redirect(base_url('masuk?tahun=' . $tahun . '&triwulan=' . $triwulan));
 	}
 
 }

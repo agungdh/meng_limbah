@@ -46,7 +46,9 @@ class Keluar extends CI_Controller {
 			$this->input->post('no_dokumen')
 		);
 
-		redirect(base_url('keluar'));
+		$triwulan = $this->pustaka->ambil_triwulan_dari_tanggal($this->input->post('tanggal'));
+		$tahun = date('Y', strtotime($this->input->post('tanggal')));
+		redirect(base_url('keluar?tahun=' . $tahun . '&triwulan=' . $triwulan));
 	}
 
 	function ubah($id_keluar) {
@@ -68,15 +70,21 @@ class Keluar extends CI_Controller {
 			$this->input->post('no_dokumen')
 		);
 
-		redirect(base_url('keluar'));
+		$triwulan = $this->pustaka->ambil_triwulan_dari_tanggal($this->input->post('tanggal'));
+		$tahun = date('Y', strtotime($this->input->post('tanggal')));
+		redirect(base_url('keluar?tahun=' . $tahun . '&triwulan=' . $triwulan));
 	}
 
 	function aksi_hapus($id) {
+		$tanggal = $this->m_keluar->ambil_keluar_id($id)->tanggal;
+
 		$this->m_keluar->hapus_limbah_keluar(
 			$id
 		);
 
-		redirect(base_url('keluar'));
+		$triwulan = $this->pustaka->ambil_triwulan_dari_tanggal($tanggal);
+		$tahun = date('Y', strtotime($tanggal));
+		redirect(base_url('keluar?tahun=' . $tahun . '&triwulan=' . $triwulan));
 	}
 
 }
