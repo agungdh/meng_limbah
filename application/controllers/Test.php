@@ -6,6 +6,23 @@ class Test extends CI_Controller {
 		parent::__construct();
 		$this->load->model('m_test');
 		$this->load->library('pustaka');
+		$this->load->model('m_universal');
+	}
+
+	function test1() {
+		// var_dump($this->m_universal->get('golongan'));
+		
+		// var_dump($this->m_universal->get_id('golongan', 4));
+		
+		// $data['golongan'] = 12;
+		// $data['masa_berlaku_hari'] = 120;
+		// var_dump($this->m_universal->insert('golongan', $data));
+		
+		// $data['golongan'] = 13;
+		// $data['masa_berlaku_hari'] = 123;
+		// $this->m_universal->update('golongan', $data, 5);
+		
+		// $this->m_universal->delete('golongan', 5);
 	}
 
 	function dump() {
