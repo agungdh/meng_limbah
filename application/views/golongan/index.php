@@ -20,7 +20,7 @@
 
     <div class="form-group">
       
-      <a href='<?php echo base_url($modul . "/tambah"); ?>'><button class="btn btn-success"><i class="fa fa-plus"></i> <?php echo ucwords($modul); ?></button></a>
+      <a href='<?php echo base_url('universal/' . "tambah/" . $modul); ?>'><button class="btn btn-success"><i class="fa fa-plus"></i> <?php echo ucwords($modul); ?></button></a>
     </div>
 
     <table id="lookup" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
@@ -40,7 +40,7 @@
             <th><?php echo $item->golongan; ?></th>
             <th><?php echo $item->masa_berlaku_hari; ?></th>
               <th>
-                <a class="btn btn-info" href="<?php echo base_url($modul . '/ubah/'.$item->id) ?>"><i class="fa fa-pencil"></i> </a>
+                <a class="btn btn-info" href="<?php echo base_url('universal/' . "ubah/" . $modul . '/' . $item->id); ?>"><i class="fa fa-pencil"></i> </a>
                 <a class="btn btn-danger" onclick="hapus('<?php echo $item->id; ?>')"><i class="fa fa-trash"></i> </a>
               </th>
           </tr>
@@ -56,7 +56,7 @@
 <script type="text/javascript">
 function hapus(id) {
   if (confirm("Yakin hapus ?")) {
-    window.location = "<?php echo base_url($modul . '/aksi_hapus/'); ?>" + id;
+    window.location = "<?php echo base_url('universal/' . "aksi_hapus/" . $modul . '/'); ?>" + id;
   }
 }
 </script>

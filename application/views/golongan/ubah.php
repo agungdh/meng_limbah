@@ -7,7 +7,7 @@
   </div><!-- /.box-header -->
 
   <!-- form start -->
-  <form name="form" id="form" role="form" method="post" action="<?php echo base_url($modul . '/aksi_ubah'); ?>">
+  <form name="form" id="form" role="form" method="post" action="<?php echo base_url('universal/' . "aksi_ubah/" . $modul); ?>">
     <div class="box-body">
 
     <input type="hidden" name="data['id']" value="<?php echo $data[$modul]->id; ?>">
@@ -26,7 +26,7 @@
 
     <div class="box-footer">
       <input class="btn btn-success" name="proses" type="submit" value="Simpan Data" />
-      <a href="<?php echo base_url($modul); ?>" class="btn btn-info">Batal</a>
+      <a href="<?php echo base_url('universal/' . 'index/' . $modul); ?>" class="btn btn-info">Batal</a>
     </div>
   </form>
 </div><!-- /.box -->

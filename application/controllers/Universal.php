@@ -5,40 +5,45 @@ class Universal extends CI_Controller {
 	var $data;
 
 	function __construct(){
-		parent::__construct();	
-		$this->data['modul'] = 'golongan';
+		parent::__construct();
+		$this->load->model('m_universal');	
 	}
 
-	function index() {
+	function index($modul) {
+		$this->data['modul'] = $modul;
 		$this->data['isi'] = $this->data['modul'] . "/index";
 		$this->data['data'][$this->data['modul']] = $this->m_universal->get($this->data['modul']);
 
 		$this->load->view("template/template", $this->data);
 	}
 
-	function tambah() {
+	function tambah($modul) {
+		$this->data['modul'] = $modul;
 		$this->data['isi'] = $this->data['modul'] . "/tambah";
 
 		$this->load->view("template/template", $this->data);	
 	}
 
-	function aksi_tambah() {
+	function aksi_tambah($modul) {
+		$this->data['modul'] = $modul;
 		foreach ($this->input->post('data') as $key => $value) {
 			$data[$key] = $value;
 		}
 		$this->m_universal->insert($this->data['modul'], $data);
 
-		redirect(base_url($this->data['modul']));
+		redirect(base_url('universal/' . 'index/' . $this->data['modul']));
 	}
 
-	function ubah($id) {
+	function ubah($modul, $id) {
+		$this->data['modul'] = $modul;
 		$this->data['isi'] = $this->data['modul'] . "/ubah";
 		$this->data['data'][$this->data['modul']] = $this->m_universal->get_id($this->data['modul'], $id);
 
 		$this->load->view("template/template", $this->data);
 	}
 
-	function aksi_ubah() {
+	function aksi_ubah($modul) {
+		$this->data['modul'] = $modul;
 		foreach ($this->input->post('data') as $key => $value) {
 			if ($key != 'id') {
 				$data[$key] = $value;	
@@ -48,15 +53,16 @@ class Universal extends CI_Controller {
 		}
 		$this->m_universal->update($this->data['modul'], $data, $id);
 
-		redirect(base_url($this->data['modul']));
+		redirect(base_url('universal/' . 'index/' . $this->data['modul']));
 	}
 
-	function aksi_hapus($id) {
+	function aksi_hapus($modul, $id) {
+		$this->data['modul'] = $modul;
 		$this->m_universal->delete(
 			$this->data['modul'], $id
 		);
 		
-		redirect(base_url($this->data['modul']));
+		redirect(base_url('universal/' . 'index/' . $this->data['modul']));
 	}
 
 }
