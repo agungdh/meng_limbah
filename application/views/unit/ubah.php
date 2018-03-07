@@ -13,8 +13,8 @@
     <input type="hidden" name="data['id']" value="<?php echo $data[$modul]->id; ?>">
 
     <div class="form-group">
-      <label for="jenis">Jenis</label>
-          <input value="<?php echo $data[$modul]->jenis; ?>" required type="text" class="form-control" id="jenis" placeholder="Isi Jenis" name="data[jenis]">          
+      <label for="unit">Unit</label>
+          <input value="<?php echo $data[$modul]->unit; ?>" required type="text" class="form-control" id="unit" placeholder="Isi Unit" name="data[unit]">          
     </div>
 
     </div><!-- /.box-body -->

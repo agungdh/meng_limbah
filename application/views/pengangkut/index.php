@@ -26,7 +26,7 @@
     <table id="lookup" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
       <thead>
         <tr>
-                    <th>JENIS</th>
+                    <th>PENGANGKUT</th>
                     <th>PROSES</th>
         </tr>
       </thead>
@@ -36,7 +36,7 @@
         foreach ($data[$modul] as $item) {
           ?>
           <tr>
-            <th><?php echo $item->jenis; ?></th>
+            <th><?php echo $item->pengangkut; ?></th>
               <th>
                 <a class="btn btn-info" href="<?php echo base_url('universal/' . "ubah/" . $modul . '/' . $item->id); ?>"><i class="fa fa-pencil"></i> </a>
                 <a class="btn btn-danger" onclick="hapus('<?php echo $item->id; ?>')"><i class="fa fa-trash"></i> </a>

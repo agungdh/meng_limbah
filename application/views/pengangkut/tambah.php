@@ -8,8 +8,8 @@
     <div class="box-body">
 
     <div class="form-group">
-      <label for="jenis">Jenis</label>
-          <input required type="text" class="form-control" id="jenis" placeholder="Isi Jenis" name="data[jenis]">          
+      <label for="pengangkut">Pengangkut</label>
+          <input required type="text" class="form-control" id="pengangkut" placeholder="Isi Pengangkut" name="data[pengangkut]">          
     </div>
 
     </div><!-- /.box-body -->

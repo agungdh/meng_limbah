@@ -8,8 +8,8 @@
     <div class="box-body">
 
     <div class="form-group">
-      <label for="jenis">Jenis</label>
-          <input required type="text" class="form-control" id="jenis" placeholder="Isi Jenis" name="data[jenis]">          
+      <label for="unit">Unit</label>
+          <input required type="text" class="form-control" id="unit" placeholder="Isi Unit" name="data[unit]">          
     </div>
 
     </div><!-- /.box-body -->
