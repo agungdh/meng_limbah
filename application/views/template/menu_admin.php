@@ -1,30 +1,44 @@
 <li class="header">MENU UTAMA</li>
 
 <li>
-	<a href="<?php echo base_url("golongan"); ?>">
+	<a href="<?php echo base_url("universal/index/golongan"); ?>">
 		<i class="fa fa-users text-aqua"></i>
 		<span>Data Golongan</span>
 	</a>
 </li>
 
 <li>
-	<a href="<?php echo base_url("jenis"); ?>">
+	<a href="<?php echo base_url("universal/index/jenis"); ?>">
 		<i class="fa fa-users text-aqua"></i>
 		<span>Data Jenis</span>
 	</a>
 </li>
 
 <li>
-	<a href="<?php echo base_url("limbah"); ?>">
+	<a href="<?php echo base_url("universal/index/limbah"); ?>">
 		<i class="fa fa-users text-aqua"></i>
 		<span>Data Limbah</span>
 	</a>
 </li>
 
 <li>
-	<a href="<?php echo base_url("sumber"); ?>">
+	<a href="<?php echo base_url("universal/index/sumber"); ?>">
 		<i class="fa fa-users text-aqua"></i>
 		<span>Data Sumber</span>
+	</a>
+</li>
+
+<li>
+	<a href="<?php echo base_url("universal/index/unit"); ?>">
+		<i class="fa fa-users text-aqua"></i>
+		<span>Data Unit</span>
+	</a>
+</li>
+
+<li>
+	<a href="<?php echo base_url("universal/index/pengangkut"); ?>">
+		<i class="fa fa-users text-aqua"></i>
+		<span>Data Pengangkut</span>
 	</a>
 </li>
 
