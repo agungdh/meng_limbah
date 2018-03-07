@@ -34,17 +34,19 @@ class Golongan extends CI_Controller {
 	function ubah($id) {
 		$this->data['isi'] = $this->data['modul'] . "/ubah";
 		$this->data['data'][$this->data['modul']] = $this->m_universal->get_id($this->data['modul'], $id);
-		
+
 		$this->load->view("template/template", $this->data);
 	}
 
 	function aksi_ubah() {
-		$this->m_universal->update(
-			array(
-				$this->input->post('golongsan'),
-				$this->input->post('masa_berlaku_hari')
-			), $this->input->post('id')
-		);
+		foreach ($this->input->post('data') as $key => $value) {
+			if ($key != 'id') {
+				$data[$key] = $value;	
+			} else {
+				$id = $value;
+			}
+		}
+		$this->m_universal->update($this->data['modul'], $data, $id);
 
 		redirect(base_url($this->data['modul']));
 	}

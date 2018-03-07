@@ -20,7 +20,7 @@
 
     <div class="form-group">
       
-      <a href='<?php echo base_url($modul . "/tambah"); ?>'><button class="btn btn-success"><i class="fa fa-plus"></i> User</button></a>
+      <a href='<?php echo base_url($modul . "/tambah"); ?>'><button class="btn btn-success"><i class="fa fa-plus"></i> <?php echo ucwords($modul); ?></button></a>
     </div>
 
     <table id="lookup" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
