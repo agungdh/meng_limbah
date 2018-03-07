@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Golongan extends CI_Controller {
+class Universal extends CI_Controller {
 	var $data;
 
 	function __construct(){
