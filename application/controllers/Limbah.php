@@ -50,7 +50,7 @@ class Limbah extends CI_Controller {
 		}
 		$this->m_universal->update('limbah', $data, $id);
 
-		// redirect(base_url('limbah'));
+		redirect(base_url('limbah'));
 	}
 
 	function aksi_hapus($id) {
