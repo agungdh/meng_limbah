@@ -15,7 +15,7 @@
 </li>
 
 <li>
-	<a href="<?php echo base_url("universal/index/limbah"); ?>">
+	<a href="<?php echo base_url("limbah"); ?>">
 		<i class="fa fa-users text-aqua"></i>
 		<span>Data Limbah</span>
 	</a>
