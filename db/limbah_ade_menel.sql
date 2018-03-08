@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 05, 2018 at 07:09 PM
+-- Generation Time: Mar 08, 2018 at 05:42 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.1.14
 
@@ -30,6 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `golongan` (
   `id` int(11) NOT NULL,
+  `golongan` int(11) NOT NULL,
   `masa_berlaku_hari` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -37,9 +38,9 @@ CREATE TABLE `golongan` (
 -- Dumping data for table `golongan`
 --
 
-INSERT INTO `golongan` (`id`, `masa_berlaku_hari`) VALUES
-(1, 180),
-(2, 365);
+INSERT INTO `golongan` (`id`, `golongan`, `masa_berlaku_hari`) VALUES
+(1, 1, 180),
+(2, 2, 365);
 
 -- --------------------------------------------------------
 
@@ -249,7 +250,8 @@ INSERT INTO `user` (`id`, `username`, `password`, `nama`, `level`, `id_unit`) VA
 -- Indexes for table `golongan`
 --
 ALTER TABLE `golongan`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `golongan` (`golongan`);
 
 --
 -- Indexes for table `jenis`
@@ -343,13 +345,13 @@ ALTER TABLE `keluar`
 -- AUTO_INCREMENT for table `limbah`
 --
 ALTER TABLE `limbah`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `masuk`
 --
 ALTER TABLE `masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `pengangkut`
@@ -361,7 +363,7 @@ ALTER TABLE `pengangkut`
 -- AUTO_INCREMENT for table `sub_limbah`
 --
 ALTER TABLE `sub_limbah`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `sumber`
