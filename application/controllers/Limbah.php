@@ -33,24 +33,24 @@ class Limbah extends CI_Controller {
 
 	function ubah($id_limbah) {
 		$data['isi'] = "limbah/ubah";
-		$data['data']['limbah'] = $this->m_limbah->ambil_limbah_id($id_limbah);
+		$data['data']['jenis'] = $this->m_universal->get('jenis');
+		$data['data']['golongan'] = $this->m_universal->get('golongan');
+		$data['data']['limbah'] = $this->m_universal->get_id('limbah', $id_limbah);
 		
 		$this->load->view("template/template", $data);
 	}
 
 	function aksi_ubah() {
-		$this->m_limbah->ubah_limbah_limbah(
-			$this->input->post('id'),
-			$this->input->post('limbah'),
-			$this->input->post('tanggal'),
-			$this->input->post('pengangkut'),
-			$this->input->post('jumlah'),
-			$this->input->post('no_dokumen')
-		);
+		foreach ($this->input->post('data') as $key => $value) {
+			if ($key != 'id') {
+				$data[$key] = $value;	
+			} else {
+				$id = $value;
+			}
+		}
+		$this->m_universal->update('limbah', $data, $id);
 
-		$triwulan = $this->pustaka->ambil_triwulan_dari_tanggal($this->input->post('tanggal'));
-		$tahun = date('Y', strtotime($this->input->post('tanggal')));
-		redirect(base_url('limbah'));
+		// redirect(base_url('limbah'));
 	}
 
 	function aksi_hapus($id) {
