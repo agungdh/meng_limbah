@@ -28,7 +28,7 @@
         <tr>
                     <th>USERNAME</th>
                     <th>LEVEL</th>
-                    <th>PRODI</th>
+                    <th>UNIT</th>
                     <th>PROSES</th>
         </tr>
       </thead>
@@ -36,18 +36,18 @@
       <tbody>
         <?php
         foreach ($data['user'] as $item) {
-          $prodi = $this->m_user->ambil_prodi_dari_id_user($item->id) == null ? null : $this->m_user->ambil_prodi_dari_id_user($item->id)->nama;
+          $unit = $this->m_user->ambil_unit_dari_id_user($item->id) == null ? null : $this->m_user->ambil_unit_dari_id_user($item->id)->nama;
           switch ($item->level) {
             case 1:
              $level = "Administrator";
               break;
             
             case 2:
-             $level = "Universitas";
+             $level = "Operator";
               break;
             
             case 3:
-             $level = "Program Studi";
+             $level = "Supervisor";
               break;
             
             default:
@@ -58,7 +58,7 @@
           <tr>
             <th><?php echo $item->username; ?></th>
             <th><?php echo $level; ?></th>
-            <th><?php echo $prodi; ?></th>
+            <th><?php echo $unit; ?></th>
               <th>
                 <a class="btn btn-info" href="<?php echo base_url('user/ubah/'.$item->id) ?>"><i class="fa fa-pencil"></i> </a>
                 <a class="btn btn-danger" onclick="hapus('<?php echo $item->id; ?>')"><i class="fa fa-trash"></i> </a>

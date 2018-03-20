@@ -13,10 +13,10 @@ class M_user extends CI_Model{
 		return $row;
 	}
 
-	function ambil_prodi_dari_id_user($id_user){
-		$sql = "SELECT p.nama
-				FROM user u, prodi p
-				WHERE u.prodi_id = p.id
+	function ambil_unit_dari_id_user($id_user){
+		$sql = "SELECT p.unit
+				FROM user u, unit p
+				WHERE u.id = p.id
 				AND u.id = ?";
 		$query = $this->db->query($sql, array($id_user));
 		$row = $query->row();
@@ -24,9 +24,9 @@ class M_user extends CI_Model{
 		return $row;
 	}
 
-	function ambil_prodi(){
+	function ambil_unit(){
 		$sql = "SELECT *
-				FROM v_prodi";
+				FROM unit";
 		$query = $this->db->query($sql, array());
 		$row = $query->result();
 
@@ -43,13 +43,13 @@ class M_user extends CI_Model{
 		return $row;
 	}
 
-	function tambah_user($username, $password, $level, $id_prodi){
+	function tambah_user($username, $password, $level, $id){
 		$sql = "INSERT INTO user
 				SET username = ?,
 				password = ?,
 				level = ?,
-				prodi_id = ?";
-		$query = $this->db->query($sql, array($username, $password, $level, $id_prodi));
+				id = ?";
+		$query = $this->db->query($sql, array($username, $password, $level, $id));
 	}
 
 	function ubah_user($password, $id){

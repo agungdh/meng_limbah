@@ -13,13 +13,26 @@
 
 <div class="box box-primary">
   <div class="box-header with-border">
-    <h4><strong><font color=blue>DATA <?php echo strtoupper($modul); ?></font></strong></h4>
+    <div class="form-group">
+      <a class="logo" href="<?php echo base_url('assets/logo-pln.png') ?>"></a>
+                
+        <div class="body">
+          <div class="col-md-2">
+            <center>
+              <img src="<?php echo base_url('assets/logo-pln.png') ?>" style="height: 150px; width: 100px;">  
+            </center>
+          </div>
+          <div class="col-md-8" >
+            <center>
+             <h3><strong><font color=blue>DATA <?php echo strtoupper($modul); ?> LIMBAH B3</font></strong><br/><br>
+           </center>
+         </div>
+       </div><br/>
+    </div>
   </div><!-- /.box-header -->
 
     <div class="box-body">
-
     <div class="form-group">
-      
       <a href='<?php echo base_url('universal/' . "tambah/" . $modul); ?>'><button class="btn btn-success"><i class="fa fa-plus"></i> <?php echo ucwords($modul); ?></button></a>
     </div>
 

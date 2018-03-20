@@ -10,7 +10,7 @@
       <div class="login-logo">
         <a><b>Login</b></a>
         <br>
-        <a href="<?php echo base_url(); ?>">Aplikasi Pengolahan Limbah PLN</a>
+        <a href="<?php echo base_url(); ?>">Aplikasi Monitoring Limbah B3 PLN</a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
         <p class="login-box-msg">Isi Username dan Password</p>

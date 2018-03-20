@@ -39,6 +39,7 @@ class M_keluar extends CI_Model{
 				WHERE id = ?";
 		$query = $this->db->query($sql, array($id_keluar));
 		$row = $query->row();
+		
 		return $row;
 	}
 
@@ -51,6 +52,8 @@ class M_keluar extends CI_Model{
 				jumlah = ?,
 				no_dokumen = ?";
 		$query = $this->db->query($sql, array($id_user, $id_limbah, $tanggal, $id_pengangkut, $jumlah, $no_dokumen));
+
+		return $this->db->insert_id();
 	}
 
 	function ubah_limbah_keluar($id_keluar, $id_limbah, $tanggal, $id_pengangkut, $jumlah, $no_dokumen){

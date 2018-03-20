@@ -21,18 +21,18 @@
       <label for="level">Level</label>
           <select id="level" class="form-control select2" name="level">
             <option value="1">Administrator</option>
-            <option value="2">Universitas</option>
-            <option value="3" selected>Program Studi</option>
+            <option value="2">Operator</option>
+            <option value="3">Supervisor</option>
           </select>          
     </div>
 
     <div class="form-group">
-      <label for="prodi">Prodi</label>
-          <select id="prodi" class="form-control select2" name="prodi">
+      <label for="unit">Unit</label>
+          <select id="unit" class="form-control select2" name="unit">
             <?php
-            foreach ($data['prodi'] as $item) {
+            foreach ($data['unit'] as $item) {
               ?>
-              <option value="<?php echo $item->id_prodi; ?>"><?php echo '(' . $item->kode_fakultas . ') ' . $item->nama_fakultas . ' | (' . $item->kode_prodi . ') ' . $item->nama_prodi; ?></option>
+              <option value="<?php echo $item->id; ?>"><?php echo $item->unit; ?></option>
               <?php
             }
             ?>
@@ -59,19 +59,19 @@ $("#level").change(function(){
 
 function cek_level() {
   if ($("#level").val() == 3) {
-    status_prodi(true);
+    status_unit(true);
   } else {
-    status_prodi(false);
+    status_unit(false);
   }
 }
 
-function status_prodi(status) {
+function status_unit(status) {
   if (status == true) {
-    $("#prodi").prop('disabled', false);
-    $("#prodi").val($("#prodi option:first").val()).change();
+    $("#unit").prop('disabled', false);
+    $("#unit").val($("#unit option:first").val()).change();
   } else {
-    $("#prodi").prop('disabled', true);
-    $("#prodi").val(null).change();
+    $("#unit").prop('disabled', true);
+    $("#unit").val(null).change();
   }
 }
 </script>

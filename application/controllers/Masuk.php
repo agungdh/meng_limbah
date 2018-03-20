@@ -37,13 +37,15 @@ class Masuk extends CI_Controller {
 	}
 
 	function aksi_tambah() {
-		$this->m_masuk->tambah_limbah_masuk(
+		$masuk =  $this->m_masuk->tambah_limbah_masuk(
 			$this->session->id,
 			$this->input->post('sub_limbah'),
 			$this->input->post('tanggal'),
 			$this->input->post('sumber'),
 			$this->input->post('jumlah')
 		);
+
+		move_uploaded_file($_FILES['foto']['tmp_name'], 'uploads/masuk/' . $masuk);
 
 		$triwulan = $this->pustaka->ambil_triwulan_dari_tanggal($this->input->post('tanggal'));
 		$tahun = date('Y', strtotime($this->input->post('tanggal')));
@@ -83,6 +85,43 @@ class Masuk extends CI_Controller {
 		$triwulan = $this->pustaka->ambil_triwulan_dari_tanggal($tanggal);
 		$tahun = date('Y', strtotime($tanggal));
 		redirect(base_url('masuk?tahun=' . $tahun . '&triwulan=' . $triwulan));
+	}
+
+	function upload(){
+		if ($_FILES['file']['size']==0) {
+			redirect(base_url('?file_kosong=1'));	
+		}
+				
+			$ekstensi_diperbolehkan	= array('jpg','bmp','png');
+			$nama = $_FILES['file']['name'];
+			$x = explode('.', $nama);
+			$ekstensi = strtolower(end($x));
+			//awal
+			//tengah
+			//akhir
+			//end() -> akhir
+
+			$ukuran	= $_FILES['file']['size'];
+			$file_tmp = $_FILES['file']['tmp_name'];	
+ 
+			if(in_array($ekstensi, $ekstensi_diperbolehkan) === true){
+				if($ukuran < 5242880){			
+					if(move_uploaded_file($file_tmp, 'uploads/masuk/'.$this->input->post('id_masuk').'.jpg')){
+						echo 'FILE BERHASIL DI UPLOAD';
+					}else{
+						// echo 'GAGAL MENGUPLOAD FILE';
+						redirect(base_url('?upload_gagal=1'));
+					}
+				}else{
+					redirect(base_url('?file_kebesaran=1'));	
+					// echo 'UKURAN FILE TERLALU BESAR';
+				}
+			}else{
+				redirect(base_url('?ekstensi_salah=1'));	
+				// echo 'EKSTENSI FILE YANG DI UPLOAD TIDAK DI PERBOLEHKAN';
+			}
+
+		redirect(base_url());	
 	}
 
 }

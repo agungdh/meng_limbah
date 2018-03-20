@@ -13,7 +13,24 @@
 
 <div class="box box-primary">
   <div class="box-header with-border">
-    <h4><strong><font color=blue>DATA NERACA LIMBAH<br>UNIT : <?php echo $this->session->unit; ?></font></strong></h4>
+    <div class="form-group">
+      <a class="logo" href="<?php echo base_url('assets/logo-pln.png') ?>"></a>
+                
+        <div class="body">
+          <div class="col-md-2">
+            <center>
+              <img src="<?php echo base_url('assets/logo-pln.png') ?>" style="height: 150px; width: 100px;">  
+            </center>
+          </div>
+          <div class="col-md-8" >
+            <center>
+             <h3><strong><font color=blue>DATA NERACA LIMBAH B3 YANG ADA DI TPS<br>
+             UNIT&nbsp; &nbsp; : &nbsp; <?php echo $this->session->unit; ?></h3></font></strong><br/><br>
+           </center>
+         </div>
+       </div><br/>
+      <a href='<?php echo base_url("export/neraca"); ?>'><button class="btn btn-primary"><i class="fa fa-upload"></i> Export Neraca</button></a>
+    </div>
   </div><!-- /.box-header -->
 
     <div class="box-body">

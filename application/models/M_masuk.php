@@ -76,6 +76,8 @@ class M_masuk extends CI_Model{
 				id_sumber = ?,
 				jumlah = ?";
 		$query = $this->db->query($sql, array($id_user, $sub_limbah, $tanggal, $sumber, $jumlah));
+
+		return $this->db->insert_id();
 	}
 
 	function ubah_limbah_masuk($id_masuk, $sub_limbah, $tanggal, $sumber, $jumlah){

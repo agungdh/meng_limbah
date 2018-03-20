@@ -3,7 +3,7 @@
     <h4><strong><font color=blue>TAMBAH LIMBAH KELUAR</font></strong></h4> </div><!-- /.box-header -->
 
   <!-- form start -->
-  <form name="form" id="form" role="form" method="post" action="<?php echo base_url('keluar/aksi_tambah'); ?>"> <div class="box-body">
+  <form name="form" id="form" role="form" enctype="multipart/form-data" method="post" action="<?php echo base_url('keluar/aksi_tambah'); ?>"> <div class="box-body">
 
     <div class="form-group">
       <label for="limbah">Limbah</label>
@@ -11,11 +11,16 @@
             <?php
             foreach ($data['limbah'] as $item) {
               ?>
-              <option value="<?php echo $item->id; ?>"><?php echo $item->limbah; ?></option>
+              <option value="<?php echo $item->id; ?>"><?php echo $item->limbah; ?> (<?php echo $item->kode; ?>)</option>
               <?php
             }
             ?>
           </select>          
+    </div>
+
+    <div class="form-group">
+      <label for="foto">Foto</label>
+          <input required type="file" id="foto" name="foto">          
     </div>
 
     <div class="form-group">

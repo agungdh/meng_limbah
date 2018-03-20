@@ -6,9 +6,9 @@
     <meta name="author" content="Ayah DH" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   
-    <link rel="shortcut icon" href="<?php echo base_url() . "assets/"; ?>logo.jpg" type="image/vnd.microsoft.icon">
+    <link rel="shortcut icon" href="<?php echo base_url() . "assets/"; ?>logo-pln.png" type="image/vnd.microsoft.icon">
 
-    <title>Aplikasi Pengolahan Limbah PLN</title>
+    <title>Aplikasi Monitoring Limbah B3 PLN</title>
     <!-- Tell the browser to be responsive to screen width -->
 
     <!-- Bootstrap 3.3.5 -->

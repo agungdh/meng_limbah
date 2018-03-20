@@ -16,7 +16,7 @@ class User extends CI_Controller {
 
 	function tambah() {
 		$data['isi'] = "user/tambah";
-		$data['data']['prodi'] = $this->m_user->ambil_prodi();
+		$data['data']['user'] = $this->m_user->ambil_user();
 
 		$this->load->view("template/template", $data);	
 	}
@@ -26,7 +26,7 @@ class User extends CI_Controller {
 			$this->input->post('username'),
 			hash('sha512', $this->input->post('password')),
 			$this->input->post('level'),
-			$this->input->post('prodi')
+			$this->input->post('unit')
 		);
 
 		redirect(base_url('user'));

@@ -3,19 +3,24 @@
     <h4><strong><font color=blue>TAMBAH LIMBAH MASUK</font></strong></h4> </div><!-- /.box-header -->
 
   <!-- form start -->
-  <form name="form" id="form" role="form" method="post" action="<?php echo base_url('masuk/aksi_tambah'); ?>"> <div class="box-body">
+  <form name="form" id="form" role="form" enctype="multipart/form-data" method="post" action="<?php echo base_url('masuk/aksi_tambah'); ?>"> <div class="box-body">
 
     <div class="form-group">
       <label for="sub_limbah">Limbah</label>
           <select id="sub_limbah" class="form-control select2" name="sub_limbah">
             <?php
             foreach ($data['sub_limbah'] as $item) {
-              ?>
-              <option value="<?php echo $item->id; ?>"><?php echo $item->sub_limbah; ?></option>
-              <?php
+            ?>
+              <option value="<?php echo $item->id; ?>"><?php echo $item->sub_limbah ; ?> (<?php echo $this->m_universal->get_id('limbah', $item->id_limbah)->kode; ?>)</option>
+            <?php
             }
             ?>
-          </select>          
+          </select>        
+    </div>
+
+    <div class="form-group">
+      <label for="foto">Foto</label>
+          <input required type="file" name="foto">          
     </div>
 
     <div class="form-group">

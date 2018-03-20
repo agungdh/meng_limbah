@@ -1,7 +1,4 @@
-<?php 
-// var_dump($data['versi_borang']);
-// exit();
-?>
+
 <script type="text/javascript" language="javascript" >
   // var dTable;
   // $(document).ready(function() {
@@ -13,13 +10,33 @@
 
 <div class="box box-primary">
   <div class="box-header with-border">
-    <h4><strong><font color=blue>DATA LIMBAH MASUK<br>UNIT : <?php echo $this->session->unit; ?></font></strong></h4>
+    <div class="form-group">
+      <a class="logo" href="<?php echo base_url('assets/logo-pln.png') ?>"></a>
+                
+                <div class="body">
+                  <div class="col-md-2">
+                  <center>
+                    <img src="<?php echo base_url('assets/logo-pln.png') ?>" style="height: 150px; width: 100px;">  
+                  </center>
+                  </div>
+
+                  <div class="col-md-8" >
+                    <center>
+                      <h3><strong><font color=blue>DATA LIMBAH B3 YANG MASUK DI TPS<br>
+                      UNIT&nbsp; &nbsp; : &nbsp; <?php echo $this->session->unit; ?></h3></font></strong><br/><br>
+                    </center>
+                  </div>
+                </div>
+                <br/>
+      
+      <a href='<?php echo base_url("masuk/tambah"); ?>'><button class="btn btn-success"><i class="fa fa-plus"></i> Limbah Masuk</button></a><br><br>
+      <a href='<?php echo base_url("export/masuk"); ?>'><button class="btn btn-primary"><i class="fa fa-upload"></i> Export Limbah</button></a>
+    </div>
   </div><!-- /.box-header -->
 
     <div class="box-body">
 
     <div class="form-group">
-      <a href='<?php echo base_url("masuk/tambah"); ?>'><button class="btn btn-success"><i class="fa fa-plus"></i> Limbah Masuk</button></a>
        <div class="pull-right">
           <form method="get" action="<?php base_url('masuk'); ?>">
           Triwulan <input value="<?php echo $data['triwulan']; ?>" type="number" min="1" max="4" required name="triwulan">
@@ -34,6 +51,7 @@
         <tr>
           <th>No</th>
           <th>Limbah</th>
+          <th>Foto</th>
           <th>Tanggal Masuk</th>
           <th>Sumber</th>
           <th>Jumlah (KG)</th>
@@ -75,6 +93,7 @@
             <tr>
               <td><?php echo $i; ?></td>
               <td><?php echo $sub_limbah; ?></td>
+              <td><img src="<?php echo base_url('uploads/masuk/' . $item2->id_masuk); ?>" style="height: 100px; width: 100px;"></td>
               <td><?php echo $this->pustaka->tanggal_indo_string($item2->tanggal); ?></td>
               <td><?php echo $item2->sumber; ?></td>
               <td><?php echo $item_jumlah; ?></td>
