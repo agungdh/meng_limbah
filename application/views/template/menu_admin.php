@@ -49,12 +49,13 @@
         </span>
 	</a>
 	<ul class="treeview-menu">
-        <li><a href="#"><i class="fa fa-building"></i> PLTP ULUBELU</a></li>
-        <li><a href="#"><i class="fa fa-building"></i> PLTD TELUK BETUNG</a></li>
-        <li><a href="#"><i class="fa fa-building"></i> PLTD/G TARAHAN</a></li>
-        <li><a href="#"><i class="fa fa-building"></i> PLTD TEGINENENG</a></li>
-        <li><a href="#"><i class="fa fa-building"></i> PLTA BATU TEGI</a></li>
-        <li><a href="#"><i class="fa fa-building"></i> PLTA BESAI</a></li>
+        <?php
+        foreach ($this->db->get('unit')->result() as $item) {
+            ?>
+            <li><a href="<?php echo base_url("admin_limbah_masuk/index/" . $item->id); ?>"><i class="fa fa-building"></i> <?php echo $item->unit; ?></a></li>
+            <?php
+        }
+        ?>
     </ul>
 </li>
 
@@ -66,12 +67,13 @@
         </span>
 	</a>
 	<ul class="treeview-menu">
-        <li><a href="#"><i class="fa fa-building"></i> PLTP ULUBELU</a></li>
-        <li><a href="#"><i class="fa fa-building"></i> PLTD TELUK BETUNG</a></li>
-        <li><a href="#"><i class="fa fa-building"></i> PLTD/G TARAHAN</a></li>
-        <li><a href="#"><i class="fa fa-building"></i> PLTD TEGINENENG</a></li>
-        <li><a href="#"><i class="fa fa-building"></i> PLTA BATU TEGI</a></li>
-        <li><a href="#"><i class="fa fa-building"></i> PLTA BESAI</a></li>
+        <?php
+        foreach ($this->db->get('unit')->result() as $item) {
+            ?>
+            <li><a href="<?php echo base_url("admin_limbah_keluar/index/" . $item->id); ?>"><i class="fa fa-building"></i> <?php echo $item->unit; ?></a></li>
+            <?php
+        }
+        ?>
     </ul>
 </li>
 
@@ -84,12 +86,13 @@
         </span>
 	</a>
 	<ul class="treeview-menu">
-        <li><a href="#"><i class="fa fa-building"></i> PLTP ULUBELU</a></li>
-        <li><a href="#"><i class="fa fa-building"></i> PLTD TELUK BETUNG</a></li>
-        <li><a href="#"><i class="fa fa-building"></i> PLTD/G TARAHAN</a></li>
-        <li><a href="#"><i class="fa fa-building"></i> PLTD TEGINENENG</a></li>
-        <li><a href="#"><i class="fa fa-building"></i> PLTA BATU TEGI</a></li>
-        <li><a href="#"><i class="fa fa-building"></i> PLTA BESAI</a></li>
+        <?php
+        foreach ($this->db->get('unit')->result() as $item) {
+            ?>
+            <li><a href="<?php echo base_url("admin_neraca/index/" . $item->id); ?>"><i class="fa fa-building"></i> <?php echo $item->unit; ?></a></li>
+            <?php
+        }
+        ?>
     </ul>
 </li>
 
