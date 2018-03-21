@@ -158,8 +158,6 @@ class Keluar extends CI_Controller {
 
 		$this->load->library('excel');
 		
-		$objDrawing = new PHPExcel_Worksheet_Drawing();
-
 		$this->excel->setActiveSheetIndex(0);
 		
 		$this->excel->getActiveSheet()->setTitle('Sheet 1');
@@ -197,6 +195,7 @@ class Keluar extends CI_Controller {
 			$this->excel->getActiveSheet()->setCellValue('C' . $a, $item->limbah);
 			
 			if (file_exists('uploads/keluar/' . $item->id_keluar)) {
+				$objDrawing = new PHPExcel_Worksheet_Drawing();
 				$objDrawing->setPath('uploads/keluar/' . $item->id_keluar);
 				$objDrawing->setCoordinates('D' . $a);                      
 				$objDrawing->setWidth(100); 
