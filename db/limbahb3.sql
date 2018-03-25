@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 20, 2018 at 08:31 AM
+-- Generation Time: Mar 25, 2018 at 05:50 AM
 -- Server version: 10.1.8-MariaDB
 -- PHP Version: 5.6.14
 
@@ -84,7 +84,11 @@ CREATE TABLE `keluar` (
 
 INSERT INTO `keluar` (`id`, `id_user`, `id_limbah`, `id_pengangkut`, `tanggal`, `jumlah`, `no_dokumen`) VALUES
 (13, 1, 7, 1, '2018-04-07', '1.00', '1247'),
-(22, 1, 7, 2, '2018-03-14', '12.00', 'as2');
+(23, 2, 7, 1, '2018-03-01', '12.00', 'asw23'),
+(24, 2, 8, 2, '2018-03-09', '5.00', 'sd153'),
+(25, 2, 12, 1, '2018-03-10', '19.00', 'fgs34'),
+(26, 2, 13, 2, '2018-03-08', '53.00', 'dwe73'),
+(27, 1, 8, 1, '2018-02-14', '23.00', 'sadfqr3123');
 
 -- --------------------------------------------------------
 
@@ -137,8 +141,19 @@ CREATE TABLE `masuk` (
 
 INSERT INTO `masuk` (`id`, `id_user`, `id_sub_limbah`, `id_sumber`, `tanggal`, `jumlah`) VALUES
 (32, 1, 1, 1, '2018-04-30', '7.00'),
-(42, 1, 10, 1, '2018-03-15', '44.00'),
-(43, 1, 1, 1, '2018-03-16', '12.00');
+(43, 1, 1, 1, '2018-03-16', '12.00'),
+(44, 2, 1, 2, '2018-02-21', '25.00'),
+(45, 2, 2, 1, '2018-02-13', '12.00'),
+(46, 2, 3, 5, '2018-02-08', '21.00'),
+(49, 2, 4, 2, '2018-01-03', '35.00'),
+(50, 2, 10, 5, '2018-02-21', '46.00'),
+(51, 2, 11, 5, '2018-02-20', '125.00'),
+(52, 2, 1, 2, '2018-03-09', '35.00'),
+(53, 1, 2, 5, '2018-01-09', '326.00'),
+(54, 1, 3, 5, '2018-01-17', '6547.00'),
+(55, 1, 4, 2, '2018-01-11', '561.00'),
+(56, 1, 10, 5, '2018-01-18', '342.00'),
+(57, 2, 11, 5, '2018-03-21', '12.00');
 
 -- --------------------------------------------------------
 
@@ -351,7 +366,7 @@ ALTER TABLE `jenis`
 -- AUTO_INCREMENT for table `keluar`
 --
 ALTER TABLE `keluar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `limbah`
 --
@@ -361,7 +376,7 @@ ALTER TABLE `limbah`
 -- AUTO_INCREMENT for table `masuk`
 --
 ALTER TABLE `masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 --
 -- AUTO_INCREMENT for table `pengangkut`
 --

@@ -30,7 +30,7 @@
                 <br/>
       
       <a href='<?php echo base_url("masuk/tambah"); ?>'><button class="btn btn-success"><i class="fa fa-plus"></i> Limbah Masuk</button></a><br><br>
-      <a href='<?php echo base_url("export/masuk"); ?>'><button class="btn btn-primary"><i class="fa fa-upload"></i> Export Limbah</button></a>
+      <a href='<?php echo base_url("masuk/export?triwulan=" . $data['triwulan'] . '&tahun=' . $data['tahun']); ?>'><button class="btn btn-primary"><i class="fa fa-upload"></i> Export Limbah</button></a>
     </div>
   </div><!-- /.box-header -->
 
