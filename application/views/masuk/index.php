@@ -71,7 +71,7 @@
           $last_i = 0;
           $id = 0;
           $sub_limbah = null;
-          foreach ($this->m_masuk->ambil_child_limbah($item->id_limbah, $this->session->id, $data['awal_akhir_triwulan'][0], $data['awal_akhir_triwulan'][1], $data['tahun']) as $item2) {
+          foreach ($this->m_masuk->ambil_child_limbah($item->id_limbah, $this->session->id_unit, $data['awal_akhir_triwulan'][0], $data['awal_akhir_triwulan'][1], $data['tahun']) as $item2) {
             $i = $last_i++;
             if ($id != $item2->id_sub_limbah) {
               $i++;

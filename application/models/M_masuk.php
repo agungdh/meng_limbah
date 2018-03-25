@@ -4,7 +4,7 @@ class M_masuk extends CI_Model{
 		parent::__construct();		
 	}
 
-	function ambil_parent_limbah($id_user, $b1, $b2, $thn){
+	function ambil_parent_limbah($id_unit, $b1, $b2, $thn){
 		$sql = "SELECT id_limbah, limbah
 				FROM sub_limbah sl, limbah l, golongan g, jenis j, masuk m, sumber s
 				WHERE sl.id_limbah = l.id
@@ -12,16 +12,16 @@ class M_masuk extends CI_Model{
 				AND l.id_golongan = g.id
 				AND m.id_sub_limbah = sl.id
 				AND m.id_sumber = s.id
-				AND m.id_user = ?
+				AND m.id_unit = ?
 				AND month(tanggal) BETWEEN ? AND ?
 				AND year(tanggal) = ?
 				GROUP BY id_limbah";
-		$query = $this->db->query($sql, array($id_user, $b1, $b2, $thn));
+		$query = $this->db->query($sql, array($id_unit, $b1, $b2, $thn));
 		$row = $query->result();
 		return $row;
 	}
 
-	function ambil_child_limbah($id_limbah, $id_user, $b1, $b2, $thn){
+	function ambil_child_limbah($id_limbah, $id_unit, $b1, $b2, $thn){
 		$sql = "SELECT *, m.id id_masuk
 				FROM sub_limbah sl, limbah l, golongan g, jenis j, masuk m, sumber s
 				WHERE sl.id_limbah = l.id
@@ -30,11 +30,11 @@ class M_masuk extends CI_Model{
 				AND m.id_sub_limbah = sl.id
 				AND m.id_sumber = s.id
 				AND l.id = ?
-				AND m.id_user = ?
+				AND m.id_unit = ?
 				AND month(tanggal) BETWEEN ? AND ?
 				AND year(tanggal) = ?
 				ORDER BY sl.id, m.tanggal";
-		$query = $this->db->query($sql, array($id_limbah, $id_user, $b1, $b2, $thn));
+		$query = $this->db->query($sql, array($id_limbah, $id_unit, $b1, $b2, $thn));
 		$row = $query->result();
 
 		return $row;
@@ -68,14 +68,14 @@ class M_masuk extends CI_Model{
 		return $row;
 	}
 
-	function tambah_limbah_masuk($id_user, $sub_limbah, $tanggal, $sumber, $jumlah){
+	function tambah_limbah_masuk($id_unit, $sub_limbah, $tanggal, $sumber, $jumlah){
 		$sql = "INSERT INTO masuk
-				SET id_user = ?,
+				SET id_unit = ?,
 				id_sub_limbah = ?,
 				tanggal = ?,
 				id_sumber = ?,
 				jumlah = ?";
-		$query = $this->db->query($sql, array($id_user, $sub_limbah, $tanggal, $sumber, $jumlah));
+		$query = $this->db->query($sql, array($id_unit, $sub_limbah, $tanggal, $sumber, $jumlah));
 
 		return $this->db->insert_id();
 	}

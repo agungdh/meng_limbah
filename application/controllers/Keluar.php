@@ -23,7 +23,7 @@ class Keluar extends CI_Controller {
 		} else {
 			$data['data']['tahun'] = $this->input->get('tahun');
 		}
-		$data['data']['keluar'] = $this->m_keluar->ambil_limbah_keluar($this->session->id, $data['data']['awal_akhir_triwulan'][0], $data['data']['awal_akhir_triwulan'][1], $data['data']['tahun']);
+		$data['data']['keluar'] = $this->m_keluar->ambil_limbah_keluar($this->session->id_unit, $data['data']['awal_akhir_triwulan'][0], $data['data']['awal_akhir_triwulan'][1], $data['data']['tahun']);
 		
 		$this->load->view("template/template", $data);
 	}
@@ -38,7 +38,7 @@ class Keluar extends CI_Controller {
 
 	function aksi_tambah() {
 		$keluar = $this->m_keluar->tambah_limbah_keluar(
-			$this->session->id,
+			$this->session->id_unit,
 			$this->input->post('limbah'),
 			$this->input->post('tanggal'),
 			$this->input->post('pengangkut'),
@@ -132,7 +132,7 @@ class Keluar extends CI_Controller {
 		$data['data']['awal_akhir_triwulan'] = $this->pustaka->ambil_awal_dan_akhir_triwulan($this->input->get('triwulan'));
 		$data['data']['tahun'] = $this->input->get('tahun');
 
-		$data['data']['keluar'] = $this->m_keluar->ambil_limbah_keluar($this->session->id, $data['data']['awal_akhir_triwulan'][0], $data['data']['awal_akhir_triwulan'][1], $data['data']['tahun']);
+		$data['data']['keluar'] = $this->m_keluar->ambil_limbah_keluar($this->session->id_unit, $data['data']['awal_akhir_triwulan'][0], $data['data']['awal_akhir_triwulan'][1], $data['data']['tahun']);
 
 		switch ($data['data']['triwulan']) {
 			case 1:

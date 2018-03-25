@@ -29,7 +29,6 @@
                 </div>
                 <br/>
       
-      <a href='<?php echo base_url("masuk/tambah"); ?>'><button class="btn btn-success"><i class="fa fa-plus"></i> Limbah Masuk</button></a><br><br>
       <a href='<?php echo base_url("masuk/export?triwulan=" . $data['triwulan'] . '&tahun=' . $data['tahun']); ?>'><button class="btn btn-primary"><i class="fa fa-upload"></i> Export Limbah</button></a>
     </div>
   </div><!-- /.box-header -->
@@ -55,7 +54,6 @@
           <th>Tanggal Masuk</th>
           <th>Sumber</th>
           <th>Jumlah (KG)</th>
-          <th>Proses</th>
         </tr>
       </thead>
       <tbody>
@@ -71,7 +69,7 @@
           $last_i = 0;
           $id = 0;
           $sub_limbah = null;
-          foreach ($this->m_masuk->ambil_child_limbah($item->id_limbah, $this->session->id, $data['awal_akhir_triwulan'][0], $data['awal_akhir_triwulan'][1], $data['tahun']) as $item2) {
+          foreach ($this->m_masuk->ambil_child_limbah($item->id_limbah, $data['unit_id'], $data['awal_akhir_triwulan'][0], $data['awal_akhir_triwulan'][1], $data['tahun']) as $item2) {
             $i = $last_i++;
             if ($id != $item2->id_sub_limbah) {
               $i++;
@@ -97,10 +95,6 @@
               <td><?php echo $this->pustaka->tanggal_indo_string($item2->tanggal); ?></td>
               <td><?php echo $item2->sumber; ?></td>
               <td><?php echo $item_jumlah; ?></td>
-               <td>
-                <a class="btn btn-info" href="<?php echo base_url('masuk/ubah/'.$item2->id_masuk) ?>"><i class="fa fa-pencil"></i> </a>
-                <a class="btn btn-danger" onclick="hapus('<?php echo $item2->id_masuk; ?>')"><i class="fa fa-trash"></i> </a>
-              </td>
             </tr>
             <?php
           }

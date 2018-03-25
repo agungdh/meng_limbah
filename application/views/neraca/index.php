@@ -1,6 +1,13 @@
 <?php 
 // var_dump($data['versi_borang']);
 // exit();
+if ($this->session->id_unit != null) {
+  $id_unit = $this->session->id_unit;
+  $unit = $this->db->get_where('unit', array('id' => $id_unit))->row()->unit;
+} else {
+  $id_unit = $data['unit_id'];
+  $unit = $this->db->get_where('unit', array('id' => $id_unit))->row()->unit;
+}
 ?>
 <script type="text/javascript" language="javascript" >
   var dTable;
@@ -25,7 +32,7 @@
           <div class="col-md-8" >
             <center>
              <h3><strong><font color=blue>DATA NERACA LIMBAH B3 YANG ADA DI TPS<br>
-             UNIT&nbsp; &nbsp; : &nbsp; <?php echo $this->session->unit; ?></h3></font></strong><br/><br>
+             UNIT&nbsp; &nbsp; : &nbsp; <?php echo $unit; ?></h3></font></strong><br/><br>
            </center>
          </div>
        </div><br/>
@@ -62,14 +69,14 @@
         foreach ($data['limbah'] as $item) {
           $limbah = $item->limbah;
           $tanggal = $data['tahun'] . '-' . str_pad($data['bulan'],2,"0",STR_PAD_LEFT) . '-' . '01';
-          $lalu1 = $this->m_neraca->ambil_jumlah_masuk_dari_limbah_lalu($this->session->id, $item->id, $tanggal)->total != null ? $this->m_neraca->ambil_jumlah_masuk_dari_limbah_lalu($this->session->id, $item->id, $tanggal)->total : 0;
-          $lalu2 = $this->m_neraca->ambil_jumlah_keluar_dari_limbah_lalu($this->session->id, $item->id, $tanggal)->total != null ? $this->m_neraca->ambil_jumlah_keluar_dari_limbah_lalu($this->session->id, $item->id, $tanggal)->total : 0;
+          $lalu1 = $this->m_neraca->ambil_jumlah_masuk_dari_limbah_lalu($id_unit, $item->id, $tanggal)->total != null ? $this->m_neraca->ambil_jumlah_masuk_dari_limbah_lalu($id_unit, $item->id, $tanggal)->total : 0;
+          $lalu2 = $this->m_neraca->ambil_jumlah_keluar_dari_limbah_lalu($id_unit, $item->id, $tanggal)->total != null ? $this->m_neraca->ambil_jumlah_keluar_dari_limbah_lalu($id_unit, $item->id, $tanggal)->total : 0;
           $lalu = $lalu1 - $lalu2;
-          $masuk = $this->m_neraca->ambil_jumlah_masuk_dari_limbah($this->session->id, $item->id, $data['bulan'], $data['tahun'])->total != null ? $this->m_neraca->ambil_jumlah_masuk_dari_limbah($this->session->id, $item->id, $data['bulan'], $data['tahun'])->total : 0;
-          $keluar = $this->m_neraca->ambil_jumlah_keluar_dari_limbah($this->session->id, $item->id, $data['bulan'], $data['tahun'])->total != null ? $this->m_neraca->ambil_jumlah_keluar_dari_limbah($this->session->id, $item->id, $data['bulan'], $data['tahun'])->total : 0;
+          $masuk = $this->m_neraca->ambil_jumlah_masuk_dari_limbah($id_unit, $item->id, $data['bulan'], $data['tahun'])->total != null ? $this->m_neraca->ambil_jumlah_masuk_dari_limbah($id_unit, $item->id, $data['bulan'], $data['tahun'])->total : 0;
+          $keluar = $this->m_neraca->ambil_jumlah_keluar_dari_limbah($id_unit, $item->id, $data['bulan'], $data['tahun'])->total != null ? $this->m_neraca->ambil_jumlah_keluar_dari_limbah($id_unit, $item->id, $data['bulan'], $data['tahun'])->total : 0;
           $sisa = $lalu + $masuk - $keluar;
-          $sumber = $masuk == 0 ? '-' : $this->m_neraca->ambil_masuk_dari_limbah($this->session->id, $item->id)->sumber;
-          $pengangkut = $keluar == 0 ? '-' : $this->m_neraca->ambil_keluar_dari_limbah($this->session->id, $item->id)->pengangkut;
+          $sumber = $masuk == 0 ? '-' : $this->m_neraca->ambil_masuk_dari_limbah($id_unit, $item->id)->sumber;
+          $pengangkut = $keluar == 0 ? '-' : $this->m_neraca->ambil_keluar_dari_limbah($id_unit, $item->id)->pengangkut;
           ?>
           <tr>
             <td><?php echo $limbah; ?></td>

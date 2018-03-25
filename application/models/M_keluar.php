@@ -4,15 +4,15 @@ class M_keluar extends CI_Model{
 		parent::__construct();		
 	}
 
-	function ambil_limbah_keluar($id_user, $b1, $b2, $thn){
+	function ambil_limbah_keluar($id_unit, $b1, $b2, $thn){
 		$sql = "SELECT *, k.id id_keluar
 				FROM keluar k, limbah l, pengangkut p
 				WHERE k.id_limbah = l.id
 				AND k.id_pengangkut = p.id
-				AND k.id_user = ?
+				AND k.id_unit = ?
 				AND month(tanggal) BETWEEN ? AND ?
 				AND year(tanggal) = ?";
-		$query = $this->db->query($sql, array($id_user, $b1, $b2, $thn));
+		$query = $this->db->query($sql, array($id_unit, $b1, $b2, $thn));
 		$row = $query->result();
 		return $row;
 	}
@@ -43,15 +43,15 @@ class M_keluar extends CI_Model{
 		return $row;
 	}
 
-	function tambah_limbah_keluar($id_user, $id_limbah, $tanggal, $id_pengangkut, $jumlah, $no_dokumen){
+	function tambah_limbah_keluar($id_unit, $id_limbah, $tanggal, $id_pengangkut, $jumlah, $no_dokumen){
 		$sql = "INSERT INTO keluar
-				SET id_user = ?,
+				SET id_unit = ?,
 				id_limbah = ?,
 				tanggal = ?,
 				id_pengangkut = ?,
 				jumlah = ?,
 				no_dokumen = ?";
-		$query = $this->db->query($sql, array($id_user, $id_limbah, $tanggal, $id_pengangkut, $jumlah, $no_dokumen));
+		$query = $this->db->query($sql, array($id_unit, $id_limbah, $tanggal, $id_pengangkut, $jumlah, $no_dokumen));
 
 		return $this->db->insert_id();
 	}
