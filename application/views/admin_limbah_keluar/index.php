@@ -29,7 +29,6 @@
                 </div>
                 <br/>
       
-      <a href='<?php echo base_url("keluar/tambah"); ?>'><button class="btn btn-success"><i class="fa fa-plus"></i> Limbah Keluar</button></a><br><br>
       <a href='<?php echo base_url("keluar/export?triwulan=" . $data['triwulan'] . '&tahun=' . $data['tahun']); ?>'><button class="btn btn-primary"><i class="fa fa-upload"></i> Export Limbah</button></a>
     </div>
   </div><!-- /.box-header -->
@@ -55,12 +54,13 @@
           <th>Jumlah (KG)</th>
           <th>Tujuan Penyerahan</th>
           <th>NO Dokumen</th>
-          <th>Proses</th>
         </tr>
       </thead>
       <tbody>
         <?php
+        $jumlah = 0;
         foreach ($data['keluar'] as $item) {
+          $jumlah += $item->jumlah;
           ?>
           <tr>
             <td><?php echo $this->pustaka->tanggal_indo_string($item->tanggal); ?></td>
@@ -69,14 +69,14 @@
             <td><?php echo $item->jumlah; ?></td>
             <td><?php echo 'Pengangkut ' . $item->pengangkut; ?></td>
             <td><?php echo $item->no_dokumen; ?></td>
-              <td>
-                <a class="btn btn-info" href="<?php echo base_url('keluar/ubah/'.$item->id_keluar); ?>"><i class="fa fa-pencil"></i> </a>
-                <a class="btn btn-danger" onclick="hapus('<?php echo $item->id_keluar; ?>')"><i class="fa fa-trash"></i> </a>
-              </td>
           </tr>
           <?php
         }
         ?>
+        <tr>
+          <td colspan="3" style="text-align: right;"><b>Total</b></td>
+          <td><b><?php echo $jumlah; ?></b></td>
+        </tr>
       </tbody>
       
     </table>

@@ -60,7 +60,9 @@
       </thead>
       <tbody>
         <?php
+        $jumlah = 0;
         foreach ($data['keluar'] as $item) {
+          $jumlah += $item->jumlah;
           ?>
           <tr>
             <td><?php echo $this->pustaka->tanggal_indo_string($item->tanggal); ?></td>
@@ -77,6 +79,10 @@
           <?php
         }
         ?>
+        <tr>
+          <td colspan="3" style="text-align: right;"><b>Total</b></td>
+          <td><b><?php echo $jumlah; ?></b></td>
+        </tr>
       </tbody>
       
     </table>
