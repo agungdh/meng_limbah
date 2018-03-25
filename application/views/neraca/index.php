@@ -10,12 +10,12 @@ if ($this->session->id_unit != null) {
 }
 ?>
 <script type="text/javascript" language="javascript" >
-  var dTable;
-  $(document).ready(function() {
-    dTable = $('#lookup').DataTable({
-      responsive: true
-    });
-  });
+  // var dTable;
+  // $(document).ready(function() {
+  //   dTable = $('#lookup').DataTable({
+  //     responsive: true
+  //   });
+  // });
 </script>
 
 <div class="box box-primary">

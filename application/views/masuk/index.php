@@ -60,6 +60,7 @@
       </thead>
       <tbody>
       <?php 
+      $grandtotal = 0;
       $jumlah = 0;
       foreach ($data['masuk'] as $item) {
         ?>
@@ -106,13 +107,18 @@
           }
           ?>
           <tr>
-            <td colspan="4" style="text-align: right;"><b>Total</b></td>
+            <td colspan="5" style="text-align: right;"><b>Total</b></td>
             <td><b><?php echo $jumlah; ?></b></td>
           </tr>
         <?php
+        $grandtotal += $jumlah;
         $jumlah = 0;
       }
       ?>
+      <tr>
+        <td colspan="5" style="text-align: right;"><b>Grand Total</b></td>
+        <td><b><?php echo $grandtotal; ?></b></td>
+      </tr>
       </tbody>
       
     </table>

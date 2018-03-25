@@ -49,6 +49,7 @@
         </span>
 	</a>
 	<ul class="treeview-menu">
+        <li><a href="<?php echo base_url("admin_limbah_masuk/semuasemua"); ?>"><i class="fa fa-building text-aqua"></i> Semua Unit</a></li>
         <?php
         foreach ($this->db->get('unit')->result() as $item) {
             ?>
@@ -68,6 +69,7 @@
         </span>
 	</a>
 	<ul class="treeview-menu">
+        <li><a href="<?php echo base_url("admin_limbah_keluar/semuasemua"); ?>"><i class="fa fa-building text-aqua"></i> Semua Unit</a></li>
         <?php
         foreach ($this->db->get('unit')->result() as $item) {
             ?>
@@ -87,6 +89,7 @@
         </span>
 	</a>
 	<ul class="treeview-menu">
+        <li><a href="<?php echo base_url("admin_neraca/semuasemua"); ?>"><i class="fa fa-building text-aqua"></i> Semua Unit</a></li>
         <?php
         foreach ($this->db->get('unit')->result() as $item) {
             ?>
@@ -95,25 +98,6 @@
         }
         ?>
     </ul>
-</li>
-
-<li>
-    <a href="#">
-        <i class="fa fa-list-alt text-aqua"></i>
-        <span>Total Limbah Masuk</span>
-    </a>
-</li>
-<li>
-    <a href="#">
-        <i class="fa fa-list-alt text-aqua"></i>
-        <span>Total Limbah Keluar</span>
-    </a>
-</li>
-<li>
-    <a href="#">
-        <i class="fa fa-list-alt text-aqua"></i>
-        <span>Total Neraca Limbah</span>
-    </a>
 </li>
 
 </ul>

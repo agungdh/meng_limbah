@@ -22,8 +22,8 @@
 
                   <div class="col-md-8" >
                     <center>
-                      <h3><strong><font color=blue>DATA LIMBAH B3 YANG MASUK DI TPS<br>
-                      UNIT&nbsp; &nbsp; : &nbsp; <?php echo $this->db->get_where('unit', array('id' => $data['unit_id']))->row()->unit; ?></h3></font></strong><br/><br>
+                      <h3><strong><font color=blue>DATA LIMBAH B3 YANG MASUK DI TPS
+                      </h3></font></strong><br/><br>
                     </center>
                   </div>
                 </div>
@@ -58,8 +58,8 @@
       </thead>
       <tbody>
       <?php 
-      $grandtotal = 0;
       $jumlah = 0;
+      $grandtotal = 0;
       foreach ($data['masuk'] as $item) {
         ?>
         <tr>
@@ -70,7 +70,7 @@
           $last_i = 0;
           $id = 0;
           $sub_limbah = null;
-          foreach ($this->m_masuk->ambil_child_limbah($item->id_limbah, $data['unit_id'], $data['awal_akhir_triwulan'][0], $data['awal_akhir_triwulan'][1], $data['tahun']) as $item2) {
+          foreach ($this->m_masuk->ambil_child_limbah_semuasemua($item->id_limbah, $data['awal_akhir_triwulan'][0], $data['awal_akhir_triwulan'][1], $data['tahun']) as $item2) {
             $i = $last_i++;
             if ($id != $item2->id_sub_limbah) {
               $i++;

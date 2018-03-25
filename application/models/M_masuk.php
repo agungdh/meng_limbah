@@ -4,6 +4,22 @@ class M_masuk extends CI_Model{
 		parent::__construct();		
 	}
 
+	function ambil_parent_limbah_semuasemua($b1, $b2, $thn){
+		$sql = "SELECT id_limbah, limbah
+				FROM sub_limbah sl, limbah l, golongan g, jenis j, masuk m, sumber s
+				WHERE sl.id_limbah = l.id
+				AND l.id_jenis = j.id
+				AND l.id_golongan = g.id
+				AND m.id_sub_limbah = sl.id
+				AND m.id_sumber = s.id
+				AND month(tanggal) BETWEEN ? AND ?
+				AND year(tanggal) = ?
+				GROUP BY id_limbah";
+		$query = $this->db->query($sql, array($b1, $b2, $thn));
+		$row = $query->result();
+		return $row;
+	}
+
 	function ambil_parent_limbah($id_unit, $b1, $b2, $thn){
 		$sql = "SELECT id_limbah, limbah
 				FROM sub_limbah sl, limbah l, golongan g, jenis j, masuk m, sumber s
@@ -18,6 +34,24 @@ class M_masuk extends CI_Model{
 				GROUP BY id_limbah";
 		$query = $this->db->query($sql, array($id_unit, $b1, $b2, $thn));
 		$row = $query->result();
+		return $row;
+	}
+
+	function ambil_child_limbah_semuasemua($id_limbah, $b1, $b2, $thn){
+		$sql = "SELECT *, m.id id_masuk
+				FROM sub_limbah sl, limbah l, golongan g, jenis j, masuk m, sumber s
+				WHERE sl.id_limbah = l.id
+				AND l.id_jenis = j.id
+				AND l.id_golongan = g.id
+				AND m.id_sub_limbah = sl.id
+				AND m.id_sumber = s.id
+				AND l.id = ?
+				AND month(tanggal) BETWEEN ? AND ?
+				AND year(tanggal) = ?
+				ORDER BY sl.id, m.tanggal";
+		$query = $this->db->query($sql, array($id_limbah, $b1, $b2, $thn));
+		$row = $query->result();
+
 		return $row;
 	}
 
