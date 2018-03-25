@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.9
+-- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 25, 2018 at 05:50 AM
--- Server version: 10.1.8-MariaDB
--- PHP Version: 5.6.14
+-- Host: localhost
+-- Generation Time: Mar 25, 2018 at 10:52 AM
+-- Server version: 10.1.31-MariaDB
+-- PHP Version: 7.2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -70,7 +72,7 @@ INSERT INTO `jenis` (`id`, `jenis`) VALUES
 
 CREATE TABLE `keluar` (
   `id` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
+  `id_unit` int(11) NOT NULL,
   `id_limbah` int(11) NOT NULL,
   `id_pengangkut` int(11) NOT NULL,
   `tanggal` date NOT NULL,
@@ -82,13 +84,10 @@ CREATE TABLE `keluar` (
 -- Dumping data for table `keluar`
 --
 
-INSERT INTO `keluar` (`id`, `id_user`, `id_limbah`, `id_pengangkut`, `tanggal`, `jumlah`, `no_dokumen`) VALUES
-(13, 1, 7, 1, '2018-04-07', '1.00', '1247'),
-(23, 2, 7, 1, '2018-03-01', '12.00', 'asw23'),
-(24, 2, 8, 2, '2018-03-09', '5.00', 'sd153'),
-(25, 2, 12, 1, '2018-03-10', '19.00', 'fgs34'),
-(26, 2, 13, 2, '2018-03-08', '53.00', 'dwe73'),
-(27, 1, 8, 1, '2018-02-14', '23.00', 'sadfqr3123');
+INSERT INTO `keluar` (`id`, `id_unit`, `id_limbah`, `id_pengangkut`, `tanggal`, `jumlah`, `no_dokumen`) VALUES
+(28, 2, 15, 2, '2018-03-14', '2.00', '5'),
+(32, 1, 19, 1, '2018-03-02', '5.00', 'erd4567'),
+(33, 2, 7, 1, '2018-03-24', '22.40', 'q');
 
 -- --------------------------------------------------------
 
@@ -128,7 +127,7 @@ INSERT INTO `limbah` (`id`, `id_jenis`, `id_golongan`, `kode`, `limbah`) VALUES
 
 CREATE TABLE `masuk` (
   `id` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
+  `id_unit` int(11) NOT NULL,
   `id_sub_limbah` int(11) NOT NULL,
   `id_sumber` int(11) NOT NULL,
   `tanggal` date NOT NULL,
@@ -139,21 +138,13 @@ CREATE TABLE `masuk` (
 -- Dumping data for table `masuk`
 --
 
-INSERT INTO `masuk` (`id`, `id_user`, `id_sub_limbah`, `id_sumber`, `tanggal`, `jumlah`) VALUES
-(32, 1, 1, 1, '2018-04-30', '7.00'),
-(43, 1, 1, 1, '2018-03-16', '12.00'),
-(44, 2, 1, 2, '2018-02-21', '25.00'),
-(45, 2, 2, 1, '2018-02-13', '12.00'),
-(46, 2, 3, 5, '2018-02-08', '21.00'),
-(49, 2, 4, 2, '2018-01-03', '35.00'),
-(50, 2, 10, 5, '2018-02-21', '46.00'),
-(51, 2, 11, 5, '2018-02-20', '125.00'),
-(52, 2, 1, 2, '2018-03-09', '35.00'),
-(53, 1, 2, 5, '2018-01-09', '326.00'),
-(54, 1, 3, 5, '2018-01-17', '6547.00'),
-(55, 1, 4, 2, '2018-01-11', '561.00'),
-(56, 1, 10, 5, '2018-01-18', '342.00'),
-(57, 2, 11, 5, '2018-03-21', '12.00');
+INSERT INTO `masuk` (`id`, `id_unit`, `id_sub_limbah`, `id_sumber`, `tanggal`, `jumlah`) VALUES
+(59, 2, 1, 2, '2018-02-28', '5.00'),
+(60, 2, 1, 1, '2018-03-03', '9.00'),
+(61, 1, 3, 1, '2018-03-09', '22.00'),
+(62, 1, 10, 1, '2018-03-03', '11.00'),
+(63, 2, 2, 2, '2019-01-01', '1243.00'),
+(64, 2, 2, 1, '2018-03-17', '2112.00');
 
 -- --------------------------------------------------------
 
@@ -296,7 +287,7 @@ ALTER TABLE `keluar`
   ADD UNIQUE KEY `no_dokumen` (`no_dokumen`),
   ADD KEY `id_limbah` (`id_limbah`),
   ADD KEY `id_pengangkut` (`id_pengangkut`),
-  ADD KEY `id_user` (`id_user`);
+  ADD KEY `id_unit` (`id_unit`);
 
 --
 -- Indexes for table `limbah`
@@ -313,7 +304,7 @@ ALTER TABLE `masuk`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_sumber` (`id_sumber`),
   ADD KEY `id_sub_limbah` (`id_sub_limbah`),
-  ADD KEY `id_user` (`id_user`);
+  ADD KEY `id_unit` (`id_unit`);
 
 --
 -- Indexes for table `pengangkut`
@@ -357,51 +348,61 @@ ALTER TABLE `user`
 --
 ALTER TABLE `golongan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `jenis`
 --
 ALTER TABLE `jenis`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `keluar`
 --
 ALTER TABLE `keluar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
 --
 -- AUTO_INCREMENT for table `limbah`
 --
 ALTER TABLE `limbah`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
 --
 -- AUTO_INCREMENT for table `masuk`
 --
 ALTER TABLE `masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+
 --
 -- AUTO_INCREMENT for table `pengangkut`
 --
 ALTER TABLE `pengangkut`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `sub_limbah`
 --
 ALTER TABLE `sub_limbah`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
 --
 -- AUTO_INCREMENT for table `sumber`
 --
 ALTER TABLE `sumber`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `unit`
 --
 ALTER TABLE `unit`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- Constraints for dumped tables
 --
@@ -412,7 +413,7 @@ ALTER TABLE `user`
 ALTER TABLE `keluar`
   ADD CONSTRAINT `keluar_ibfk_1` FOREIGN KEY (`id_limbah`) REFERENCES `limbah` (`id`),
   ADD CONSTRAINT `keluar_ibfk_2` FOREIGN KEY (`id_pengangkut`) REFERENCES `pengangkut` (`id`),
-  ADD CONSTRAINT `keluar_ibfk_3` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `keluar_ibfk_3` FOREIGN KEY (`id_unit`) REFERENCES `unit` (`id`);
 
 --
 -- Constraints for table `limbah`
@@ -427,7 +428,7 @@ ALTER TABLE `limbah`
 ALTER TABLE `masuk`
   ADD CONSTRAINT `masuk_ibfk_2` FOREIGN KEY (`id_sumber`) REFERENCES `sumber` (`id`),
   ADD CONSTRAINT `masuk_ibfk_3` FOREIGN KEY (`id_sub_limbah`) REFERENCES `sub_limbah` (`id`),
-  ADD CONSTRAINT `masuk_ibfk_4` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `masuk_ibfk_4` FOREIGN KEY (`id_unit`) REFERENCES `unit` (`id`);
 
 --
 -- Constraints for table `sub_limbah`
@@ -440,6 +441,7 @@ ALTER TABLE `sub_limbah`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_unit`) REFERENCES `unit` (`id`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
