@@ -1,4 +1,4 @@
-<?php 
+ <?php 
 // var_dump($data['versi_borang']);
 // exit();
 if ($this->session->id_unit != null) {
@@ -66,6 +66,10 @@ if ($this->session->id_unit != null) {
       </thead>
       <tbody>
         <?php
+        $jumlah_sisa_limbah_bulan_sebelumnya = 0;
+        $jumlah_limbah_masuk_bulan_ini = 0;
+        $jumlah_limbah_lalu_bulan_ini = 0;
+        $jumlah_sisa_limbah_di_tps = 0;
         foreach ($data['limbah'] as $item) {
           $limbah = $item->limbah;
           $tanggal = $data['tahun'] . '-' . str_pad($data['bulan'],2,"0",STR_PAD_LEFT) . '-' . '01';
@@ -77,6 +81,12 @@ if ($this->session->id_unit != null) {
           $sisa = $lalu + $masuk - $keluar;
           $sumber = $masuk == 0 ? '-' : $this->m_neraca->ambil_masuk_dari_limbah($id_unit, $item->id)->sumber;
           $pengangkut = $keluar == 0 ? '-' : $this->m_neraca->ambil_keluar_dari_limbah($id_unit, $item->id)->pengangkut;
+
+          $jumlah_sisa_limbah_bulan_sebelumnya += $lalu;
+          $jumlah_limbah_masuk_bulan_ini += $masuk;
+          $jumlah_limbah_lalu_bulan_ini += $keluar;
+          $jumlah_sisa_limbah_di_tps += $sisa;
+
           ?>
           <tr>
             <td><?php echo $limbah; ?></td>
@@ -90,6 +100,13 @@ if ($this->session->id_unit != null) {
           <?php
         }
         ?>
+        <tr>
+          <td colspan="2" style="text-align: right;"><b>Total</b></td>
+          <td><b><?php echo $jumlah_sisa_limbah_bulan_sebelumnya; ?></b></td>
+          <td><b><?php echo $jumlah_limbah_masuk_bulan_ini; ?></b></td>
+          <td><b><?php echo $jumlah_limbah_lalu_bulan_ini; ?></b></td>
+          <td><b><?php echo $jumlah_sisa_limbah_di_tps; ?></b></td>
+        </tr>
       </tbody>
       
     </table>
