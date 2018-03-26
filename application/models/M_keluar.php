@@ -17,6 +17,18 @@ class M_keluar extends CI_Model{
 		return $row;
 	}
 
+	function ambil_limbah_keluar_semuasemua($b1, $b2, $thn){
+		$sql = "SELECT *, k.id id_keluar
+				FROM keluar k, limbah l, pengangkut p
+				WHERE k.id_limbah = l.id
+				AND k.id_pengangkut = p.id
+				AND month(tanggal) BETWEEN ? AND ?
+				AND year(tanggal) = ?";
+		$query = $this->db->query($sql, array($b1, $b2, $thn));
+		$row = $query->result();
+		return $row;
+	}
+
 	function ambil_limbah(){
 		$sql = "SELECT *
 				FROM limbah";
