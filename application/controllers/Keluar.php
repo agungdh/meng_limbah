@@ -211,12 +211,12 @@ class Keluar extends CI_Controller {
 			$a++;
 		}
 
-		$filename='DATA LIMBAH KELUAR.xls'; 
+		$filename='DATA LIMBAH KELUAR.xlsx'; 
 		header('Content-Type: application/vnd.ms-excel'); 
 		header('Content-Disposition: attachment;filename="'.$filename.'"'); 
 		header('Cache-Control: max-age=0'); 
 		
-		$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');  
+		$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel2007');  
 		
 		$objWriter->save('php://output');
 	}
