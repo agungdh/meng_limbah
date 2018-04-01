@@ -45,7 +45,7 @@ if ($this->session->id_unit != null) {
     <div class="form-group">
        <div class="pull-right">
           <form method="get" action="<?php base_url('keluar'); ?>">
-          Bulan <input value="<?php echo $data['bulan']; ?>" type="number" min="1" max="12" required name="bulan">
+          Triwulan <input value="<?php echo $data['triwulan']; ?>" type="number" min="1" max="12" required name="triwulan">
           Tahun <input value="<?php echo $data['tahun']; ?>" type="number" min="1900" max="2900" required name="tahun">
           <input type="submit" name="submit" value="Submit">
         </form>
@@ -57,9 +57,9 @@ if ($this->session->id_unit != null) {
         <tr>
           <th>Limbah</th>
           <th>Sumber</th>
-          <th>Jumlah (KG) Sisa Limbah Bulan Sebelumnya</th>
-          <th>Jumlah (KG) Limbah Masuk Bulan Ini</th>
-          <th>Jumlah (KG) Limbah Keluar Bulan Ini</th>
+          <th>Jumlah (KG) Sisa Limbah Triwulan Sebelumnya</th>
+          <th>Jumlah (KG) Limbah Masuk Triwulan Ini</th>
+          <th>Jumlah (KG) Limbah Keluar Triwulan Ini</th>
           <th>Jumlah (KG) Sisa Limbah di TPS</th>
           <th>Tujuan Penyerahan Limbah</th>
         </tr>
@@ -72,12 +72,12 @@ if ($this->session->id_unit != null) {
         $jumlah_sisa_limbah_di_tps = 0;
         foreach ($data['limbah'] as $item) {
           $limbah = $item->limbah;
-          $tanggal = $data['tahun'] . '-' . str_pad($data['bulan'],2,"0",STR_PAD_LEFT) . '-' . '01';
-          $lalu1 = $this->m_neraca->ambil_jumlah_masuk_dari_limbah_lalu($id_unit, $item->id, $tanggal)->total != null ? $this->m_neraca->ambil_jumlah_masuk_dari_limbah_lalu($id_unit, $item->id, $tanggal)->total : 0;
-          $lalu2 = $this->m_neraca->ambil_jumlah_keluar_dari_limbah_lalu($id_unit, $item->id, $tanggal)->total != null ? $this->m_neraca->ambil_jumlah_keluar_dari_limbah_lalu($id_unit, $item->id, $tanggal)->total : 0;
+          // $tanggal = $data['tahun'] . '-' . str_pad($data['bulan'],2,"0",STR_PAD_LEFT) . '-' . '01';
+          $lalu1 = $this->m_neraca->ambil_jumlah_masuk_dari_limbah_lalu($id_unit, $item->id, $data['awal_akhir_triwulan'][0], $data['awal_akhir_triwulan'][1], $data['tahun'])->total != null ? $this->m_neraca->ambil_jumlah_masuk_dari_limbah_lalu($id_unit, $item->id, $data['awal_akhir_triwulan'][0], $data['awal_akhir_triwulan'][1], $data['tahun'])->total : 0;
+          $lalu2 = $this->m_neraca->ambil_jumlah_keluar_dari_limbah_lalu($id_unit, $item->id, $data['awal_akhir_triwulan'][0], $data['awal_akhir_triwulan'][1], $data['tahun'])->total != null ? $this->m_neraca->ambil_jumlah_keluar_dari_limbah_lalu($id_unit, $item->id, $data['awal_akhir_triwulan'][0], $data['awal_akhir_triwulan'][1], $data['tahun'])->total : 0;
           $lalu = $lalu1 - $lalu2;
-          $masuk = $this->m_neraca->ambil_jumlah_masuk_dari_limbah($id_unit, $item->id, $data['bulan'], $data['tahun'])->total != null ? $this->m_neraca->ambil_jumlah_masuk_dari_limbah($id_unit, $item->id, $data['bulan'], $data['tahun'])->total : 0;
-          $keluar = $this->m_neraca->ambil_jumlah_keluar_dari_limbah($id_unit, $item->id, $data['bulan'], $data['tahun'])->total != null ? $this->m_neraca->ambil_jumlah_keluar_dari_limbah($id_unit, $item->id, $data['bulan'], $data['tahun'])->total : 0;
+          $masuk = $this->m_neraca->ambil_jumlah_masuk_dari_limbah($id_unit, $item->id, $data['awal_akhir_triwulan'][0], $data['awal_akhir_triwulan'][1], $data['tahun'])->total != null ? $this->m_neraca->ambil_jumlah_masuk_dari_limbah($id_unit, $item->id, $data['awal_akhir_triwulan'][0], $data['awal_akhir_triwulan'][1], $data['tahun'])->total : 0;
+          $keluar = $this->m_neraca->ambil_jumlah_keluar_dari_limbah($id_unit, $item->id, $data['awal_akhir_triwulan'][0], $data['awal_akhir_triwulan'][1], $data['tahun'])->total != null ? $this->m_neraca->ambil_jumlah_keluar_dari_limbah($id_unit, $item->id, $data['awal_akhir_triwulan'][0], $data['awal_akhir_triwulan'][1], $data['tahun'])->total : 0;
           $sisa = $lalu + $masuk - $keluar;
           $sumber = $masuk == 0 ? '-' : $this->m_neraca->ambil_masuk_dari_limbah($id_unit, $item->id)->sumber;
           $pengangkut = $keluar == 0 ? '-' : $this->m_neraca->ambil_keluar_dari_limbah($id_unit, $item->id)->pengangkut;

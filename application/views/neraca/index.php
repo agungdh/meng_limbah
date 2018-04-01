@@ -57,9 +57,9 @@ if ($this->session->id_unit != null) {
         <tr>
           <th>Limbah</th>
           <th>Sumber</th>
-          <th>Jumlah (KG) Sisa Limbah Bulan Sebelumnya</th>
-          <th>Jumlah (KG) Limbah Masuk Bulan Ini</th>
-          <th>Jumlah (KG) Limbah Keluar Bulan Ini</th>
+          <th>Jumlah (KG) Sisa Limbah Triwulan Sebelumnya</th>
+          <th>Jumlah (KG) Limbah Masuk Triwulan Ini</th>
+          <th>Jumlah (KG) Limbah Keluar Triwulan Ini</th>
           <th>Jumlah (KG) Sisa Limbah di TPS</th>
           <th>Tujuan Penyerahan Limbah</th>
         </tr>
