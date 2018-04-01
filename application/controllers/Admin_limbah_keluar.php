@@ -49,13 +49,14 @@ class Admin_limbah_keluar extends CI_Controller {
 		$this->load->view("template/template", $data);
 	}
 
-	function export() {
-		
+
+	function export($id_unit) {
+		$unit = $this->db->get_where('unit', array('id' => $id_unit))->row()->unit;
 		$data['data']['triwulan'] = $this->input->get('triwulan');
 		$data['data']['awal_akhir_triwulan'] = $this->pustaka->ambil_awal_dan_akhir_triwulan($this->input->get('triwulan'));
 		$data['data']['tahun'] = $this->input->get('tahun');
 
-		$data['data']['keluar'] = $this->m_keluar->ambil_limbah_keluar($this->session->id, $data['data']['awal_akhir_triwulan'][0], $data['data']['awal_akhir_triwulan'][1], $data['data']['tahun']);
+		$data['data']['keluar'] = $this->m_keluar->ambil_limbah_keluar($id_unit, $data['data']['awal_akhir_triwulan'][0], $data['data']['awal_akhir_triwulan'][1], $data['data']['tahun']);
 
 		switch ($data['data']['triwulan']) {
 			case 1:
@@ -81,8 +82,6 @@ class Admin_limbah_keluar extends CI_Controller {
 
 		$this->load->library('excel');
 		
-		$objDrawing = new PHPExcel_Worksheet_Drawing();
-
 		$this->excel->setActiveSheetIndex(0);
 		
 		$this->excel->getActiveSheet()->setTitle('Sheet 1');
@@ -93,7 +92,7 @@ class Admin_limbah_keluar extends CI_Controller {
 		$this->excel->getActiveSheet()->mergeCells('A1:G1');
 		$this->excel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
-		$this->excel->getActiveSheet()->setCellValue('A2', 'UNIT ' . strtoupper($this->session->unit));
+		$this->excel->getActiveSheet()->setCellValue('A2', 'UNIT ' . strtoupper($unit));
 		$this->excel->getActiveSheet()->getStyle('A2')->getFont()->setSize(20);
 		$this->excel->getActiveSheet()->getStyle('A2')->getFont()->setBold(true);
 		$this->excel->getActiveSheet()->mergeCells('A2:G2');
@@ -120,6 +119,7 @@ class Admin_limbah_keluar extends CI_Controller {
 			$this->excel->getActiveSheet()->setCellValue('C' . $a, $item->limbah);
 			
 			if (file_exists('uploads/keluar/' . $item->id_keluar)) {
+				$objDrawing = new PHPExcel_Worksheet_Drawing();
 				$objDrawing->setPath('uploads/keluar/' . $item->id_keluar);
 				$objDrawing->setCoordinates('D' . $a);                      
 				$objDrawing->setWidth(100); 
@@ -135,12 +135,12 @@ class Admin_limbah_keluar extends CI_Controller {
 			$a++;
 		}
 
-		$filename='DATA LIMBAH KELUAR.xls'; 
+		$filename='DATA LIMBAH KELUAR.xlsx'; 
 		header('Content-Type: application/vnd.ms-excel'); 
 		header('Content-Disposition: attachment;filename="'.$filename.'"'); 
 		header('Cache-Control: max-age=0'); 
 		
-		$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');  
+		$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel2007');  
 		
 		$objWriter->save('php://output');
 	}

@@ -29,7 +29,7 @@
                 </div>
                 <br/>
       
-      <a href='<?php echo base_url("masuk/export?triwulan=" . $data['triwulan'] . '&tahun=' . $data['tahun']); ?>'><button class="btn btn-primary"><i class="fa fa-upload"></i> Export Limbah</button></a>
+      <a href='<?php echo base_url("admin_limbah_masuk/export/" . $data["unit_id"] . "?triwulan=" . $data['triwulan'] . '&tahun=' . $data['tahun']); ?>'><button class="btn btn-primary"><i class="fa fa-upload"></i> Export Limbah</button></a>
     </div>
   </div><!-- /.box-header -->
 
