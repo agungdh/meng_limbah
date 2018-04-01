@@ -29,7 +29,7 @@
            </center>
          </div>
        </div><br/>
-      <a href='<?php echo base_url("export/neraca"); ?>'><button class="btn btn-primary"><i class="fa fa-upload"></i> Export Neraca</button></a>
+      <a href='<?php echo base_url("admin_neraca/export_semuasemua?triwulan=" . $data['triwulan'] . '&tahun=' . $data['tahun']); ?>'><button class="btn btn-primary"><i class="fa fa-upload"></i> Export Neraca</button></a>
     </div>
   </div><!-- /.box-header -->
 
