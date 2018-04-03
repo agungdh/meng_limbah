@@ -36,8 +36,7 @@
       <tbody>
         <?php
         foreach ($data['user'] as $item) {
-          $unit = $this->m_user->ambil_unit_dari_id_user($item->id) == null ? null : $this->m_user->ambil_unit_dari_id_user($item->id)->nama;
-          switch ($item->level) {
+        switch ($item->level) {
             case 1:
              $level = "Administrator";
               break;
@@ -54,11 +53,12 @@
              $level = "ERROR !!!";
               break;
           }
+          
           ?>
           <tr>
             <th><?php echo $item->username; ?></th>
             <th><?php echo $level; ?></th>
-            <th><?php echo $unit; ?></th>
+            <th><?php echo $item->level == 2 ? $this->db->get_where('unit', array('id' => $item->id_unit))->row()->unit : null; ?></th>
               <th>
                 <a class="btn btn-info" href="<?php echo base_url('user/ubah/'.$item->id) ?>"><i class="fa fa-pencil"></i> </a>
                 <a class="btn btn-danger" onclick="hapus('<?php echo $item->id; ?>')"><i class="fa fa-trash"></i> </a>
