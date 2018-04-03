@@ -16,13 +16,14 @@ class User extends CI_Controller {
 
 	function tambah() {
 		$data['isi'] = "user/tambah";
-		$data['data']['user'] = $this->m_user->ambil_user();
+		$data['data']['unit'] = $this->m_user->ambil_unit();
 
 		$this->load->view("template/template", $data);	
 	}
 
 	function aksi_tambah() {
 		$this->m_user->tambah_user(
+			$this->input->post('nama'),
 			$this->input->post('username'),
 			hash('sha512', $this->input->post('password')),
 			$this->input->post('level'),

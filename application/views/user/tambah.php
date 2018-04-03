@@ -8,6 +8,11 @@
     <div class="box-body">
 
     <div class="form-group">
+      <label for="nama">Nama</label>
+          <input required type="text" class="form-control" id="nama" placeholder="Isi Nama" name="nama">          
+    </div>
+
+    <div class="form-group">
       <label for="username">Username</label>
           <input required type="text" class="form-control" id="username" placeholder="Isi Username" name="username">          
     </div>
@@ -22,7 +27,7 @@
           <select id="level" class="form-control select2" name="level">
             <option value="1">Administrator</option>
             <option value="2">Operator</option>
-            <option value="3">Supervisor</option>
+            <!-- <option value="3">Supervisor</option> -->
           </select>          
     </div>
 
@@ -50,6 +55,7 @@
 
 <script type="text/javascript">
 $(function () {
+  cek_level();
   $('.select2').select2()
 });
 
@@ -58,7 +64,7 @@ $("#level").change(function(){
 });
 
 function cek_level() {
-  if ($("#level").val() == 3) {
+  if ($("#level").val() == 2) {
     status_unit(true);
   } else {
     status_unit(false);

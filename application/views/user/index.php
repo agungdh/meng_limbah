@@ -26,6 +26,7 @@
     <table id="lookup" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
       <thead>
         <tr>
+                    <th>NAMA</th>
                     <th>USERNAME</th>
                     <th>LEVEL</th>
                     <th>UNIT</th>
@@ -45,9 +46,9 @@
              $level = "Operator";
               break;
             
-            case 3:
-             $level = "Supervisor";
-              break;
+            // case 3:
+            //  $level = "Supervisor";
+            //   break;
             
             default:
              $level = "ERROR !!!";
@@ -56,6 +57,7 @@
           
           ?>
           <tr>
+            <th><?php echo $item->nama; ?></th>
             <th><?php echo $item->username; ?></th>
             <th><?php echo $level; ?></th>
             <th><?php echo $item->level == 2 ? $this->db->get_where('unit', array('id' => $item->id_unit))->row()->unit : null; ?></th>
