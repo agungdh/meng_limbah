@@ -49,6 +49,7 @@
       <thead>
         <tr>
           <th>No</th>
+          <th>Unit</th>
           <th>Limbah</th>
           <th>Foto</th>
           <th>Tanggal Masuk</th>
@@ -91,6 +92,7 @@
             ?>
             <tr>
               <td><?php echo $i; ?></td>
+              <td><?php echo $this->db->get_where('unit', array('id' => $item2->id_unit))->row()->unit; ?></td>
               <td><?php echo $sub_limbah; ?></td>
               <td><img src="<?php echo base_url('uploads/masuk/' . $item2->id_masuk); ?>" style="height: 100px; width: 100px;"></td>
               <td><?php echo $this->pustaka->tanggal_indo_string($item2->tanggal); ?></td>
@@ -101,7 +103,7 @@
           }
           ?>
           <tr>
-            <td colspan="5" style="text-align: right;"><b>Total</b></td>
+            <td colspan="6" style="text-align: right;"><b>Total</b></td>
             <td><b><?php echo $jumlah; ?></b></td>
           </tr>
         <?php
@@ -110,7 +112,7 @@
       }
       ?>
       <tr>
-        <td colspan="5" style="text-align: right;"><b>Grand Total</b></td>
+        <td colspan="6" style="text-align: right;"><b>Grand Total</b></td>
         <td><b><?php echo $grandtotal; ?></b></td>
       </tr>
       </tbody>

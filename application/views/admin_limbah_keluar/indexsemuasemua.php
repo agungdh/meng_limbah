@@ -49,6 +49,7 @@
       <thead>
         <tr>
           <th>Tanggal Keluar</th>
+          <th>Unit</th>
           <th>Limbah</th>
           <th>Foto</th>
           <th>Jumlah (KG)</th>
@@ -64,6 +65,7 @@
           ?>
           <tr>
             <td><?php echo $this->pustaka->tanggal_indo_string($item->tanggal); ?></td>
+            <td><?php echo $this->db->get_where('unit', array('id' => $item->id_unit))->row()->unit; ?></td>
             <td><?php echo $item->limbah; ?></td>
             <td><img src="<?php echo base_url('uploads/keluar/' . $item->id_keluar); ?>" height="100px" width="100px"></td>
             <td><?php echo $item->jumlah; ?></td>
@@ -74,7 +76,7 @@
         }
         ?>
         <tr>
-          <td colspan="3" style="text-align: right;"><b>Total</b></td>
+          <td colspan="4" style="text-align: right;"><b>Total</b></td>
           <td><b><?php echo $jumlah; ?></b></td>
         </tr>
       </tbody>
