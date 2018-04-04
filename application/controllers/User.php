@@ -36,8 +36,19 @@ class User extends CI_Controller {
 	function ubah($id_user) {
 		$data['isi'] = "user/ubah";
 		$data['data']['user'] = $this->m_user->ambil_user_id($id_user);
+		$data['data']['unit'] = $this->m_user->ambil_unit();
 
 		$this->load->view("template/template", $data);
+	}
+
+	function aksi_ubah() {
+		foreach ($this->input->post('data') as $key => $value) {
+			$data[$key] = $value;
+		}
+		$where['id'] = $this->input->post('id');
+		$this->db->update('user', $data, $where);
+
+		redirect(base_url('user'));
 	}
 
 	function aksi_ubah_password() {

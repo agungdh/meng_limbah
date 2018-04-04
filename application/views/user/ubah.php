@@ -4,36 +4,44 @@
   </div><!-- /.box-header -->
 
   <!-- form start -->
-  <form name="form" id="form" role="form" method="post" action="<?php echo base_url('user/aksi_tambah'); ?>">
+  <form name="form" id="form" role="form" method="post" action="<?php echo base_url('user/aksi_ubah'); ?>">
     <div class="box-body">
+
+      <input type="hidden" name="id" value="<?php echo $data['user']->id; ?>">
 
     <div class="form-group">
       <label for="nama">Nama</label>
-          <input value="<?php echo $data['user']->nama; ?>" required type="text" class="form-control" id="nama" placeholder="Isi Nama" name="nama">          
+          <input value="<?php echo $data['user']->nama; ?>" required type="text" class="form-control" id="nama" placeholder="Isi Nama" name="data[nama]">          
     </div>
 
     <div class="form-group">
       <label for="username">Username</label>
-          <input value="<?php echo $data['user']->username; ?>" required type="text" class="form-control" id="username" placeholder="Isi Username" name="username">          
+          <input value="<?php echo $data['user']->username; ?>" required type="text" class="form-control" id="username" placeholder="Isi Username" name="data[username]">          
     </div>
 
     <div class="form-group">
       <label for="level">Level</label>
-          <select id="level" class="form-control select2" name="level">
-            <option value="1">Administrator</option>
-            <option value="2">Operator</option>
+          <select id="level" class="form-control select2" name="data[level]">
+            <option <?php echo $data['user']->level == 1 ? "selected" : null ?> value="1">Administrator</option>
+            <option <?php echo $data['user']->level == 2 ? "selected" : null ?> value="2">Operator</option>
             <!-- <option value="3">Supervisor</option> -->
           </select>          
     </div>
 
     <div class="form-group">
       <label for="unit">Unit</label>
-          <select id="unit" class="form-control select2" name="unit">
+          <select id="unit" class="form-control select2" name="data[id_unit]">
             <?php
             foreach ($data['unit'] as $item) {
-              ?>
-              <option value="<?php echo $item->id; ?>"><?php echo $item->unit; ?></option>
-              <?php
+              if ($item->id == $data['user']->id_unit) {
+                ?>
+                <option selected value="<?php echo $item->id; ?>"><?php echo $item->unit; ?></option>
+                <?php
+              } else {
+                ?>
+                <option value="<?php echo $item->id; ?>"><?php echo $item->unit; ?></option>
+                <?php
+              }
             }
             ?>
           </select>          
@@ -81,7 +89,7 @@
 <script type="text/javascript">
 // ubah user
 $(function () {
-  cek_level();
+  cek_level_ubah();
   $('.select2').select2()
 });
 
@@ -92,6 +100,14 @@ $("#level").change(function(){
 function cek_level() {
   if ($("#level").val() == 2) {
     status_unit(true);
+  } else {
+    status_unit(false);
+  }
+}
+
+function cek_level_ubah() {
+  if ($("#level").val() == 2) {
+    // status_unit(true);
   } else {
     status_unit(false);
   }
