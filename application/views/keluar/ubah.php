@@ -3,7 +3,7 @@
     <h4><strong><font color=blue>UBAH LIMBAH KELUAR</font></strong></h4> </div><!-- /.box-header -->
 
   <!-- form start -->
-  <form name="form" id="form" role="form" method="post" action="<?php echo base_url('keluar/aksi_ubah'); ?>"> <div class="box-body">
+  <form name="form" id="form" role="form" method="post" action="<?php echo base_url('keluar/aksi_ubah'); ?>" enctype="multipart/form-data"> <div class="box-body">
 
     <input type="hidden" name="id" value="<?php echo $data['keluar']->id; ?>">
 
@@ -24,6 +24,13 @@
             }
             ?>
           </select>          
+    </div>
+
+    <div class="form-group">
+      <label for="foto">Foto</label>
+          <br>
+          <img src="<?php echo base_url('uploads/keluar/' . $data['keluar']->id); ?>" height="150" width="150">
+          <input type="file" name="foto">          
     </div>
 
     <div class="form-group">

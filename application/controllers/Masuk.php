@@ -72,6 +72,9 @@ class Masuk extends CI_Controller {
 
 		$triwulan = $this->pustaka->ambil_triwulan_dari_tanggal($this->input->post('tanggal'));
 		$tahun = date('Y', strtotime($this->input->post('tanggal')));
+
+		move_uploaded_file($_FILES['foto']['tmp_name'], 'uploads/masuk/' . $this->input->post('id'));
+
 		redirect(base_url('masuk?tahun=' . $tahun . '&triwulan=' . $triwulan));
 	}
 
