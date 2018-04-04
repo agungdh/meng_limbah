@@ -51,6 +51,7 @@ class Admin_limbah_keluar extends CI_Controller {
 
 
 	function export($id_unit) {
+		$jumlah = 0;
 		$unit = $this->db->get_where('unit', array('id' => $id_unit))->row()->unit;
 		$data['data']['triwulan'] = $this->input->get('triwulan');
 		$data['data']['awal_akhir_triwulan'] = $this->pustaka->ambil_awal_dan_akhir_triwulan($this->input->get('triwulan'));
@@ -133,7 +134,12 @@ class Admin_limbah_keluar extends CI_Controller {
 
 			$i++;
 			$a++;
+			$jumlah += $item->jumlah;
 		}
+		$this->excel->getActiveSheet()->setCellValue('A' . $a, 'Total');
+		$this->excel->getActiveSheet()->mergeCells('A' . $a . ':D' . $a);
+		$this->excel->getActiveSheet()->getStyle('A' . $a)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+		$this->excel->getActiveSheet()->setCellValue('E' . $a, $jumlah);
 
 		$filename='DATA LIMBAH KELUAR.xlsx'; 
 		header('Content-Type: application/vnd.ms-excel'); 
@@ -146,6 +152,7 @@ class Admin_limbah_keluar extends CI_Controller {
 	}
 
 	function export_semuasemua() {
+		$jumlah = 0;
 		$data['data']['triwulan'] = $this->input->get('triwulan');
 		$data['data']['awal_akhir_triwulan'] = $this->pustaka->ambil_awal_dan_akhir_triwulan($this->input->get('triwulan'));
 		$data['data']['tahun'] = $this->input->get('tahun');
@@ -183,45 +190,53 @@ class Admin_limbah_keluar extends CI_Controller {
 		$this->excel->getActiveSheet()->setCellValue('A1', 'DATA LIMBAH B3 YANG KELUAR DARI TPS');
 		$this->excel->getActiveSheet()->getStyle('A1')->getFont()->setSize(20);
 		$this->excel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
-		$this->excel->getActiveSheet()->mergeCells('A1:G1');
+		$this->excel->getActiveSheet()->mergeCells('A1:H1');
 		$this->excel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 		 
 		$this->excel->getActiveSheet()->setCellValue('A2', 'TRIWULAN-' . $triwulan . ' TAHUN ' . $data['data']['tahun']);
 		$this->excel->getActiveSheet()->getStyle('A2')->getFont()->setSize(15);
-		$this->excel->getActiveSheet()->mergeCells('A2:G2');
+		$this->excel->getActiveSheet()->mergeCells('A2:H2');
 		$this->excel->getActiveSheet()->getStyle('A2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 		 
 		$this->excel->getActiveSheet()->setCellValue('A4', 'NO');
 		$this->excel->getActiveSheet()->setCellValue('B4', 'TANGGAL KELUAR');
-		$this->excel->getActiveSheet()->setCellValue('C4', 'LIMBAH');
-		$this->excel->getActiveSheet()->setCellValue('D4', 'FOTO');
-		$this->excel->getActiveSheet()->setCellValue('E4', 'JUMLAH (KG)');
-		$this->excel->getActiveSheet()->setCellValue('F4', 'TUJUAN PENYERAHAN');
-		$this->excel->getActiveSheet()->setCellValue('G4', 'NO DOKUMEN');
+		$this->excel->getActiveSheet()->setCellValue('C4', 'UNIT');
+		$this->excel->getActiveSheet()->setCellValue('D4', 'LIMBAH');
+		$this->excel->getActiveSheet()->setCellValue('E4', 'FOTO');
+		$this->excel->getActiveSheet()->setCellValue('F4', 'JUMLAH (KG)');
+		$this->excel->getActiveSheet()->setCellValue('G4', 'TUJUAN PENYERAHAN');
+		$this->excel->getActiveSheet()->setCellValue('H4', 'NO DOKUMEN');
 
 		$i = 1;
 		$a = 5;
 		foreach ($data['data']['keluar'] as $item) {
 			$this->excel->getActiveSheet()->setCellValue('A' . $a, $i);
 			$this->excel->getActiveSheet()->setCellValue('B' . $a, $this->pustaka->tanggal_indo_string($item->tanggal));
-			$this->excel->getActiveSheet()->setCellValue('C' . $a, $item->limbah);
+			$this->excel->getActiveSheet()->setCellValue('C' . $a, $this->db->get_where('unit', array('id' => $item->id_unit))->row()->unit);
+			$this->excel->getActiveSheet()->setCellValue('D' . $a, $item->limbah);
 			
 			if (file_exists('uploads/keluar/' . $item->id_keluar)) {
 				$objDrawing = new PHPExcel_Worksheet_Drawing();
 				$objDrawing->setPath('uploads/keluar/' . $item->id_keluar);
-				$objDrawing->setCoordinates('D' . $a);                      
+				$objDrawing->setCoordinates('E' . $a);                      
 				$objDrawing->setWidth(100); 
 				$objDrawing->setHeight(35); 
 				$objDrawing->setWorksheet($this->excel->getActiveSheet());
 			}
 
-			$this->excel->getActiveSheet()->setCellValue('E' . $a, $item->jumlah);
-			$this->excel->getActiveSheet()->setCellValue('F' . $a, $item->pengangkut);
-			$this->excel->getActiveSheet()->setCellValue('G' . $a, $item->no_dokumen);
+			$this->excel->getActiveSheet()->setCellValue('F' . $a, $item->jumlah);
+			$this->excel->getActiveSheet()->setCellValue('G' . $a, $item->pengangkut);
+			$this->excel->getActiveSheet()->setCellValue('H' . $a, $item->no_dokumen);
 
 			$i++;
 			$a++;
+
+			$jumlah += $item->jumlah;
 		}
+		$this->excel->getActiveSheet()->setCellValue('A' . $a, 'Total');
+		$this->excel->getActiveSheet()->mergeCells('A' . $a . ':E' . $a);
+		$this->excel->getActiveSheet()->getStyle('A' . $a)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+		$this->excel->getActiveSheet()->setCellValue('F' . $a, $jumlah);
 
 		$filename='DATA LIMBAH KELUAR.xlsx'; 
 		header('Content-Type: application/vnd.ms-excel'); 

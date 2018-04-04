@@ -167,6 +167,7 @@ class Admin_limbah_masuk extends CI_Controller {
 			}
 			$this->excel->getActiveSheet()->setCellValue('A' . $a, 'Total');
 			$this->excel->getActiveSheet()->mergeCells('A' . $a . ':E' . $a);
+			$this->excel->getActiveSheet()->getStyle('A' . $a)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
 
 			$this->excel->getActiveSheet()->setCellValue('F' . $a, $jumlah);
 
@@ -225,20 +226,21 @@ class Admin_limbah_masuk extends CI_Controller {
 		$this->excel->getActiveSheet()->setCellValue('A1', 'DATA LIMBAH B3 YANG MASUK DARI TPS');
 		$this->excel->getActiveSheet()->getStyle('A1')->getFont()->setSize(20);
 		$this->excel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
-		$this->excel->getActiveSheet()->mergeCells('A1:F1');
+		$this->excel->getActiveSheet()->mergeCells('A1:G1');
 		$this->excel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 		 
 		$this->excel->getActiveSheet()->setCellValue('A2', 'TRIWULAN-' . $triwulan . ' TAHUN ' . $data['data']['tahun']);
 		$this->excel->getActiveSheet()->getStyle('A2')->getFont()->setSize(15);
-		$this->excel->getActiveSheet()->mergeCells('A2:F2');
+		$this->excel->getActiveSheet()->mergeCells('A2:G2');
 		$this->excel->getActiveSheet()->getStyle('A2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 		 
 		$this->excel->getActiveSheet()->setCellValue('A4', 'NO');
-		$this->excel->getActiveSheet()->setCellValue('B4', 'LIMBAH');
-		$this->excel->getActiveSheet()->setCellValue('C4', 'FOTO');
-		$this->excel->getActiveSheet()->setCellValue('D4', 'TANGGAL MASUK');
-		$this->excel->getActiveSheet()->setCellValue('E4', 'SUMBER');
-		$this->excel->getActiveSheet()->setCellValue('F4', 'JUMLAH (KG)');;
+		$this->excel->getActiveSheet()->setCellValue('B4', 'UNIT');
+		$this->excel->getActiveSheet()->setCellValue('C4', 'LIMBAH');
+		$this->excel->getActiveSheet()->setCellValue('D4', 'FOTO');
+		$this->excel->getActiveSheet()->setCellValue('E4', 'TANGGAL MASUK');
+		$this->excel->getActiveSheet()->setCellValue('F4', 'SUMBER');
+		$this->excel->getActiveSheet()->setCellValue('G4', 'JUMLAH (KG)');;
 
 		$a = 5;
 
@@ -247,7 +249,7 @@ class Admin_limbah_masuk extends CI_Controller {
 
 		foreach ($data['data']['masuk'] as $item) {
 			$this->excel->getActiveSheet()->setCellValue('A' . $a, $item->limbah);
-			$this->excel->getActiveSheet()->mergeCells('A' . $a . ':F' . $a);
+			$this->excel->getActiveSheet()->mergeCells('A' . $a . ':G' . $a);
 
 			$a++;
 
@@ -276,29 +278,31 @@ class Admin_limbah_masuk extends CI_Controller {
 	            }
 
 				$this->excel->getActiveSheet()->setCellValue('A' . $a, $i);
-				$this->excel->getActiveSheet()->setCellValue('B' . $a, $sub_limbah);
+				$this->excel->getActiveSheet()->setCellValue('B' . $a, $this->db->get_where('unit', array('id' => $item2->id_unit))->row()->unit);
+				$this->excel->getActiveSheet()->setCellValue('C' . $a, $sub_limbah);
 				
 				if (file_exists('uploads/masuk/' . $item2->id_masuk)) {
 					$objDrawing = new PHPExcel_Worksheet_Drawing();
 					$objDrawing->setPath('uploads/masuk/' . $item2->id_masuk);
-					$objDrawing->setCoordinates('C' . $a);                      
+					$objDrawing->setCoordinates('D' . $a);                      
 					$objDrawing->setWidth(100); 
 					$objDrawing->setHeight(35); 
 					$objDrawing->setWorksheet($this->excel->getActiveSheet());
 				}
 
-				$this->excel->getActiveSheet()->setCellValue('D' . $a, $this->pustaka->tanggal_indo_string($item2->tanggal));
-				$this->excel->getActiveSheet()->setCellValue('E' . $a, $item2->sumber);
-				$this->excel->getActiveSheet()->setCellValue('F' . $a, $item_jumlah);
+				$this->excel->getActiveSheet()->setCellValue('E' . $a, $this->pustaka->tanggal_indo_string($item2->tanggal));
+				$this->excel->getActiveSheet()->setCellValue('F' . $a, $item2->sumber);
+				$this->excel->getActiveSheet()->setCellValue('G' . $a, $item_jumlah);
 
 				$i++;
 				$a++;
 
 			}
 			$this->excel->getActiveSheet()->setCellValue('A' . $a, 'Total');
-			$this->excel->getActiveSheet()->mergeCells('A' . $a . ':E' . $a);
+			$this->excel->getActiveSheet()->mergeCells('A' . $a . ':F' . $a);
+			$this->excel->getActiveSheet()->getStyle('A' . $a)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
 
-			$this->excel->getActiveSheet()->setCellValue('F' . $a, $jumlah);
+			$this->excel->getActiveSheet()->setCellValue('G' . $a, $jumlah);
 
 			$grandtotal += $jumlah;
     		$jumlah = 0;
