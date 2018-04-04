@@ -48,7 +48,38 @@
   </form>
 </div><!-- /.box -->
 
+<div class="box box-primary">
+  <div class="box-header with-border">
+    <h4><strong><font color=blue>UBAH PASSWORD</font></strong></h4>
+  </div><!-- /.box-header -->
+
+  <!-- form start -->
+  <form name="form" id="form_ubah_password" role="form" method="post" action="<?php echo base_url('user/aksi_ubah_password'); ?>">
+    <div class="box-body">
+
+    <input type="hidden" name="id" value="<?php echo $data['user']->id; ?>">
+
+    <div class="form-group">
+      <label for="password">Password</label>
+          <input required type="password" class="form-control" id="password" placeholder="Isi Password" name="password">          
+    </div>
+
+    <div class="form-group">
+      <label for="password_lagi">Password Lagi</label>
+          <input required type="password" class="form-control" id="password_lagi" placeholder="Isi Password Lagi" name="password_lagi">          
+    </div>
+
+    </div><!-- /.box-body -->
+
+    <div class="box-footer">
+      <font class="btn btn-success" onclick="ubah_password()" type="submit">Ubah Password</font>
+      <a href="<?php echo base_url('user'); ?>" class="btn btn-info">Batal</a>
+    </div>
+  </form>
+</div><!-- /.box -->
+
 <script type="text/javascript">
+// ubah user
 $(function () {
   cek_level();
   $('.select2').select2()
@@ -74,5 +105,20 @@ function status_unit(status) {
     $("#unit").prop('disabled', true);
     $("#unit").val(null).change();
   }
+}
+
+// ganti password
+function ubah_password() {
+  if ($("#password").val() == "" || $("#password_lagi").val() == "") {
+    alert('Password masih kosong !!!');
+    return false;
+  }
+
+  if ($("#password").val() != $("#password_lagi").val()) {
+    alert('Password tidak sama !!!');
+    return false;
+  }
+
+  $("#form_ubah_password").submit();
 }
 </script>
