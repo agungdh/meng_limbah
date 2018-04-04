@@ -40,7 +40,7 @@ class User extends CI_Controller {
 		$this->load->view("template/template", $data);
 	}
 
-	function aksi_ubah() {
+	function aksi_ubah_password() {
 		$this->m_user->ubah_user(
 			hash("sha512", $this->input->post('password')),
 			$this->input->post('id')
