@@ -105,23 +105,23 @@ class Neraca extends CI_Controller {
         $jumlah_limbah_masuk_bulan_ini = 0;
         $jumlah_limbah_lalu_bulan_ini = 0;
         $jumlah_sisa_limbah_di_tps = 0;
+        
+        foreach ($data['limbah'] as $item) {
+          $limbah = $item->limbah;
+          // $tanggal = $data['tahun'] . '-' . str_pad($data['bulan'],2,"0",STR_PAD_LEFT) . '-' . '01';
+          $lalu1 = $this->m_neraca->ambil_jumlah_masuk_dari_limbah_lalu($id_unit, $item->id, $data['awal_akhir_triwulan'][0], $data['tahun'])->total != null ? $this->m_neraca->ambil_jumlah_masuk_dari_limbah_lalu($id_unit, $item->id, $data['awal_akhir_triwulan'][0], $data['tahun'])->total : 0;
+          $lalu2 = $this->m_neraca->ambil_jumlah_keluar_dari_limbah_lalu($id_unit, $item->id, $data['awal_akhir_triwulan'][0], $data['tahun'])->total != null ? $this->m_neraca->ambil_jumlah_keluar_dari_limbah_lalu($id_unit, $item->id, $data['awal_akhir_triwulan'][0], $data['tahun'])->total : 0;
+          $lalu = $lalu1 - $lalu2;
+          $masuk = $this->m_neraca->ambil_jumlah_masuk_dari_limbah($id_unit, $item->id, $data['awal_akhir_triwulan'][0], $data['awal_akhir_triwulan'][1], $data['tahun'])->total != null ? $this->m_neraca->ambil_jumlah_masuk_dari_limbah($id_unit, $item->id, $data['awal_akhir_triwulan'][0], $data['awal_akhir_triwulan'][1], $data['tahun'])->total : 0;
+          $keluar = $this->m_neraca->ambil_jumlah_keluar_dari_limbah($id_unit, $item->id, $data['awal_akhir_triwulan'][0], $data['awal_akhir_triwulan'][1], $data['tahun'])->total != null ? $this->m_neraca->ambil_jumlah_keluar_dari_limbah($id_unit, $item->id, $data['awal_akhir_triwulan'][0], $data['awal_akhir_triwulan'][1], $data['tahun'])->total : 0;
+          $sisa = $lalu + $masuk - $keluar;
+          $sumber = $masuk == 0 ? '-' : $this->m_neraca->ambil_masuk_dari_limbah($id_unit, $item->id)->sumber;
+          $pengangkut = $keluar == 0 ? '-' : $this->m_neraca->ambil_keluar_dari_limbah($id_unit, $item->id)->pengangkut;
 
-		foreach ($data['limbah'] as $item) {
-			$limbah = $item->limbah;
-			// $tanggal = $data['tahun'] . '-' . str_pad($data['bulan'],2,"0",STR_PAD_LEFT) . '-' . '01';
-			$lalu1 = $this->m_neraca->ambil_jumlah_masuk_dari_limbah_lalu($id_unit, $item->id, $data['awal_akhir_triwulan'][0], $data['awal_akhir_triwulan'][1], $data['tahun'])->total != null ? $this->m_neraca->ambil_jumlah_masuk_dari_limbah_lalu($id_unit, $item->id, $data['awal_akhir_triwulan'][0], $data['awal_akhir_triwulan'][1], $data['tahun'])->total : 0;
-			$lalu2 = $this->m_neraca->ambil_jumlah_keluar_dari_limbah_lalu($id_unit, $item->id, $data['awal_akhir_triwulan'][0], $data['awal_akhir_triwulan'][1], $data['tahun'])->total != null ? $this->m_neraca->ambil_jumlah_keluar_dari_limbah_lalu($id_unit, $item->id, $data['awal_akhir_triwulan'][0], $data['awal_akhir_triwulan'][1], $data['tahun'])->total : 0;
-			$lalu = $lalu1 - $lalu2;
-			$masuk = $this->m_neraca->ambil_jumlah_masuk_dari_limbah($id_unit, $item->id, $data['awal_akhir_triwulan'][0], $data['awal_akhir_triwulan'][1], $data['tahun'])->total != null ? $this->m_neraca->ambil_jumlah_masuk_dari_limbah($id_unit, $item->id, $data['awal_akhir_triwulan'][0], $data['awal_akhir_triwulan'][1], $data['tahun'])->total : 0;
-			$keluar = $this->m_neraca->ambil_jumlah_keluar_dari_limbah($id_unit, $item->id, $data['awal_akhir_triwulan'][0], $data['awal_akhir_triwulan'][1], $data['tahun'])->total != null ? $this->m_neraca->ambil_jumlah_keluar_dari_limbah($id_unit, $item->id, $data['awal_akhir_triwulan'][0], $data['awal_akhir_triwulan'][1], $data['tahun'])->total : 0;
-			$sisa = $lalu + $masuk - $keluar;
-			$sumber = $masuk == 0 ? '-' : $this->m_neraca->ambil_masuk_dari_limbah($id_unit, $item->id)->sumber;
-			$pengangkut = $keluar == 0 ? '-' : $this->m_neraca->ambil_keluar_dari_limbah($id_unit, $item->id)->pengangkut;
-
-			$jumlah_sisa_limbah_bulan_sebelumnya += $lalu;
-			$jumlah_limbah_masuk_bulan_ini += $masuk;
-			$jumlah_limbah_lalu_bulan_ini += $keluar;
-			$jumlah_sisa_limbah_di_tps += $sisa;
+          $jumlah_sisa_limbah_bulan_sebelumnya += $lalu;
+          $jumlah_limbah_masuk_bulan_ini += $masuk;
+          $jumlah_limbah_lalu_bulan_ini += $keluar;
+          $jumlah_sisa_limbah_di_tps += $sisa;
 
 			$this->excel->getActiveSheet()->setCellValue('A' . $a, $i);
 			$this->excel->getActiveSheet()->setCellValue('B' . $a, $limbah);
