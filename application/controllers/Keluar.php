@@ -127,7 +127,7 @@ class Keluar extends CI_Controller {
 	}
 
 	function export() {
-		
+		$jumlah = 0;
 		$data['data']['triwulan'] = $this->input->get('triwulan');
 		$data['data']['awal_akhir_triwulan'] = $this->pustaka->ambil_awal_dan_akhir_triwulan($this->input->get('triwulan'));
 		$data['data']['tahun'] = $this->input->get('tahun');
@@ -209,7 +209,12 @@ class Keluar extends CI_Controller {
 
 			$i++;
 			$a++;
+			$jumlah += $item->jumlah;
 		}
+		$this->excel->getActiveSheet()->setCellValue('A' . $a, 'Total');
+		$this->excel->getActiveSheet()->mergeCells('A' . $a . ':D' . $a);
+		$this->excel->getActiveSheet()->getStyle('A' . $a)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+		$this->excel->getActiveSheet()->setCellValue('E' . $a, $jumlah);
 
 		$filename='DATA LIMBAH KELUAR.xlsx'; 
 		header('Content-Type: application/vnd.ms-excel'); 

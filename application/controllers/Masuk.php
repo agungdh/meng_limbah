@@ -241,6 +241,7 @@ class Masuk extends CI_Controller {
 			}
 			$this->excel->getActiveSheet()->setCellValue('A' . $a, 'Total');
 			$this->excel->getActiveSheet()->mergeCells('A' . $a . ':E' . $a);
+			$this->excel->getActiveSheet()->getStyle('A' . $a)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
 
 			$this->excel->getActiveSheet()->setCellValue('F' . $a, $jumlah);
 
