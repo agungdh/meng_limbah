@@ -94,7 +94,7 @@
               <td><?php echo $i; ?></td>
               <td><?php echo $this->db->get_where('unit', array('id' => $item2->id_unit))->row()->unit; ?></td>
               <td><?php echo $sub_limbah; ?></td>
-              <td><img src="<?php echo base_url('uploads/masuk/' . $item2->id_masuk); ?>" style="height: 100px; width: 100px;"></td>
+              <td><img src="<?php echo file_exists('uploads/masuk/' . $item2->id_masuk) ? base_url('uploads/masuk/' . $item2->id_masuk) : base_url('assets/no-images.jpg'); ?>" style="height: 100px; width: 100px;"></td>
               <td><?php echo $this->pustaka->tanggal_indo_string($item2->tanggal); ?></td>
               <td><?php echo $item2->sumber; ?></td>
               <td><?php echo $item_jumlah; ?></td>
