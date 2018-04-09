@@ -30,6 +30,7 @@ class Test extends CI_Controller {
 			</thead>
 			<tbody>
 				<?php
+					// $this->db->where('id', 12);
 					foreach ($this->db->get('limbah')->result() as $item) {
 						?>
 						<tr>
@@ -57,14 +58,16 @@ class Test extends CI_Controller {
 							<td><?php echo $jumlah_masuk . " - " . $jumlah_keluar . " = " . $jumlah; ?></td>
 							<?php
 							if ($jumlah != 0) {
-								$hari_dibuang = "a";
-								$jumlah_dibuang = "b";
+								$data = $this->index($id_unit, $item->id);
+								// var_dump($data->tanggal_deadline_dibuang); exit();
+								$tanggal_deadline_dibuang = $data->tanggal_deadline_dibuang;
+								$sisa_hari = $data->sisa_hari;
 							} else {
-								$hari_dibuang = $jumlah_dibuang = '-';
+								$tanggal_deadline_dibuang = $sisa_hari = '-';
 							}
 							?>
-							<td><?php echo $hari_dibuang; ?></td>
-							<td><?php echo $jumlah_dibuang; ?></td>
+							<td><?php echo $sisa_hari; ?></td>
+							<td><?php echo $tanggal_deadline_dibuang; ?></td>
 						</tr>
 						<?php
 					}
@@ -87,20 +90,20 @@ class Test extends CI_Controller {
 		$i = 0;
 		$total_atas = 0;
 		foreach ($db as $item) {
-			$this->paragraf_awal();
+			// $this->paragraf_awal();
 
-			echo "Keluar";
-			$this->ganti_baris();
-			echo $item->id;
-			$this->ganti_baris();
-			echo $item->tanggal;
-			$this->ganti_baris();
-			echo $item->jumlah;
-			$this->ganti_baris();
+			// echo "Keluar";
+			// $this->ganti_baris();
+			// echo $item->id;
+			// $this->ganti_baris();
+			// echo $item->tanggal;
+			// $this->ganti_baris();
+			// echo $item->jumlah;
+			// $this->ganti_baris();
 
-			$this->paragraf_akhir();
+			// $this->paragraf_akhir();
 
-			$this->paragraf_awal();
+			// $this->paragraf_awal();
 			$where['tanggal <='] = $item->tanggal;
 			if ($i > 0) {
 				$where['tanggal >'] = $tanggal;
@@ -112,22 +115,22 @@ class Test extends CI_Controller {
 			$this->db->order_by('tanggal', 'desc');
 			$jumlah_masuk = 0;
 			foreach ($this->db->get('v_masuk_id_limbah')->result() as $item2) {
-				echo "Masuk";
-				$this->ganti_baris();
-				echo $item2->id;
-				$this->ganti_baris();
-				echo $item2->tanggal;
-				$this->ganti_baris();
-				echo $item2->jumlah;
-				$this->ganti_baris();				
+				// echo "Masuk";
+				// $this->ganti_baris();
+				// echo $item2->id;
+				// $this->ganti_baris();
+				// echo $item2->tanggal;
+				// $this->ganti_baris();
+				// echo $item2->jumlah;
+				// $this->ganti_baris();				
 				$jumlah_masuk += $item2->jumlah;
 				$tanggal_dibuang = $item2->tanggal;
 			}
-			$this->paragraf_akhir();
+			// $this->paragraf_akhir();
 			
 			$total = $total_atas + $jumlah_masuk - $item->jumlah;
 			$jumlah_dibuang = $total;
-			echo $total_atas . ' + ' . $jumlah_masuk . ' - ' . $item->jumlah . ' = ' . $total;
+			// echo $total_atas . ' + ' . $jumlah_masuk . ' - ' . $item->jumlah . ' = ' . $total;
 			$total_atas = $total;
 
 			if ($total != 0) {
@@ -135,7 +138,7 @@ class Test extends CI_Controller {
 				break;
 			} 
 
-			$this->buat_garis();
+			// $this->buat_garis();
 
 			$tanggal = $item->tanggal;
 			$i++;
@@ -143,42 +146,53 @@ class Test extends CI_Controller {
 		if ($stop != 1) {
 			$where['id_unit'] = $id_unit;
 			$where['id_limbah'] = $id_limbah;
-			$where['tanggal >'] = $tanggal;
+			if (isset($tanggal)) {
+				$where['tanggal >'] = $tanggal;
+			}
 			$this->db->where($where);
 			unset($where);
 			$this->db->order_by('tanggal', 'desc');
 			$jumlah_masuk = 0;
 			foreach ($this->db->get('v_masuk_id_limbah')->result() as $item2) {
-				echo "Masuk";
-				$this->ganti_baris();
-				echo $item2->id;
-				$this->ganti_baris();
-				echo $item2->tanggal;
-				$this->ganti_baris();
-				echo $item2->jumlah;
-				$this->ganti_baris();				
+				// echo "Masuk";
+				// $this->ganti_baris();
+				// echo $item2->id;
+				// $this->ganti_baris();
+				// echo $item2->tanggal;
+				// $this->ganti_baris();
+				// echo $item2->jumlah;
+				// $this->ganti_baris();				
 				$jumlah_masuk += $item2->jumlah;
 				$tanggal_dibuang = $item2->tanggal;
 			}
-			$this->paragraf_akhir();
+			// $this->paragraf_akhir();
 			
 			$total = $total_atas + $jumlah_masuk;
 			$jumlah_dibuang = $total;
-			echo $total_atas  . ' + ' . $jumlah_masuk . ' = ' . $total;
+			// echo $total_atas  . ' + ' . $jumlah_masuk . ' = ' . $total;
 
-			$this->buat_garis();			
+			// $this->buat_garis();			
 		}
 
 		$tanggal_dibuang = date('Y-m-d', strtotime($tanggal_dibuang));
 		$tanggal_deadline_dibuang = date('Y-m-d', strtotime($tanggal_dibuang . " +" . $this->db->get_where('golongan', array('id' => $this->db->get_where('limbah', array('id' => $id_limbah))->row()->id_golongan))->row()->masa_berlaku_hari . " days"));
 		$sisa_hari = $this->pustaka->IntervalDays(date('Y-m-d'), $tanggal_deadline_dibuang);
-		$this->paragraf_awal();
-		echo 'Tanggal Dibuang = ' . $tanggal_dibuang;
-		$this->ganti_baris();
-		echo 'Tanggal Deadline Dibuang = ' . $tanggal_deadline_dibuang;
-		$this->ganti_baris();
-		echo 'Sisa Hari = ' . $sisa_hari;
-		$this->paragraf_akhir();
+		// $this->paragraf_awal();
+		// echo 'Tanggal Dibuang = ' . $tanggal_dibuang;
+		// $this->ganti_baris();
+		// echo 'Tanggal Deadline Dibuang = ' . $tanggal_deadline_dibuang;
+		// $this->ganti_baris();
+		// echo 'Sisa Hari = ' . $sisa_hari;
+		// $this->paragraf_akhir();
+		$data = new stdClass();
+		$data->tanggal_dibuang = $tanggal_dibuang;
+		$data->tanggal_deadline_dibuang = $tanggal_deadline_dibuang;
+		$data->sisa_hari = $sisa_hari;
+		// var_dump($data);
+		// foreach ($data as $key => $value) {
+		// 	echo '<p>' . $key . ' = ' . $value . '</p>';
+		// }
+		return $data;
 	}
 
 	function paragraf_awal() {
