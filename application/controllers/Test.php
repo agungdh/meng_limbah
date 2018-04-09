@@ -149,7 +149,8 @@ class Test extends CI_Controller {
 		}
 		$this->paragraf_akhir();
 		
-		echo $jumlah_masuk;
+		$total = $total_atas + $jumlah_masuk;
+		echo $total_atas  . ' + ' . $jumlah_masuk . ' = ' . $total;
 
 		$this->buat_garis();
 	}
