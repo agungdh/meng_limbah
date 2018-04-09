@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Test extends CI_Controller {
 	function __construct(){
 		parent::__construct();
+		$this->load->library('pustaka');
 	}
 
 	function test1($id_unit){
@@ -23,8 +24,8 @@ class Test extends CI_Controller {
 					<th colspan="2">Harus Dibuang</th>
 				</tr>
 				<tr>
-					<th>Hari</th>
-					<th>Jumlah</th>
+					<th>Sisa Hari</th>
+					<th>Tanggal</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -168,10 +169,15 @@ class Test extends CI_Controller {
 			$this->buat_garis();			
 		}
 
+		$tanggal_dibuang = date('Y-m-d', strtotime($tanggal_dibuang));
+		$tanggal_deadline_dibuang = date('Y-m-d', strtotime($tanggal_dibuang . " +" . $this->db->get_where('golongan', array('id' => $this->db->get_where('limbah', array('id' => $id_limbah))->row()->id_golongan))->row()->masa_berlaku_hari . " days"));
+		$sisa_hari = $this->pustaka->IntervalDays(date('Y-m-d'), $tanggal_deadline_dibuang);
 		$this->paragraf_awal();
 		echo 'Tanggal Dibuang = ' . $tanggal_dibuang;
 		$this->ganti_baris();
-		echo 'Jumlah Dibuang = ' . $jumlah_dibuang;
+		echo 'Tanggal Deadline Dibuang = ' . $tanggal_deadline_dibuang;
+		$this->ganti_baris();
+		echo 'Sisa Hari = ' . $sisa_hari;
 		$this->paragraf_akhir();
 	}
 
@@ -190,5 +196,4 @@ class Test extends CI_Controller {
 	function buat_garis() {
 		echo "<hr>";
 	}
-
 }
