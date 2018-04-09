@@ -33,41 +33,52 @@ class Test extends CI_Controller {
 					// $this->db->where('id', 12);
 					foreach ($this->db->get('limbah')->result() as $item) {
 						?>
-						<tr>
-							<td><?php echo $item->limbah; ?></td>
-							<?php
-							//masuk
-							$this->db->select_sum('jumlah');
-							$where['id_unit'] = $id_unit;
-							$where['id_limbah'] = $item->id;
-							$this->db->where($where);
-							$jumlah_masuk = $this->db->get('v_masuk_id_limbah')->row()->jumlah ?: 0;
-							unset($where);
+						<?php
+						//masuk
+						$this->db->select_sum('jumlah');
+						$where['id_unit'] = $id_unit;
+						$where['id_limbah'] = $item->id;
+						$this->db->where($where);
+						$jumlah_masuk = $this->db->get('v_masuk_id_limbah')->row()->jumlah ?: 0;
+						unset($where);
 
-							//keluar
-							$this->db->select_sum('jumlah');
-							$where['id_unit'] = $id_unit;
-							$where['id_limbah'] = $item->id;
-							$this->db->where($where);
-							$jumlah_keluar = $this->db->get('keluar')->row()->jumlah ?: 0;
-							unset($where);							
+						//keluar
+						$this->db->select_sum('jumlah');
+						$where['id_unit'] = $id_unit;
+						$where['id_limbah'] = $item->id;
+						$this->db->where($where);
+						$jumlah_keluar = $this->db->get('keluar')->row()->jumlah ?: 0;
+						unset($where);							
 
-							//jumlah
-							$jumlah = $jumlah_masuk - $jumlah_keluar;
-							?>
-							<td><?php echo $jumlah_masuk . " - " . $jumlah_keluar . " = " . $jumlah; ?></td>
-							<?php
-							if ($jumlah != 0) {
-								$data = $this->index($id_unit, $item->id);
-								// var_dump($data->tanggal_deadline_dibuang); exit();
-								$tanggal_deadline_dibuang = $data->tanggal_deadline_dibuang;
-								$sisa_hari = $data->sisa_hari;
+						//jumlah
+						$jumlah = $jumlah_masuk - $jumlah_keluar;
+						$sisa_hari = null;
+						if ($jumlah != 0) {
+							$data = $this->index($id_unit, $item->id);
+							// var_dump($data->tanggal_deadline_dibuang); exit();
+							$tanggal_deadline_dibuang = $data->tanggal_deadline_dibuang;
+							$sisa_hari = $data->sisa_hari;
+						} else {
+							$tanggal_deadline_dibuang = $sisa_hari = null;
+						}
+						// var_dump($sisa_hari);
+						if ($sisa_hari != null) {
+							if ($sisa_hari < 1) {
+								$color = "#ff0000";
+							} elseif ($sisa_hari <= 90) {
+								$color = "#ff8e38";
 							} else {
-								$tanggal_deadline_dibuang = $sisa_hari = '-';
-							}
-							?>
-							<td><?php echo $sisa_hari; ?></td>
-							<td><?php echo $tanggal_deadline_dibuang; ?></td>
+								$color = null;
+							}							
+						} else {
+							$color = null;
+						}
+						?>
+						<tr bgcolor="<?php echo $color; ?>">
+							<td><?php echo $item->limbah; ?></td>
+							<td><?php echo $jumlah_masuk . " - " . $jumlah_keluar . " = " . $jumlah; ?></td>
+							<td><?php echo $sisa_hari ?: '-'; ?></td>
+							<td><?php echo $tanggal_deadline_dibuang ?: '-'; ?></td>
 						</tr>
 						<?php
 					}
