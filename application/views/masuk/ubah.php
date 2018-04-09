@@ -31,7 +31,7 @@
     <div class="form-group">
       <label for="foto">Foto</label>
           <br>
-          <img src="<?php echo base_url('uploads/masuk/' . $data['masuk']->id); ?>" height="150" width="150">
+          <img src="<?php echo file_exists('uploads/masuk/' . $data['masuk']->id) ? base_url('uploads/masuk/' . $data['masuk']->id) : base_url('assets/no-images.jpg'); ?>" height="150" width="150">
           <input type="file" name="foto">          
     </div>
 
