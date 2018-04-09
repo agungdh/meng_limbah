@@ -56,8 +56,8 @@ class Test extends CI_Controller {
 							<td><?php echo $jumlah_masuk . " - " . $jumlah_keluar . " = " . $jumlah; ?></td>
 							<?php
 							if ($jumlah != 0) {
-								?>
-								<?php
+								$hari_dibuang = "a";
+								$jumlah_dibuang = "b";
 							} else {
 								$hari_dibuang = $jumlah_dibuang = '-';
 							}
@@ -75,10 +75,12 @@ class Test extends CI_Controller {
 		<?php
 	}
 
-	function index($id_unit) {
+	function index($id_unit, $id_limbah) {
 		$where['id_unit'] = $id_unit;
+		$where['id_limbah'] = $id_limbah;
 		$this->db->where($where);
 		$this->db->order_by('tanggal', 'asc');
+		unset($where);
 		$db = $this->db->get('keluar')->result();
 		foreach ($db as $item) {
 			$this->paragraf_awal();
@@ -93,22 +95,24 @@ class Test extends CI_Controller {
 			$this->paragraf_akhir();
 
 			$this->paragraf_awal();
-			$where['tanggal <='] = $item->tanggal;
+			// $where['tanggal <='] = $item->tanggal;
+			$where['id_unit'] = $id_unit;
+			$where['id_limbah'] = $id_limbah;
 			$this->db->where($where);
-			$jumlah = 0;
-			foreach ($this->db->get('masuk')->result() as $item2) {
+			$jumlah_masuk = 0;
+			foreach ($this->db->get('v_masuk_id_limbah')->result() as $item2) {
 				echo $item2->id;
 				$this->ganti_baris();
 				echo $item2->tanggal;
 				$this->ganti_baris();
 				echo $item2->jumlah;
 				$this->ganti_baris();				
-				$jumlah += $item2->jumlah;
+				$jumlah_masuk += $item2->jumlah;
 			}
 			$this->paragraf_akhir();
 			
-			$total = $jumlah - $item->jumlah;
-			echo $jumlah . ' - ' . $item->jumlah . ' = ' . $total;
+			$total = $jumlah_masuk - $item->jumlah;
+			echo $jumlah_masuk . ' - ' . $item->jumlah . ' = ' . $total;
 
 			$this->buat_garis();
 		}
