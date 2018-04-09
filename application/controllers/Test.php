@@ -82,9 +82,13 @@ class Test extends CI_Controller {
 		$this->db->order_by('tanggal', 'asc');
 		unset($where);
 		$db = $this->db->get('keluar')->result();
+		$i = 0;
+		$total_atas = 0;
 		foreach ($db as $item) {
 			$this->paragraf_awal();
 
+			echo "Keluar";
+			$this->ganti_baris();
 			echo $item->id;
 			$this->ganti_baris();
 			echo $item->tanggal;
@@ -95,12 +99,18 @@ class Test extends CI_Controller {
 			$this->paragraf_akhir();
 
 			$this->paragraf_awal();
-			// $where['tanggal <='] = $item->tanggal;
+			$where['tanggal <='] = $item->tanggal;
+			if ($i > 0) {
+				$where['tanggal >'] = $tanggal;
+			}
 			$where['id_unit'] = $id_unit;
 			$where['id_limbah'] = $id_limbah;
 			$this->db->where($where);
+			unset($where);
 			$jumlah_masuk = 0;
 			foreach ($this->db->get('v_masuk_id_limbah')->result() as $item2) {
+				echo "Masuk";
+				$this->ganti_baris();
 				echo $item2->id;
 				$this->ganti_baris();
 				echo $item2->tanggal;
@@ -111,11 +121,37 @@ class Test extends CI_Controller {
 			}
 			$this->paragraf_akhir();
 			
-			$total = $jumlah_masuk - $item->jumlah;
-			echo $jumlah_masuk . ' - ' . $item->jumlah . ' = ' . $total;
+			$total = $total_atas + $jumlah_masuk - $item->jumlah;
+			echo $total_atas . ' + ' . $jumlah_masuk . ' - ' . $item->jumlah . ' = ' . $total;
+			$total_atas = $total;
 
 			$this->buat_garis();
+
+			$tanggal = $item->tanggal;
+			$i++;
 		}
+		$where['id_unit'] = $id_unit;
+		$where['id_limbah'] = $id_limbah;
+		$where['tanggal >'] = $tanggal;
+		$this->db->where($where);
+		unset($where);
+		$jumlah_masuk = 0;
+		foreach ($this->db->get('v_masuk_id_limbah')->result() as $item2) {
+			echo "Masuk";
+			$this->ganti_baris();
+			echo $item2->id;
+			$this->ganti_baris();
+			echo $item2->tanggal;
+			$this->ganti_baris();
+			echo $item2->jumlah;
+			$this->ganti_baris();				
+			$jumlah_masuk += $item2->jumlah;
+		}
+		$this->paragraf_akhir();
+		
+		echo $jumlah_masuk;
+
+		$this->buat_garis();
 	}
 
 	function paragraf_awal() {
