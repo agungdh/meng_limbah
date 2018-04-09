@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="<?php echo base_url() . "assets/"; ?>plugins/datatables/dataTables.bootstrap.css">
     <link rel="stylesheet" href="<?php echo base_url() . "assets/"; ?>plugins/datatables/dataTables.responsive.css">
     <link rel="stylesheet" href="<?php echo base_url() . "assets/"; ?>plugins/select2/select2.min.css">
+    <link rel="stylesheet" href="<?php echo base_url() . "assets/"; ?>swal/swal.css">
     
     <!-- jQuery 2.1.4 -->
     <script type="text/javascript" language="javascript" src="<?php echo base_url() . "assets/"; ?>plugins/jQuery/jQuery-2.1.4.min.js"></script>
@@ -38,6 +39,7 @@
     <script type="text/javascript" language="javascript" src="<?php echo base_url() . "assets/"; ?>plugins/datatables/dataTables.responsive.js"></script>
     <script type="text/javascript" language="javascript" src="<?php echo base_url() . "assets/"; ?>plugins/select2/select2.full.min.js"></script>
     <script type="text/javascript" language="javascript" src="<?php echo base_url() . "assets/"; ?>plugins/chartjs/Chart.bundle.js"></script>
+    <script type="text/javascript" language="javascript" src="<?php echo base_url() . "assets/"; ?>swal/swal.js"></script>
     
     <!-- Bootstrap 3.3.5 -->
     <script type="text/javascript" language="javascript" src="<?php echo base_url() . "assets/"; ?>bootstrap/js/bootstrap.min.js"></script>
