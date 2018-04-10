@@ -109,11 +109,19 @@
         </span>
 	</a>
 	<ul class="treeview-menu">
-        <li><a href="<?php echo base_url("admin_neraca/semuasemua"); ?>"><i class="fa fa-building text-aqua"></i> Semua Unit</a></li>
         <?php
         foreach ($this->db->get('unit')->result() as $item) {
             ?>
-            <li><a href="<?php echo base_url("admin_neraca/index/" . $item->id); ?>"><i class="fa fa-building text-aqua"></i> <?php echo $item->unit; ?></a></li>
+            <li>
+                <a href="<?php echo base_url("admin_neraca/index/" . $item->id); ?>">
+                    <i class="fa fa-building text-aqua"></i>
+                    <span><?php echo $item->unit; ?></span>
+                    <span class="pull-right-container">
+                      <small class="label pull-right bg-red"><div id="reminder_danger_<?php echo $item->id; ?>"></div></small>
+                      <small class="label pull-right bg-orange"><div id="reminder_warning_<?php echo $item->id; ?>"></div></small>
+                    </span>
+                </a>
+            </li>
             <?php
         }
         ?>
