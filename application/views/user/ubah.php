@@ -126,12 +126,12 @@ function status_unit(status) {
 // ganti password
 function ubah_password() {
   if ($("#password").val() == "" || $("#password_lagi").val() == "") {
-    alert('Password masih kosong !!!');
+    swal("ERROR!!!", "Password masih kosong !!!", "error");
     return false;
   }
 
   if ($("#password").val() != $("#password_lagi").val()) {
-    alert('Password tidak sama !!!');
+    swal("ERROR!!!", "Password tidak sama !!!", "error");
     return false;
   }
 

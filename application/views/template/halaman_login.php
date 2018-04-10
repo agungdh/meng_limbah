@@ -50,7 +50,7 @@
 if ($this->input->get('error') == '1') {
   ?>
     <script type="text/javascript">
-      alert("Password salah");
+      swal("ERROR!!!", "Password salah !!!", "error");
     </script>
   <?php
 }
