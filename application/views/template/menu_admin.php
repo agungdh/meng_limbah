@@ -81,9 +81,29 @@
 </li>
 
 <li>
+    <a href="<?php echo base_url("neraca"); ?>">
+        <i class="fa fa-balance-scale text-aqua"></i>
+        <span>Data Neraca Limbah</span>
+        <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+        </span>
+    </a>
+    <ul class="treeview-menu">
+        <li><a href="<?php echo base_url("admin_neraca/semuasemua"); ?>"><i class="fa fa-building text-aqua"></i> Semua Unit</a></li>
+        <?php
+        foreach ($this->db->get('unit')->result() as $item) {
+            ?>
+            <li><a href="<?php echo base_url("admin_neraca/index/" . $item->id); ?>"><i class="fa fa-building text-aqua"></i> <?php echo $item->unit; ?></a></li>
+            <?php
+        }
+        ?>
+    </ul>
+</li>
+
+<li>
 	<a href="<?php echo base_url("neraca"); ?>">
 		<i class="fa fa-balance-scale text-aqua"></i>
-		<span>Data Neraca Limbah</span>
+		<span>Data Rekap Limbah</span>
 		<span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
         </span>

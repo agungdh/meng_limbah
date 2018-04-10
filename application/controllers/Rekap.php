@@ -7,9 +7,16 @@ class Rekap extends CI_Controller {
 		$this->load->library('pustaka');
 	}
 
-	function data($id_unit) {
+	function admin($id_unit) {
 		$data['isi'] = "rekap/index";
 		$data['data']['rekap'] = $this->unit($id_unit);
+		// var_dump($data['data']['rekap']);
+		$this->load->view("template/template", $data);
+	}
+
+	function data() {
+		$data['isi'] = "rekap/index";
+		$data['data']['rekap'] = $this->unit($this->session->id_unit);
 		// var_dump($data['data']['rekap']);
 		$this->load->view("template/template", $data);
 	}
@@ -55,7 +62,7 @@ class Rekap extends CI_Controller {
 				$tanggal_deadline_dibuang = $sisa_hari = null;
 			}
 			// var_dump($sisa_hari);
-			if ($sisa_hari != null) {
+			if ($sisa_hari !== null) {
 				if ($sisa_hari < 1) {
 					$color = "#ff0000";
 				} elseif ($sisa_hari <= 90) {
@@ -66,9 +73,6 @@ class Rekap extends CI_Controller {
 			} else {
 				$color = null;
 			}
-
-			$sisa_hari = $sisa_hari ?: '-';
-			$tanggal_deadline_dibuang = $tanggal_deadline_dibuang ?: '-';
 
 			$objek = new stdClass();
 			$objek->limbah = $item->limbah;

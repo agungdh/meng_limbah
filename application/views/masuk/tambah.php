@@ -25,7 +25,7 @@
 
     <div class="form-group">
       <label for="tanggal">Tanggal</label>
-          <input required type="date" class="form-control" id="tanggal" placeholder="Isi Tanggal" name="tanggal">          
+          <input required value="<?php echo date('Y-m-d'); ?>" type="date" class="form-control" id="tanggal" placeholder="Isi Tanggal" name="tanggal">          
     </div>
 
       <div class="form-group">

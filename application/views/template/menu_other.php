@@ -22,7 +22,7 @@
 </li>
 
 <li>
-	<a href="<?php echo base_url("neraca"); ?>">
+	<a href="<?php echo base_url("rekap/data"); ?>">
 		<i class="fa fa-balance-scale text-aqua"></i>
 		<span>Data Rekap Limbah</span>
 		<span class="pull-right-container">

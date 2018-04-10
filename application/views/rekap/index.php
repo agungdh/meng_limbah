@@ -1,7 +1,4 @@
-<?php 
-// var_dump($data['versi_borang']);
-// exit();
-?>
+
 <script type="text/javascript" language="javascript" >
   var dTable;
   $(document).ready(function() {
@@ -13,14 +10,29 @@
 
 <div class="box box-primary">
   <div class="box-header with-border">
-    <h4><strong><font color=blue>DATA REKAP LIMBAH</font></strong></h4>
+    <div class="form-group">
+      <a class="logo" href="<?php echo base_url('assets/logo-pln.png') ?>"></a>
+                
+                <div class="body">
+                  <div class="col-md-2">
+                  <center>
+                    <img src="<?php echo base_url('assets/logo-pln.png') ?>" style="height: 150px; width: 100px;">  
+                  </center>
+                  </div>
+
+                  <div class="col-md-8" >
+                    <center>
+                      <h3><strong><font color=blue>DATA REKAP LIMBAH B3<br>
+                      UNIT&nbsp; &nbsp; : &nbsp; <?php echo $this->session->unit; ?></h3></font></strong><br/><br>
+                    </center>
+                  </div>
+                </div>
+                <br/>
+    
+    </div>
   </div><!-- /.box-header -->
 
     <div class="box-body">
-
-    <div class="form-group">
-      
-    </div>
 
     <table id="lookup" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
       <thead>
@@ -34,38 +46,16 @@
           <th>Tanggal</th>
         </tr>
       </thead>
-
       <tbody>
         <?php
-        foreach ($data['user'] as $item) {
-        switch ($item->level) {
-            case 1:
-             $level = "Administrator";
-              break;
-            
-            case 2:
-             $level = "Operator";
-              break;
-            
-            // case 3:
-            //  $level = "Supervisor";
-            //   break;
-            
-            default:
-             $level = "ERROR !!!";
-              break;
-          }
-          
+        $jumlah = 0;
+        foreach ($data['rekap']['data'] as $item) {
           ?>
           <tr>
-            <th><?php echo $item->nama; ?></th>
-            <th><?php echo $item->username; ?></th>
-            <th><?php echo $level; ?></th>
-            <th><?php echo $item->level == 2 ? $this->db->get_where('unit', array('id' => $item->id_unit))->row()->unit : null; ?></th>
-              <th>
-                <a class="btn btn-info" href="<?php echo base_url('user/ubah/'.$item->id) ?>"><i class="fa fa-pencil"></i> </a>
-                <a class="btn btn-danger" onclick="hapus('<?php echo $item->id; ?>')"><i class="fa fa-trash"></i> </a>
-              </th>
+              <td bgcolor="<?php echo $item->color; ?>"><?php echo $item->limbah; ?></td>
+              <td bgcolor="<?php echo $item->color; ?>"><?php echo $item->jumlah; ?></td>
+              <td bgcolor="<?php echo $item->color; ?>"><?php echo $item->sisa_hari; ?></td>
+              <td bgcolor="<?php echo $item->color; ?>"><?php echo $item->tanggal_deadline_dibuang; ?></td>
           </tr>
           <?php
         }
@@ -75,20 +65,3 @@
     </table>
   </div><!-- /.boxbody -->
 </div><!-- /.box -->
-
-<script type="text/javascript">
-function hapus(id) {
-  swal({
-    title: "Are you sure?",
-    text: "You will not be able to recover this imaginary file!",
-    type: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#DD6B55",
-    confirmButtonText: "Yes, delete it!",
-    closeOnConfirm: false
-  },
-  function(){
-    window.location = "<?php echo base_url('user/aksi_hapus/'); ?>" + id;
-  });
-}
-</script>
