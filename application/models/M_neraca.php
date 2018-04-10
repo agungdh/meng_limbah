@@ -122,10 +122,18 @@ class M_neraca extends CI_Model{
 				AND m.id_sub_limbah = sl.id
 				AND sl.id_limbah = l.id
 				AND m.id_sumber = s.id
-				AND month(tanggal) < ?
-				AND year(tanggal) = ?
+				AND (
+						(
+							month(tanggal) < ?
+							AND year(tanggal) = ?
+						)
+						OR
+						(
+							year(tanggal) < ?
+						)
+				)
 				";
-		$query = $this->db->query($sql, array($id_unit, $id_limbah, $bulan_awal, $tahun));
+		$query = $this->db->query($sql, array($id_unit, $id_limbah, $bulan_awal, $tahun, $tahun));
 		$row = $query->row();
 		return $row;
 	}
@@ -137,10 +145,18 @@ class M_neraca extends CI_Model{
 				AND m.id_sub_limbah = sl.id
 				AND sl.id_limbah = l.id
 				AND m.id_sumber = s.id
-				AND month(tanggal) < ?
-				AND year(tanggal) = ?
+				AND (
+						(
+							month(tanggal) < ?
+							AND year(tanggal) = ?
+						)
+						OR
+						(
+							year(tanggal) < ?
+						)
+				)
 				";
-		$query = $this->db->query($sql, array($id_limbah, $bulan_awal, $tahun));
+		$query = $this->db->query($sql, array($id_limbah, $bulan_awal, $tahun, $tahun));
 		$row = $query->row();
 		return $row;
 	}
@@ -150,10 +166,18 @@ class M_neraca extends CI_Model{
 				FROM keluar
 				WHERE id_unit = ?
 				AND id_limbah = ?
-				AND month(tanggal) < ?
-				AND year(tanggal) = ?
+				AND (
+						(
+							month(tanggal) < ?
+							AND year(tanggal) = ?
+						)
+						OR
+						(
+							year(tanggal) < ?
+						)
+				)
 				";
-		$query = $this->db->query($sql, array($id_unit, $id_limbah, $bulan_awal, $tahun));
+		$query = $this->db->query($sql, array($id_unit, $id_limbah, $bulan_awal, $tahun, $tahun));
 		$row = $query->row();
 		return $row;
 	}
@@ -162,10 +186,18 @@ class M_neraca extends CI_Model{
 		$sql = "SELECT sum(jumlah) total
 				FROM keluar
 				WHERE id_limbah = ?
-				AND month(tanggal) < ?
-				AND year(tanggal) = ?
+				AND (
+						(
+							month(tanggal) < ?
+							AND year(tanggal) = ?
+						)
+						OR
+						(
+							year(tanggal) < ?
+						)
+				)
 				";
-		$query = $this->db->query($sql, array($id_limbah, $bulan_awal, $tahun));
+		$query = $this->db->query($sql, array($id_limbah, $bulan_awal, $tahun, $tahun));
 		$row = $query->row();
 		return $row;
 	}
