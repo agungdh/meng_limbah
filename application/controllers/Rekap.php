@@ -32,6 +32,81 @@ class Rekap extends CI_Controller {
 		// return $unit;
 	}
 
+	function unit_menu($id_unit){
+		$warning = $danger = 0;
+		foreach ($this->db->get('limbah')->result() as $item) {
+			//masuk
+			$this->db->select_sum('jumlah');
+			$where['id_unit'] = $id_unit;
+			$where['id_limbah'] = $item->id;
+			$this->db->where($where);
+			$jumlah_masuk = $this->db->get('v_masuk_id_limbah')->row()->jumlah ?: 0;
+			unset($where);
+
+			//keluar
+			$this->db->select_sum('jumlah');
+			$where['id_unit'] = $id_unit;
+			$where['id_limbah'] = $item->id;
+			$this->db->where($where);
+			$jumlah_keluar = $this->db->get('keluar')->row()->jumlah ?: 0;
+			unset($where);							
+
+			//jumlah
+			$jumlah = $jumlah_masuk - $jumlah_keluar;
+			$sisa_hari = null;
+			if ($jumlah != 0) {
+				$data = $this->index($id_unit, $item->id);
+				// var_dump($data->tanggal_deadline_dibuang); exit();
+				$tanggal_deadline_dibuang = $data->tanggal_deadline_dibuang;
+				$sisa_hari = $data->sisa_hari;
+			} else {
+				$tanggal_deadline_dibuang = $sisa_hari = null;
+			}
+			// var_dump($sisa_hari);
+			if ($sisa_hari !== null) {
+				if ($sisa_hari < 1) {
+					$color = "#ff0000";
+					$danger++;
+				} elseif ($sisa_hari <= 90) {
+					$color = "#ff8e38";
+					$warning++;
+				} else {
+					$color = null;
+				}							
+			} else {
+				$color = null;
+			}
+
+			// $objek = new stdClass();
+			// $objek->limbah = $item->limbah;
+			// $objek->color = $color;
+			// $objek->jumlah_masuk = $jumlah_masuk;
+			// $objek->jumlah_keluar = $jumlah_keluar;
+			// $objek->jumlah = $jumlah;
+			// $objek->sisa_hari = $sisa_hari;
+			// $objek->tanggal_deadline_dibuang = $tanggal_deadline_dibuang;
+
+			// $array[] = $objek;
+		}
+		// $return['id_unit'] = $id_unit;
+		// $return['data'] = $array;
+		// $this->paragraf_awal();
+		// echo 'danger = ' . $danger;
+		// $this->ganti_baris();
+		// echo 'warning = ' . $warning;
+		// $this->paragraf_akhir();
+		// echo json_encode($return);
+		// return $return;
+
+		$objek = new stdClass();
+		$objek->danger = $danger;
+		$objek->warning = $warning;
+
+		// var_dump($objek);
+		// return json_encode($objek);
+		echo json_encode($objek);
+	}
+
 	function unit($id_unit){
 		foreach ($this->db->get('limbah')->result() as $item) {
 			//masuk

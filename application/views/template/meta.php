@@ -54,8 +54,13 @@
         <?php
         foreach ($this->db->get('unit')->result() as $item) {
             ?>
-            $.post( "<?php echo base_url('rekap/unit/' . $item->id); ?>", function( data ) {
-                json_rekap[<?php echo $item->id; ?>] = JSON.parse(data);
+            $.post( "<?php echo base_url('rekap/unit_menu/' . $item->id); ?>", function( data ) {
+                var data_saat_ini = JSON.parse(data);
+                json_rekap[<?php echo $item->id; ?>] = data_saat_ini;
+                $("#reminder_warning_<?php echo $item->id; ?>").text(data_saat_ini.warning);
+                $("#reminder_danger_<?php echo $item->id; ?>").text(data_saat_ini.danger);
+                // console.log(data.warning);
+                // console.log(data.danger);
             });
             <?php
         }
