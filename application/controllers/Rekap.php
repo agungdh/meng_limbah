@@ -1,10 +1,28 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Test extends CI_Controller {
+class Rekap extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->library('pustaka');
+	}
+
+	function data($id_unit) {
+		$data['isi'] = "rekap/index";
+		$data['data']['rekap'] = $this->unit($id_unit);
+		var_dump($data['data']['rekap']);
+		// $this->load->view("template/template", $data);
+	}
+
+	function semua() {
+		foreach ($this->db->get('unit')->result() as $item) {
+			$unit[] = $this->unit($item->id);
+		}
+		// $unit[] = json_decode($this->unit(1));
+		// $unit[] = $this->unit(1);
+		// var_dump($unit);
+		// echo $unit[0];
+		return $unit;
 	}
 
 	function unit($id_unit){
@@ -63,8 +81,11 @@ class Test extends CI_Controller {
 
 			$array[] = $objek;
 		}
-		// var_dump($array);
-		echo json_encode($array);
+		$return['id_unit'] = $id_unit;
+		$return['data'] = $array;
+		var_dump($return);
+		// echo json_encode($return);
+		// return $return;
 	}
 
 	function test1($id_unit){

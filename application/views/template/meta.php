@@ -48,3 +48,16 @@
 
     <script type="text/javascript" language="javascript" src="<?php echo base_url() . "assets/"; ?>dist/js/alertmodal.js"></script>
     <script type="text/javascript" language="javascript" src="<?php echo base_url() . "assets/"; ?>dist/js/jquery.inputmask.bundle.js"></script>
+
+    <script type="text/javascript">
+        var json_rekap = [];
+        <?php
+        foreach ($this->db->get('unit')->result() as $item) {
+            ?>
+            $.post( "<?php echo base_url('rekap/unit/' . $item->id); ?>", function( data ) {
+                json_rekap[<?php echo $item->id; ?>] = JSON.parse(data);
+            });
+            <?php
+        }
+        ?>
+    </script>
