@@ -45,7 +45,7 @@ if ($this->session->id_unit != null) {
     <div class="form-group">
        <div class="pull-right">
           <form method="get" action="<?php base_url('keluar'); ?>">
-          Triwulan <input value="<?php echo $data['triwulan']; ?>" type="number" min="1" max="12" required name="triwulan">
+          Triwulan <input value="<?php echo $data['triwulan']; ?>" type="number" min="1" max="4" required name="triwulan">
           Tahun <input value="<?php echo $data['tahun']; ?>" type="number" min="1900" max="2900" required name="tahun">
           <input type="submit" name="submit" value="Submit">
         </form>
