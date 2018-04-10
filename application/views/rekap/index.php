@@ -54,8 +54,8 @@
           <tr>
               <td bgcolor="<?php echo $item->color; ?>"><?php echo $item->limbah; ?></td>
               <td bgcolor="<?php echo $item->color; ?>"><?php echo $item->jumlah; ?></td>
-              <td bgcolor="<?php echo $item->color; ?>"><?php echo $item->sisa_hari; ?></td>
-              <td bgcolor="<?php echo $item->color; ?>"><?php echo $item->tanggal_deadline_dibuang; ?></td>
+              <td bgcolor="<?php echo $item->color; ?>"><?php echo $item->sisa_hari ?: '-'; ?></td>
+              <td bgcolor="<?php echo $item->color; ?>"><?php echo $item->tanggal_deadline_dibuang ?: '-'; ?></td>
           </tr>
           <?php
         }
