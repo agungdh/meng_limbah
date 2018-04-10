@@ -7,6 +7,66 @@ class Test extends CI_Controller {
 		$this->load->library('pustaka');
 	}
 
+	function unit($id_unit){
+		foreach ($this->db->get('limbah')->result() as $item) {
+			//masuk
+			$this->db->select_sum('jumlah');
+			$where['id_unit'] = $id_unit;
+			$where['id_limbah'] = $item->id;
+			$this->db->where($where);
+			$jumlah_masuk = $this->db->get('v_masuk_id_limbah')->row()->jumlah ?: 0;
+			unset($where);
+
+			//keluar
+			$this->db->select_sum('jumlah');
+			$where['id_unit'] = $id_unit;
+			$where['id_limbah'] = $item->id;
+			$this->db->where($where);
+			$jumlah_keluar = $this->db->get('keluar')->row()->jumlah ?: 0;
+			unset($where);							
+
+			//jumlah
+			$jumlah = $jumlah_masuk - $jumlah_keluar;
+			$sisa_hari = null;
+			if ($jumlah != 0) {
+				$data = $this->index($id_unit, $item->id);
+				// var_dump($data->tanggal_deadline_dibuang); exit();
+				$tanggal_deadline_dibuang = $data->tanggal_deadline_dibuang;
+				$sisa_hari = $data->sisa_hari;
+			} else {
+				$tanggal_deadline_dibuang = $sisa_hari = null;
+			}
+			// var_dump($sisa_hari);
+			if ($sisa_hari != null) {
+				if ($sisa_hari < 1) {
+					$color = "#ff0000";
+				} elseif ($sisa_hari <= 90) {
+					$color = "#ff8e38";
+				} else {
+					$color = null;
+				}							
+			} else {
+				$color = null;
+			}
+
+			$sisa_hari = $sisa_hari ?: '-';
+			$tanggal_deadline_dibuang = $tanggal_deadline_dibuang ?: '-';
+
+			$objek = new stdClass();
+			$objek->limbah = $item->limbah;
+			$objek->color = $color;
+			$objek->jumlah_masuk = $jumlah_masuk;
+			$objek->jumlah_keluar = $jumlah_keluar;
+			$objek->jumlah = $jumlah;
+			$objek->sisa_hari = $sisa_hari;
+			$objek->tanggal_deadline_dibuang = $tanggal_deadline_dibuang;
+
+			$array[] = $objek;
+		}
+		// var_dump($array);
+		echo json_encode($array);
+	}
+
 	function test1($id_unit){
 		?>
 		<!DOCTYPE html>
