@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 25, 2018 at 10:52 AM
+-- Generation Time: Apr 10, 2018 at 05:54 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -80,15 +80,6 @@ CREATE TABLE `keluar` (
   `no_dokumen` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `keluar`
---
-
-INSERT INTO `keluar` (`id`, `id_unit`, `id_limbah`, `id_pengangkut`, `tanggal`, `jumlah`, `no_dokumen`) VALUES
-(28, 2, 15, 2, '2018-03-14', '2.00', '5'),
-(32, 1, 19, 1, '2018-03-02', '5.00', 'erd4567'),
-(33, 2, 7, 1, '2018-03-24', '22.40', 'q');
-
 -- --------------------------------------------------------
 
 --
@@ -133,18 +124,6 @@ CREATE TABLE `masuk` (
   `tanggal` date NOT NULL,
   `jumlah` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `masuk`
---
-
-INSERT INTO `masuk` (`id`, `id_unit`, `id_sub_limbah`, `id_sumber`, `tanggal`, `jumlah`) VALUES
-(59, 2, 1, 2, '2018-02-28', '5.00'),
-(60, 2, 1, 1, '2018-03-03', '9.00'),
-(61, 1, 3, 1, '2018-03-09', '22.00'),
-(62, 1, 10, 1, '2018-03-03', '11.00'),
-(63, 2, 2, 2, '2019-01-01', '1243.00'),
-(64, 2, 2, 1, '2018-03-17', '2112.00');
 
 -- --------------------------------------------------------
 
@@ -191,7 +170,8 @@ INSERT INTO `sub_limbah` (`id`, `id_limbah`, `sub_limbah`) VALUES
 (12, 15, 'Lampu TL Bekas'),
 (13, 16, 'Toner Printer Bekas'),
 (14, 18, 'Filter Oli dan Solar'),
-(15, 18, 'Filter Udara');
+(15, 18, 'Filter Udara'),
+(16, 14, 'Batu Baterai Bekas');
 
 -- --------------------------------------------------------
 
@@ -261,6 +241,36 @@ INSERT INTO `user` (`id`, `username`, `password`, `nama`, `level`, `id_unit`) VA
 (1, 'opulubelu', '74caf8996686fd050d86253e4c6aa50999c0c17119b9900fb3aa124608b6fb96941401d09027aacc14f9777fe8b2ac56892453a494ed8237fe87a6576814ff6c', 'Operator Ulubelu', 2, 1),
 (2, 'opteluk', '1290632407d72a4ac2c0d41bacca60072734a20236aff887d55ed15fe788036d0389ec867b872efe535169736d52748af25a96130a4bd48e3973210434f17e7f', 'Operator Teluk Betung', 2, 2),
 (3, 'admin', 'c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec', 'Administrator', 1, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `v_masuk_id_limbah`
+-- (See below for the actual view)
+--
+CREATE TABLE `v_masuk_id_limbah` (
+`id` int(11)
+,`id_unit` int(11)
+,`id_sub_limbah` int(11)
+,`id_sumber` int(11)
+,`tanggal` date
+,`jumlah` decimal(10,2)
+,`id_limbah` int(11)
+,`sub_limbah` varchar(255)
+,`id_jenis` int(11)
+,`id_golongan` int(11)
+,`kode` varchar(255)
+,`limbah` varchar(255)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `v_masuk_id_limbah`
+--
+DROP TABLE IF EXISTS `v_masuk_id_limbah`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_masuk_id_limbah`  AS  select `m`.`id` AS `id`,`m`.`id_unit` AS `id_unit`,`m`.`id_sub_limbah` AS `id_sub_limbah`,`m`.`id_sumber` AS `id_sumber`,`m`.`tanggal` AS `tanggal`,`m`.`jumlah` AS `jumlah`,`sl`.`id_limbah` AS `id_limbah`,`sl`.`sub_limbah` AS `sub_limbah`,`l`.`id_jenis` AS `id_jenis`,`l`.`id_golongan` AS `id_golongan`,`l`.`kode` AS `kode`,`l`.`limbah` AS `limbah` from ((`masuk` `m` join `limbah` `l`) join `sub_limbah` `sl`) where ((`m`.`id_sub_limbah` = `sl`.`id`) and (`sl`.`id_limbah` = `l`.`id`)) ;
 
 --
 -- Indexes for dumped tables
@@ -359,7 +369,7 @@ ALTER TABLE `jenis`
 -- AUTO_INCREMENT for table `keluar`
 --
 ALTER TABLE `keluar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `limbah`
@@ -371,7 +381,7 @@ ALTER TABLE `limbah`
 -- AUTO_INCREMENT for table `masuk`
 --
 ALTER TABLE `masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pengangkut`
@@ -383,7 +393,7 @@ ALTER TABLE `pengangkut`
 -- AUTO_INCREMENT for table `sub_limbah`
 --
 ALTER TABLE `sub_limbah`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `sumber`
