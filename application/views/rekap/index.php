@@ -23,7 +23,7 @@
                   <div class="col-md-8" >
                     <center>
                       <h3><strong><font color=blue>DATA REKAP LIMBAH B3<br>
-                      UNIT&nbsp; &nbsp; : &nbsp; <?php echo $this->session->unit; ?></h3></font></strong><br/><br>
+                      UNIT&nbsp; &nbsp; : &nbsp; <?php echo $data['unit']->unit; ?></h3></font></strong><br/><br>
                     </center>
                   </div>
                 </div>

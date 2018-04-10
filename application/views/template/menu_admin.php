@@ -2,7 +2,7 @@
 <li class="header">MENU UTAMA</li>
 
 <li>
-	<a href="<?php echo base_url("universal/index/golongan"); ?>">
+	<a href="#">
 		<i class="fa fa-database text-aqua"></i>
 		<span>Data Master</span>
         	<span class="pull-right-container">
@@ -81,7 +81,7 @@
 </li>
 
 <li>
-    <a href="<?php echo base_url("neraca"); ?>">
+    <a href="#">
         <i class="fa fa-balance-scale text-aqua"></i>
         <span>Data Neraca Limbah</span>
         <span class="pull-right-container">
@@ -101,7 +101,7 @@
 </li>
 
 <li>
-	<a href="<?php echo base_url("neraca"); ?>">
+	<a href="#">
 		<i class="fa fa-balance-scale text-aqua"></i>
 		<span>Data Rekap Limbah</span>
 		<span class="pull-right-container">
@@ -113,7 +113,7 @@
         foreach ($this->db->get('unit')->result() as $item) {
             ?>
             <li>
-                <a href="<?php echo base_url("admin_neraca/index/" . $item->id); ?>">
+                <a href="<?php echo base_url("rekap/data/" . $item->id); ?>">
                     <i class="fa fa-building text-aqua"></i>
                     <span><?php echo $item->unit; ?></span>
                     <span class="pull-right-container">

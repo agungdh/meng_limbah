@@ -14,9 +14,10 @@ class Rekap extends CI_Controller {
 		$this->load->view("template/template", $data);
 	}
 
-	function data() {
+	function data($id_unit = null) {
 		$data['isi'] = "rekap/index";
-		$data['data']['rekap'] = $this->unit($this->session->id_unit);
+		$data['data']['unit'] = $this->db->get_where('unit', array('id' => $id_unit ?: $this->session->id))->row();
+		$data['data']['rekap'] = $this->unit($data['data']['unit']->id);
 		// var_dump($data['data']['rekap']);
 		$this->load->view("template/template", $data);
 	}
