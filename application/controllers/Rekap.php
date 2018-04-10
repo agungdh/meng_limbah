@@ -10,8 +10,8 @@ class Rekap extends CI_Controller {
 	function data($id_unit) {
 		$data['isi'] = "rekap/index";
 		$data['data']['rekap'] = $this->unit($id_unit);
-		var_dump($data['data']['rekap']);
-		// $this->load->view("template/template", $data);
+		// var_dump($data['data']['rekap']);
+		$this->load->view("template/template", $data);
 	}
 
 	function semua() {
@@ -20,9 +20,9 @@ class Rekap extends CI_Controller {
 		}
 		// $unit[] = json_decode($this->unit(1));
 		// $unit[] = $this->unit(1);
-		// var_dump($unit);
+		var_dump($unit);
 		// echo $unit[0];
-		return $unit;
+		// return $unit;
 	}
 
 	function unit($id_unit){
@@ -83,9 +83,9 @@ class Rekap extends CI_Controller {
 		}
 		$return['id_unit'] = $id_unit;
 		$return['data'] = $array;
-		var_dump($return);
+		// var_dump($return);
 		// echo json_encode($return);
-		// return $return;
+		return $return;
 	}
 
 	function test1($id_unit){
