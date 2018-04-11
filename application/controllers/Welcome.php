@@ -19,7 +19,7 @@ class Welcome extends CI_Controller {
 
 	function index() {
 		$halaman_utama = $this->session->level == 1 ? "template/halaman_utama_admin" : "template/halaman_utama_user";
-		$data['tahun'] = $this->input->get('tahun') ?: date('Y');
+		// $data['tahun'] = $this->input->get('tahun') ?: date('Y');
 	
 		$data['limbah'] = "[";
 		foreach ($this->db->get('limbah')->result() as $item) {
