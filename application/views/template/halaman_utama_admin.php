@@ -4,7 +4,7 @@
     <div class="box-header with-border">
       <h3 class="box-title">
           <p>Jumlah (KG) Limbah Masuk</p>
-          <p>Tahun <input type="number" name="tahun_masuk" min="1900" max="2900" value="<?php echo $this->input->get('tahun_masuk') ?: date('Y');; ?>"></p>
+          <p>Tahun <input type="number" name="tahun_masuk" min="1900" max="2900" value="<?php echo $tahun_masuk; ?>"></p>
           <p>Unit <select name="unit_masuk">
             <option <?php echo $this->input->get('unit_masuk') == null ? "Selected" : null; ?> value="">Semua Unit</option>
             <?php
@@ -32,7 +32,7 @@
     <div class="box-header with-border">
       <h3 class="box-title">
           <p>Jumlah (KG) Limbah Keluar</p>
-          <p>Tahun <input type="number" name="tahun_keluar" min="1900" max="2900" value="<?php echo $this->input->get('tahun_keluar') ?: date('Y');; ?>"></p>
+          <p>Tahun <input type="number" name="tahun_keluar" min="1900" max="2900" value="<?php echo $tahun_masuk; ?>"></p>
           <p>Unit <select name="unit_keluar">
             <option <?php echo $this->input->get('unit_keluar') == null ? "Selected" : null; ?> value="">Semua Unit</option>
             <?php
@@ -59,12 +59,12 @@
 .
 
 <?php
-if ($this->input->get('tahun_masuk') != null) {
-  $where_masuk['year(tanggal)'] = $this->input->get('tahun_masuk');
+if ($tahun_masuk != null) {
+  $where_masuk['year(tanggal)'] = $tahun_masuk;
 }
 
-if ($this->input->get('tahun_keluar') != null) {
-  $where_keluar['year(tanggal)'] = $this->input->get('tahun_keluar');
+if ($tahun_keluar != null) {
+  $where_keluar['year(tanggal)'] = $tahun_keluar;
 }
 
 if ($this->input->get('unit_masuk') != null) {
