@@ -187,6 +187,7 @@ class Masuk extends CI_Controller {
 		 
 		$this->excel->getActiveSheet()->setCellValue('A3', 'TRIWULAN-' . $triwulan . ' TAHUN ' . $data['data']['tahun']);
 		$this->excel->getActiveSheet()->getStyle('A3')->getFont()->setSize(15);
+		$this->excel->getActiveSheet()->getStyle('A3')->getFont()->setBold(true);
 		$this->excel->getActiveSheet()->mergeCells('A3:F3');
 		$this->excel->getActiveSheet()->getStyle('A3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 		
@@ -258,12 +259,12 @@ class Masuk extends CI_Controller {
 				$a++;
 
 			}
-			$this->excel->getActiveSheet()->setCellValue('A' . $a, 'Total');
-			$this->excel->getActiveSheet()->mergeCells('A' . $a . ':E' . $a);
-			$this->excel->getActiveSheet()->getStyle('A' . $a)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+			$this->excel->getActiveSheet()->mergeCells('A' . $a . ':D' . $a);
 
+			$this->excel->getActiveSheet()->setCellValue('E' . $a, 'Total');
+			$this->excel->getActiveSheet()->getStyle('E' . $a)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
 			$this->excel->getActiveSheet()->setCellValue('F' . $a, $jumlah);
-			$this->excel->getActiveSheet()->getStyle('A' . $a . ':' . 'F' . $a)->getFont()->setBold(true);
+			$this->excel->getActiveSheet()->getStyle('E' . $a . ':' . 'F' . $a)->getFont()->setBold(true);
 
 			$grandtotal += $jumlah;
     		$jumlah = 0;
@@ -272,12 +273,12 @@ class Masuk extends CI_Controller {
     		
 		}
 
-		$this->excel->getActiveSheet()->setCellValue('A' . $a, 'Grand Total');
-		$this->excel->getActiveSheet()->mergeCells('A' . $a . ':E' . $a);
-		$this->excel->getActiveSheet()->getStyle('A' . $a)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+		$this->excel->getActiveSheet()->mergeCells('A' . $a . ':D' . $a);
 
+		$this->excel->getActiveSheet()->setCellValue('E' . $a, 'Grand Total');
+		$this->excel->getActiveSheet()->getStyle('E' . $a)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
 		$this->excel->getActiveSheet()->setCellValue('F' . $a, $grandtotal);
-		$this->excel->getActiveSheet()->getStyle('A' . $a . ':' . 'F' . $a)->getFont()->setBold(true);
+		$this->excel->getActiveSheet()->getStyle('E' . $a . ':' . 'F' . $a)->getFont()->setBold(true);
 
 
 		$filename='DATA LIMBAH MASUK _ UNIT ' . strtoupper($this->session->unit) . ' _ ' . 'TRIWULAN-' . $triwulan . ' TAHUN ' . $data['data']['tahun'] . ' _ ' . date('d-m-Y H-i-s') . '.xlsx'; 
