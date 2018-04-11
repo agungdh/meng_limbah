@@ -7,8 +7,29 @@ class Welcome extends CI_Controller {
 		$this->load->model('m_welcome');
 	}
 
+	function ambil_limbah() {
+		$data_limbah = "[";
+		foreach ($this->db->get('limbah')->result() as $item) {
+			$data_limbah .= '"' . $item->limbah . '"' . ", ";
+		}
+		$data_limbah .= "]";
+		// echo json_encode($data);
+		echo $data_limbah;
+	}
+
 	function index() {
-		$this->session->login != true ? $this->load->view("template/halaman_login") : $this->load->view('template/template',array("isi" => "template/halaman_utama"));;
+		$halaman_utama = $this->session->level == 1 ? "template/halaman_utama_admin" : "template/halaman_utama_user";
+		// $data['tahun'] = $this->input->get('tahun') ?: date('Y');
+		$data['tahun_masuk'] = $this->input->get('tahun_masuk') ?: date('Y');
+		$data['tahun_keluar'] = $this->input->get('tahun_keluar') ?: date('Y');
+	
+		$data['limbah'] = "[";
+		foreach ($this->db->get('limbah')->result() as $item) {
+			$data['limbah'] .= '"' . $item->limbah . '"' . ", ";
+		}
+		$data['limbah'] .= "]";
+
+		$this->session->login != true ? $this->load->view("template/halaman_login") : $this->load->view('template/template',array("isi" => $halaman_utama, "data" => $data));
 	}
 
 	function aksi_login() {
