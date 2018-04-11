@@ -5,7 +5,7 @@
       <h3 class="box-title">
           <p>Jumlah (KG) Limbah Masuk</p>
           <p>Tahun <input type="number" name="tahun_masuk" min="1900" max="2900" value="<?php echo $tahun_masuk; ?>"></p>
-          <p>Unit <select name="unit_masuk">
+          <p>Unit <select class="select2" name="unit_masuk">
             <option <?php echo $this->input->get('unit_masuk') == null ? "Selected" : null; ?> value="">Semua Unit</option>
             <?php
             foreach ($this->db->get('unit')->result() as $item) {
@@ -20,7 +20,7 @@
     </div>
     <div class="box-body">
       <div class="chart">
-        <canvas id="myChart" style="height:230px"></canvas>
+        <canvas id="myChart"></canvas>
       </div>
     </div>
     <!-- /.box-body -->
@@ -33,7 +33,7 @@
       <h3 class="box-title">
           <p>Jumlah (KG) Limbah Keluar</p>
           <p>Tahun <input type="number" name="tahun_keluar" min="1900" max="2900" value="<?php echo $tahun_keluar; ?>"></p>
-          <p>Unit <select name="unit_keluar">
+          <p>Unit <select class="select2" name="unit_keluar">
             <option <?php echo $this->input->get('unit_keluar') == null ? "Selected" : null; ?> value="">Semua Unit</option>
             <?php
             foreach ($this->db->get('unit')->result() as $item) {
@@ -48,7 +48,7 @@
     </div>
     <div class="box-body">
       <div class="chart">
-        <canvas id="myCharts" style="height:230px"></canvas>
+        <canvas id="myCharts"></canvas>
       </div>
     </div>
     <!-- /.box-body -->
@@ -60,7 +60,7 @@
     <div class="box-header with-border">
       <h3 class="box-title">
           <p>Jumlah (KG) Limbah di TPS</p>
-          <p>Unit <select name="unit_sisa">
+          <p>Unit <select class="select2" name="unit_sisa">
             <option <?php echo $this->input->get('unit_sisa') == null ? "Selected" : null; ?> value="">Semua Unit</option>
             <?php
             foreach ($this->db->get('unit')->result() as $item) {
@@ -75,7 +75,7 @@
     </div>
     <div class="box-body">
       <div class="chart">
-        <canvas id="myChartss" style="height:230px"></canvas>
+        <canvas id="myChartss"></canvas>
       </div>
     </div>
     <!-- /.box-body -->
@@ -84,7 +84,7 @@
 
 </form>
 
-.
+
 
 <?php
 if ($tahun_masuk != null) {
@@ -154,8 +154,8 @@ $triwulan[4] = "BETWEEN 10 AND 2";
                 ?>
                 // '1', '19', '3', '5', '2', '3', '3', '3', '3', '3'
                 ],
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(255, 0, 0, 0.2)',
+                borderColor: 'rgba(255, 0, 0, 1)',
                 borderWidth: 1
             },
             {
@@ -173,8 +173,8 @@ $triwulan[4] = "BETWEEN 10 AND 2";
                 ?>
                 // '2', '19', '3', '5', '2', '3', '3', '3', '3', '3'
                 ],
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(255, 255, 0, 0.2)',
+                borderColor: 'rgba(255, 255, 0, 1)',
                 borderWidth: 1
             },
             {
@@ -192,8 +192,8 @@ $triwulan[4] = "BETWEEN 10 AND 2";
                 ?>
                 // '3', '19', '3', '5', '2', '3', '3', '3', '3', '3'
                 ],
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(0, 102, 255, 0.2)',
+                borderColor: 'rgba(0, 102, 255, 1)',
                 borderWidth: 1
             },
             {
@@ -211,8 +211,8 @@ $triwulan[4] = "BETWEEN 10 AND 2";
                 ?>
                 // '12', '19', '3', '5', '2', '3', '3', '3', '3', '3'
                 ],
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(0, 255, 0, 0.2)',
+                borderColor: 'rgba(0, 255, 0, 1)',
                 borderWidth: 1
             }]
         },
@@ -248,8 +248,8 @@ $triwulan[4] = "BETWEEN 10 AND 2";
                 ?>
                 // '1', '19', '3', '5', '2', '3', '3', '3', '3', '3'
                 ],
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(255, 0, 0, 0.2)',
+                borderColor: 'rgba(255, 0, 0, 1)',
                 borderWidth: 1
             },
             {
@@ -267,8 +267,8 @@ $triwulan[4] = "BETWEEN 10 AND 2";
                 ?>
                 // '2', '19', '3', '5', '2', '3', '3', '3', '3', '3'
                 ],
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
+               backgroundColor: 'rgba(255, 255, 0, 0.2)',
+                borderColor: 'rgba(255, 255, 0, 1)',
                 borderWidth: 1
             },
             {
@@ -286,8 +286,8 @@ $triwulan[4] = "BETWEEN 10 AND 2";
                 ?>
                 // '3', '19', '3', '5', '2', '3', '3', '3', '3', '3'
                 ],
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(0, 102, 255, 0.2)',
+                borderColor: 'rgba(0, 102, 255, 1)',
                 borderWidth: 1
             },
             {
@@ -305,8 +305,8 @@ $triwulan[4] = "BETWEEN 10 AND 2";
                 ?>
                 // '12', '19', '3', '5', '2', '3', '3', '3', '3', '3'
                 ],
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(0, 255, 0, 0.2)',
+                borderColor: 'rgba(0, 255, 0, 1)',
                 borderWidth: 1
             }]
         },
@@ -373,4 +373,8 @@ $triwulan[4] = "BETWEEN 10 AND 2";
     });
 
   })
+
+$(function () {
+  $('.select2').select2()
+});
 </script>

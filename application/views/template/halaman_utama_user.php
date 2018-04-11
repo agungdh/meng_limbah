@@ -10,7 +10,7 @@
     </div>
     <div class="box-body">
       <div class="chart">
-        <canvas id="myChart" style="height:230px"></canvas>
+        <canvas id="myChart"></canvas>
       </div>
     </div>
     <!-- /.box-body -->
@@ -28,7 +28,7 @@
     </div>
     <div class="box-body">
       <div class="chart">
-        <canvas id="myCharts" style="height:230px"></canvas>
+        <canvas id="myCharts"></canvas>
       </div>
     </div>
     <!-- /.box-body -->
@@ -44,7 +44,7 @@
     </div>
     <div class="box-body">
       <div class="chart">
-        <canvas id="myChartss" style="height:230px"></canvas>
+        <canvas id="myChartss"></canvas>
       </div>
     </div>
     <!-- /.box-body -->
@@ -52,8 +52,6 @@
   <!-- /.box -->
 
 </form>
-
-.
 
 <?php
 if ($tahun_masuk != null) {
