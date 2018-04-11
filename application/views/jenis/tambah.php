@@ -1,6 +1,11 @@
+<?php 
+// var_dump($data['versi_borang']);
+// exit();
+$modul_custom = 'sifat';
+?>
 <div class="box box-primary">
   <div class="box-header with-border">
-    <h4><strong><font color=blue>TAMBAH <?php echo strtoupper($modul); ?></font></strong></h4>
+    <h4><strong><font color=blue>TAMBAH <?php echo strtoupper($modul_custom); ?></font></strong></h4>
   </div><!-- /.box-header -->
 
   <!-- form start -->

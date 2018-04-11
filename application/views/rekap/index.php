@@ -39,7 +39,7 @@
         <tr>
           <th rowspan="2">Limbah</th>
           <th rowspan="2">Sisa</th>
-          <th colspan="2">Harus Dibuang</th>
+          <th colspan="2">Harus Dikeluarkan</th>
         </tr>
         <tr>
           <th>Sisa Hari</th>

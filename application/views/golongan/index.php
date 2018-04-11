@@ -1,6 +1,7 @@
 <?php 
 // var_dump($data['versi_borang']);
 // exit();
+$modul_custom = 'kategori';
 ?>
 <script type="text/javascript" language="javascript" >
   var dTable;
@@ -24,7 +25,7 @@
           </div>
           <div class="col-md-8" >
             <center>
-             <h3><strong><font color=blue>DATA <?php echo strtoupper($modul); ?> LIMBAH B3</font></strong><br/><br>
+             <h3><strong><font color=blue>DATA <?php echo strtoupper($modul_custom); ?> LIMBAH B3</font></strong><br/><br>
            </center>
          </div>
        </div><br/>
@@ -33,7 +34,7 @@
 
     <div class="box-body">
     <div class="form-group">
-      <a href='<?php echo base_url('universal/' . "tambah/" . $modul); ?>'><button class="btn btn-success"><i class="fa fa-plus"></i> <?php echo ucwords($modul); ?></button></a>
+      <a href='<?php echo base_url('universal/' . "tambah/" . $modul); ?>'><button class="btn btn-success"><i class="fa fa-plus"></i> <?php echo ucwords($modul_custom); ?></button></a>
     </div>
 
     <table id="lookup" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">

@@ -16,10 +16,10 @@
         </li>
         <li>
         	<a href="<?php echo base_url("universal/index/golongan"); ?>"><i class="fa fa-table text-aqua">       		
-        	</i> Data Golongan</a>
+        	</i> Data Kategori</a>
         <li>
         	<a href="<?php echo base_url("universal/index/jenis"); ?>"><i class="fa fa-table text-aqua">       		
-        	</i> Data Jenis</a>
+        	</i> Data Sifat</a>
         </li>
         <li>
         	<a href="<?php echo base_url("universal/index/sumber"); ?>"><i class="fa fa-table text-aqua">       		
