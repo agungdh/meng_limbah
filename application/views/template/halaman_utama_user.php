@@ -117,8 +117,8 @@ $triwulan[4] = "BETWEEN 10 AND 2";
                 ?>
                 // '1', '19', '3', '5', '2', '3', '3', '3', '3', '3'
                 ],
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(255, 0, 0, 0.2)',
+                borderColor: 'rgba(255, 0, 0, 1)',
                 borderWidth: 1
             },
             {
@@ -136,8 +136,8 @@ $triwulan[4] = "BETWEEN 10 AND 2";
                 ?>
                 // '2', '19', '3', '5', '2', '3', '3', '3', '3', '3'
                 ],
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(255, 255, 0, 0.2)',
+                borderColor: 'rgba(255, 255, 0, 1)',
                 borderWidth: 1
             },
             {
@@ -155,8 +155,8 @@ $triwulan[4] = "BETWEEN 10 AND 2";
                 ?>
                 // '3', '19', '3', '5', '2', '3', '3', '3', '3', '3'
                 ],
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(0, 102, 255, 0.2)',
+                borderColor: 'rgba(0, 102, 255, 1)',
                 borderWidth: 1
             },
             {
@@ -174,8 +174,8 @@ $triwulan[4] = "BETWEEN 10 AND 2";
                 ?>
                 // '12', '19', '3', '5', '2', '3', '3', '3', '3', '3'
                 ],
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(0, 255, 0, 0.2)',
+                borderColor: 'rgba(0, 255, 0, 1)',
                 borderWidth: 1
             }]
         },
@@ -211,8 +211,8 @@ $triwulan[4] = "BETWEEN 10 AND 2";
                 ?>
                 // '1', '19', '3', '5', '2', '3', '3', '3', '3', '3'
                 ],
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(255, 0, 0, 0.2)',
+                borderColor: 'rgba(255, 0, 0, 1)',
                 borderWidth: 1
             },
             {
@@ -230,8 +230,8 @@ $triwulan[4] = "BETWEEN 10 AND 2";
                 ?>
                 // '2', '19', '3', '5', '2', '3', '3', '3', '3', '3'
                 ],
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(255, 255, 0, 0.2)',
+                borderColor: 'rgba(255, 255, 0, 1)',
                 borderWidth: 1
             },
             {
@@ -249,8 +249,8 @@ $triwulan[4] = "BETWEEN 10 AND 2";
                 ?>
                 // '3', '19', '3', '5', '2', '3', '3', '3', '3', '3'
                 ],
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(0, 102, 255, 0.2)',
+                borderColor: 'rgba(0, 102, 255, 1)',
                 borderWidth: 1
             },
             {
@@ -268,8 +268,8 @@ $triwulan[4] = "BETWEEN 10 AND 2";
                 ?>
                 // '12', '19', '3', '5', '2', '3', '3', '3', '3', '3'
                 ],
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(0, 255, 0, 0.2)',
+                borderColor: 'rgba(0, 255, 0, 1)',
                 borderWidth: 1
             }]
         },
