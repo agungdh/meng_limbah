@@ -160,9 +160,19 @@ class Masuk extends CI_Controller {
 		$this->load->library('excel');
 		
 		$this->excel->setActiveSheetIndex(0);
-		
+		$this->excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+
 		$this->excel->getActiveSheet()->setTitle('Sheet 1');
 		
+		foreach(range('A','B') as $columnID) {
+		    $this->excel->getActiveSheet()->getColumnDimension($columnID)
+		        ->setAutoSize(true);
+		}
+		foreach(range('D','F') as $columnID) {
+		    $this->excel->getActiveSheet()->getColumnDimension($columnID)
+		        ->setAutoSize(true);
+		}
+
 		$this->excel->getActiveSheet()->setCellValue('A1', 'DATA LIMBAH B3 YANG MASUK DARI TPS');
 		$this->excel->getActiveSheet()->getStyle('A1')->getFont()->setSize(20);
 		$this->excel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
@@ -179,7 +189,8 @@ class Masuk extends CI_Controller {
 		$this->excel->getActiveSheet()->getStyle('A3')->getFont()->setSize(15);
 		$this->excel->getActiveSheet()->mergeCells('A3:F3');
 		$this->excel->getActiveSheet()->getStyle('A3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-		 
+		
+		$this->excel->getActiveSheet()->getStyle('A5:F5')->getFont()->setBold(true); 
 		$this->excel->getActiveSheet()->setCellValue('A5', 'NO');
 		$this->excel->getActiveSheet()->setCellValue('B5', 'LIMBAH');
 		$this->excel->getActiveSheet()->setCellValue('C5', 'FOTO');
@@ -195,6 +206,8 @@ class Masuk extends CI_Controller {
 		foreach ($data['data']['masuk'] as $item) {
 			$this->excel->getActiveSheet()->setCellValue('A' . $a, $item->limbah);
 			$this->excel->getActiveSheet()->mergeCells('A' . $a . ':F' . $a);
+			$this->excel->getActiveSheet()->getStyle('A' . $a)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+			$this->excel->getActiveSheet()->getStyle('A' . $a)->getFont()->setBold(true);
 
 			$a++;
 
@@ -222,6 +235,7 @@ class Masuk extends CI_Controller {
 	              $item_jumlah = $item2->jumlah;
 	            }
 
+	            $this->excel->getActiveSheet()->getStyle('A' . $a . ':' . 'F' . $a)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_TOP);
 				$this->excel->getActiveSheet()->setCellValue('A' . $a, $i);
 				$this->excel->getActiveSheet()->setCellValue('B' . $a, $sub_limbah);
 				
@@ -230,9 +244,11 @@ class Masuk extends CI_Controller {
 					$objDrawing->setPath('uploads/masuk/' . $item2->id_masuk);
 					$objDrawing->setCoordinates('C' . $a);                      
 					$objDrawing->setWidth(100); 
-					$objDrawing->setHeight(35); 
+					$objDrawing->setHeight(100); 
 					$objDrawing->setWorksheet($this->excel->getActiveSheet());
 				}
+				$this->excel->getActiveSheet()->getColumnDimension('C')->setWidth(19);
+				$this->excel->getActiveSheet()->getRowDimension($a)->setRowHeight(75);
 
 				$this->excel->getActiveSheet()->setCellValue('D' . $a, $this->pustaka->tanggal_indo_string($item2->tanggal));
 				$this->excel->getActiveSheet()->setCellValue('E' . $a, $item2->sumber);
@@ -247,6 +263,7 @@ class Masuk extends CI_Controller {
 			$this->excel->getActiveSheet()->getStyle('A' . $a)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
 
 			$this->excel->getActiveSheet()->setCellValue('F' . $a, $jumlah);
+			$this->excel->getActiveSheet()->getStyle('A' . $a . ':' . 'F' . $a)->getFont()->setBold(true);
 
 			$grandtotal += $jumlah;
     		$jumlah = 0;
@@ -255,7 +272,15 @@ class Masuk extends CI_Controller {
     		
 		}
 
-		$filename='DATA LIMBAH MASUK.xlsx'; 
+		$this->excel->getActiveSheet()->setCellValue('A' . $a, 'Grand Total');
+		$this->excel->getActiveSheet()->mergeCells('A' . $a . ':E' . $a);
+		$this->excel->getActiveSheet()->getStyle('A' . $a)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+
+		$this->excel->getActiveSheet()->setCellValue('F' . $a, $grandtotal);
+		$this->excel->getActiveSheet()->getStyle('A' . $a . ':' . 'F' . $a)->getFont()->setBold(true);
+
+
+		$filename='DATA LIMBAH MASUK _ UNIT ' . strtoupper($this->session->unit) . ' _ ' . 'TRIWULAN-' . $triwulan . ' TAHUN ' . $data['data']['tahun'] . ' _ ' . date('d-m-Y H-i-s') . '.xlsx'; 
 		header('Content-Type: application/vnd.ms-excel'); 
 		header('Content-Disposition: attachment;filename="'.$filename.'"'); 
 		header('Cache-Control: max-age=0'); 
