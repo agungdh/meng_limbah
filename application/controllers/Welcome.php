@@ -7,10 +7,26 @@ class Welcome extends CI_Controller {
 		$this->load->model('m_welcome');
 	}
 
+	function ambil_limbah() {
+		$data_limbah = "[";
+		foreach ($this->db->get('limbah')->result() as $item) {
+			$data_limbah .= '"' . $item->limbah . '"' . ", ";
+		}
+		$data_limbah .= "]";
+		// echo json_encode($data);
+		echo $data_limbah;
+	}
+
 	function index() {
 		$halaman_utama = $this->session->level == 1 ? "template/halaman_utama_admin" : "template/halaman_utama_user";
 		$data['tahun'] = $this->input->get('tahun') ?: date('Y');
 	
+		$data['limbah'] = "[";
+		foreach ($this->db->get('limbah')->result() as $item) {
+			$data['limbah'] .= '"' . $item->limbah . '"' . ", ";
+		}
+		$data['limbah'] .= "]";
+
 		if ($this->input->get('tahun_masuk') != null) {
 			$where_masuk['year(tanggal)'] = $this->input->get('tahun_masuk');
 		}
@@ -50,8 +66,8 @@ class Welcome extends CI_Controller {
 		// $this->db->where($where_keluar);		
 		// $data['keluar'] = $this->db->get('keluar')->row();
 
-		var_dump($data);
-		exit();
+		// var_dump($data);
+		// exit();
 
 		$this->session->login != true ? $this->load->view("template/halaman_login") : $this->load->view('template/template',array("isi" => $halaman_utama, "data" => $data));
 	}
