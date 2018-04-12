@@ -264,9 +264,19 @@ class Admin_limbah_masuk extends CI_Controller {
 		$this->load->library('excel');
 		
 		$this->excel->setActiveSheetIndex(0);
+		$this->excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
 		
 		$this->excel->getActiveSheet()->setTitle('Sheet 1');
 		
+		foreach(range('A','C') as $columnID) {
+		    $this->excel->getActiveSheet()->getColumnDimension($columnID)
+		        ->setAutoSize(true);
+		}
+		foreach(range('E','G') as $columnID) {
+		    $this->excel->getActiveSheet()->getColumnDimension($columnID)
+		        ->setAutoSize(true);
+		}
+
 		$this->excel->getActiveSheet()->setCellValue('A1', 'DATA LIMBAH B3 YANG MASUK DARI TPS');
 		$this->excel->getActiveSheet()->getStyle('A1')->getFont()->setSize(20);
 		$this->excel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
@@ -277,7 +287,8 @@ class Admin_limbah_masuk extends CI_Controller {
 		$this->excel->getActiveSheet()->getStyle('A2')->getFont()->setSize(15);
 		$this->excel->getActiveSheet()->mergeCells('A2:G2');
 		$this->excel->getActiveSheet()->getStyle('A2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-		 
+		
+		$this->excel->getActiveSheet()->getStyle('A4:G4')->getFont()->setBold(true);  
 		$this->excel->getActiveSheet()->setCellValue('A4', 'NO');
 		$this->excel->getActiveSheet()->setCellValue('B4', 'UNIT');
 		$this->excel->getActiveSheet()->setCellValue('C4', 'LIMBAH');
@@ -290,26 +301,48 @@ class Admin_limbah_masuk extends CI_Controller {
 
 		$grandtotal = 0;
       	$jumlah = 0;
+		  $styleArray = array(
+		      'borders' => array(
+		          'allborders' => array(
+		              'style' => PHPExcel_Style_Border::BORDER_THIN
+		          )
+		      )
+		  );
+		  $styleArrayBold = array(
+		      'borders' => array(
+		          'allborders' => array(
+		              'style' => PHPExcel_Style_Border::BORDER_MEDIUM
+		          )
+		      )
+		  );
+		$i = 1;
+
+		$grandtotal = 0;
+      	$jumlah = 0;
 
 		foreach ($data['data']['masuk'] as $item) {
+			$this->excel->getActiveSheet()->getStyle('A' . $a . ':'. 'G' . $a)->applyFromArray($styleArray);
+
 			$this->excel->getActiveSheet()->setCellValue('A' . $a, $item->limbah);
 			$this->excel->getActiveSheet()->mergeCells('A' . $a . ':G' . $a);
+			$this->excel->getActiveSheet()->getStyle('A' . $a)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+			$this->excel->getActiveSheet()->getStyle('A' . $a)->getFont()->setBold(true);
 
 			$a++;
 
-			$i = 0;
-			$last_i = 0;
+			// $i = 0;
+			// $last_i = 0;
 			$id = 0;
 			$sub_limbah = null;
 
 		    foreach ($this->m_masuk->ambil_child_limbah_semuasemua($item->id_limbah, $data['data']['awal_akhir_triwulan'][0], $data['data']['awal_akhir_triwulan'][1], $data['data']['tahun']) as $item2) {
-	            $i = $last_i++;
+	            // $i = $last_i++;
 	            if ($id != $item2->id_sub_limbah) {
-	              $i++;
+	              // $i++;
 	              $sub_limbah = $item2->sub_limbah;
 	            } else {
-	              $last_i = $i;
-	              $i = null;
+	              // $last_i = $i;
+	              // $i = null;
 	              $sub_limbah = null;
 	            }
 	            $id = $item2->id_sub_limbah;
@@ -320,7 +353,9 @@ class Admin_limbah_masuk extends CI_Controller {
 	            } else {
 	              $item_jumlah = $item2->jumlah;
 	            }
-
+				
+				$this->excel->getActiveSheet()->getStyle('A' . $a . ':'. 'G' . $a)->applyFromArray($styleArray);
+	            $this->excel->getActiveSheet()->getStyle('A' . $a . ':' . 'G' . $a)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_TOP);
 				$this->excel->getActiveSheet()->setCellValue('A' . $a, $i);
 				$this->excel->getActiveSheet()->setCellValue('B' . $a, $this->db->get_where('unit', array('id' => $item2->id_unit))->row()->unit);
 				$this->excel->getActiveSheet()->setCellValue('C' . $a, $sub_limbah);
@@ -330,9 +365,11 @@ class Admin_limbah_masuk extends CI_Controller {
 					$objDrawing->setPath('uploads/masuk/' . $item2->id_masuk);
 					$objDrawing->setCoordinates('D' . $a);                      
 					$objDrawing->setWidth(100); 
-					$objDrawing->setHeight(35); 
+					$objDrawing->setHeight(100); 
 					$objDrawing->setWorksheet($this->excel->getActiveSheet());
 				}
+				$this->excel->getActiveSheet()->getColumnDimension('D')->setWidth(19);
+				$this->excel->getActiveSheet()->getRowDimension($a)->setRowHeight(75);
 
 				$this->excel->getActiveSheet()->setCellValue('E' . $a, $this->pustaka->tanggal_indo_string($item2->tanggal));
 				$this->excel->getActiveSheet()->setCellValue('F' . $a, $item2->sumber);
@@ -342,11 +379,14 @@ class Admin_limbah_masuk extends CI_Controller {
 				$a++;
 
 			}
-			$this->excel->getActiveSheet()->setCellValue('A' . $a, 'Total');
-			$this->excel->getActiveSheet()->mergeCells('A' . $a . ':F' . $a);
-			$this->excel->getActiveSheet()->getStyle('A' . $a)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
 
+			$this->excel->getActiveSheet()->getStyle('F' . $a . ':'. 'G' . $a)->applyFromArray($styleArray);
+			$this->excel->getActiveSheet()->mergeCells('A' . $a . ':E' . $a);
+
+			$this->excel->getActiveSheet()->setCellValue('F' . $a, 'Total');
+			$this->excel->getActiveSheet()->getStyle('F' . $a)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
 			$this->excel->getActiveSheet()->setCellValue('G' . $a, $jumlah);
+			$this->excel->getActiveSheet()->getStyle('F' . $a . ':' . 'G' . $a)->getFont()->setBold(true);
 
 			$grandtotal += $jumlah;
     		$jumlah = 0;
@@ -354,8 +394,18 @@ class Admin_limbah_masuk extends CI_Controller {
 
     		
 		}
+		$this->excel->getActiveSheet()->getStyle('F' . $a . ':'. 'G' . $a)->applyFromArray($styleArray);
+		$this->excel->getActiveSheet()->mergeCells('A' . $a . ':E' . $a);
 
-		$filename='DATA LIMBAH MASUK.xlsx'; 
+		$this->excel->getActiveSheet()->setCellValue('F' . $a, 'Grand Total');
+		$this->excel->getActiveSheet()->getStyle('F' . $a)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+		$this->excel->getActiveSheet()->setCellValue('G' . $a, $grandtotal);
+		$this->excel->getActiveSheet()->getStyle('F' . $a . ':' . 'G' . $a)->getFont()->setBold(true);
+
+
+		$this->excel->getActiveSheet()->getStyle('A4:G4')->applyFromArray($styleArrayBold);
+
+		$filename='DATA LIMBAH MASUK _ SEMUA UNIT _ ' . 'TRIWULAN-' . $triwulan . ' TAHUN ' . $data['data']['tahun'] . ' _ ' . date('d-m-Y H-i-s') . '.xlsx'; 
 		header('Content-Type: application/vnd.ms-excel'); 
 		header('Content-Disposition: attachment;filename="'.$filename.'"'); 
 		header('Cache-Control: max-age=0'); 
