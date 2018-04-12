@@ -203,8 +203,24 @@ class Masuk extends CI_Controller {
 
 		$grandtotal = 0;
       	$jumlah = 0;
+		  $styleArray = array(
+		      'borders' => array(
+		          'allborders' => array(
+		              'style' => PHPExcel_Style_Border::BORDER_THIN
+		          )
+		      )
+		  );
+		  $styleArrayBold = array(
+		      'borders' => array(
+		          'allborders' => array(
+		              'style' => PHPExcel_Style_Border::BORDER_MEDIUM
+		          )
+		      )
+		  );
+		$i = 1;
+		foreach ($data['data']['masuk'] as $item) {	
+			$this->excel->getActiveSheet()->getStyle('A' . $a . ':'. 'F' . $a)->applyFromArray($styleArray);
 
-		foreach ($data['data']['masuk'] as $item) {
 			$this->excel->getActiveSheet()->setCellValue('A' . $a, $item->limbah);
 			$this->excel->getActiveSheet()->mergeCells('A' . $a . ':F' . $a);
 			$this->excel->getActiveSheet()->getStyle('A' . $a)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
@@ -212,19 +228,18 @@ class Masuk extends CI_Controller {
 
 			$a++;
 
-			$i = 0;
-			$last_i = 0;
+			// $last_i = 0;
 			$id = 0;
 			$sub_limbah = null;
 
 		    foreach ($this->m_masuk->ambil_child_limbah($item->id_limbah, $this->session->id_unit, $data['data']['awal_akhir_triwulan'][0], $data['data']['awal_akhir_triwulan'][1], $data['data']['tahun']) as $item2) {
-	            $i = $last_i++;
+	            // $i = $last_i++;
 	            if ($id != $item2->id_sub_limbah) {
-	              $i++;
+	              // $i++;
 	              $sub_limbah = $item2->sub_limbah;
 	            } else {
-	              $last_i = $i;
-	              $i = null;
+	              // $last_i = $i;
+	              // $i = null;
 	              $sub_limbah = null;
 	            }
 	            $id = $item2->id_sub_limbah;
@@ -235,7 +250,7 @@ class Masuk extends CI_Controller {
 	            } else {
 	              $item_jumlah = $item2->jumlah;
 	            }
-
+				$this->excel->getActiveSheet()->getStyle('A' . $a . ':'. 'F' . $a)->applyFromArray($styleArray);
 	            $this->excel->getActiveSheet()->getStyle('A' . $a . ':' . 'F' . $a)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_TOP);
 				$this->excel->getActiveSheet()->setCellValue('A' . $a, $i);
 				$this->excel->getActiveSheet()->setCellValue('B' . $a, $sub_limbah);
@@ -259,6 +274,7 @@ class Masuk extends CI_Controller {
 				$a++;
 
 			}
+			$this->excel->getActiveSheet()->getStyle('E' . $a . ':'. 'F' . $a)->applyFromArray($styleArray);
 			$this->excel->getActiveSheet()->mergeCells('A' . $a . ':D' . $a);
 
 			$this->excel->getActiveSheet()->setCellValue('E' . $a, 'Total');
@@ -272,7 +288,7 @@ class Masuk extends CI_Controller {
 
     		
 		}
-
+		$this->excel->getActiveSheet()->getStyle('E' . $a . ':'. 'F' . $a)->applyFromArray($styleArray);
 		$this->excel->getActiveSheet()->mergeCells('A' . $a . ':D' . $a);
 
 		$this->excel->getActiveSheet()->setCellValue('E' . $a, 'Grand Total');
@@ -280,6 +296,8 @@ class Masuk extends CI_Controller {
 		$this->excel->getActiveSheet()->setCellValue('F' . $a, $grandtotal);
 		$this->excel->getActiveSheet()->getStyle('E' . $a . ':' . 'F' . $a)->getFont()->setBold(true);
 
+
+		$this->excel->getActiveSheet()->getStyle('A5:F5')->applyFromArray($styleArrayBold);
 
 		$filename='DATA LIMBAH MASUK _ UNIT ' . strtoupper($this->session->unit) . ' _ ' . 'TRIWULAN-' . $triwulan . ' TAHUN ' . $data['data']['tahun'] . ' _ ' . date('d-m-Y H-i-s') . '.xlsx'; 
 		header('Content-Type: application/vnd.ms-excel'); 

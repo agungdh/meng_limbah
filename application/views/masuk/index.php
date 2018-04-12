@@ -62,24 +62,25 @@
       <?php 
       $grandtotal = 0;
       $jumlah = 0;
+      $i = 1;
       foreach ($data['masuk'] as $item) {
         ?>
         <tr>
             <td colspan="6"><center><b><?php echo $item->limbah; ?></b></center></td>
           </tr>
           <?php
-          $i = 0;
-          $last_i = 0;
+          // $i = 0;
+          // $last_i = 0;
           $id = 0;
           $sub_limbah = null;
           foreach ($this->m_masuk->ambil_child_limbah($item->id_limbah, $this->session->id_unit, $data['awal_akhir_triwulan'][0], $data['awal_akhir_triwulan'][1], $data['tahun']) as $item2) {
-            $i = $last_i++;
+            // $i = $last_i++;
             if ($id != $item2->id_sub_limbah) {
-              $i++;
+              // $i++;
               $sub_limbah = $item2->sub_limbah;
             } else {
-              $last_i = $i;
-              $i = null;
+              // $last_i = $i;
+              // $i = null;
               $sub_limbah = null;
             }
             $id = $item2->id_sub_limbah;
@@ -104,6 +105,7 @@
               </td>
             </tr>
             <?php
+            $i++;
           }
           ?>
           <tr>
