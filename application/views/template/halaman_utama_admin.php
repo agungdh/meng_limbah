@@ -106,7 +106,7 @@ if ($this->input->get('unit_keluar') != null) {
 $triwulan[1] = "BETWEEN 1 AND 3";
 $triwulan[2] = "BETWEEN 4 AND 6";
 $triwulan[3] = "BETWEEN 7 AND 9";
-$triwulan[4] = "BETWEEN 10 AND 2";
+$triwulan[4] = "BETWEEN 10 AND 12";
 // var_dump($triwulan);
 
 // foreach ($triwulan as $item) {
