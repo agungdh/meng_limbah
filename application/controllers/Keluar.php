@@ -162,9 +162,19 @@ class Keluar extends CI_Controller {
 		$this->load->library('excel');
 		
 		$this->excel->setActiveSheetIndex(0);
+		$this->excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
 		
 		$this->excel->getActiveSheet()->setTitle('Sheet 1');
 		
+		foreach(range('A','C') as $columnID) {
+		    $this->excel->getActiveSheet()->getColumnDimension($columnID)
+		        ->setAutoSize(true);
+		}
+		foreach(range('E','G') as $columnID) {
+		    $this->excel->getActiveSheet()->getColumnDimension($columnID)
+		        ->setAutoSize(true);
+		}
+
 		$this->excel->getActiveSheet()->setCellValue('A1', 'DATA LIMBAH B3 YANG KELUAR DARI TPS');
 		$this->excel->getActiveSheet()->getStyle('A1')->getFont()->setSize(20);
 		$this->excel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
@@ -182,6 +192,7 @@ class Keluar extends CI_Controller {
 		$this->excel->getActiveSheet()->mergeCells('A3:G3');
 		$this->excel->getActiveSheet()->getStyle('A3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 		 
+		$this->excel->getActiveSheet()->getStyle('A5:G5')->getFont()->setBold(true); 
 		$this->excel->getActiveSheet()->setCellValue('A5', 'NO');
 		$this->excel->getActiveSheet()->setCellValue('B5', 'TANGGAL KELUAR');
 		$this->excel->getActiveSheet()->setCellValue('C5', 'LIMBAH');
@@ -192,7 +203,24 @@ class Keluar extends CI_Controller {
 
 		$i = 1;
 		$a = 6;
+		$styleArray = array(
+		      'borders' => array(
+		          'allborders' => array(
+		              'style' => PHPExcel_Style_Border::BORDER_THIN
+		          )
+		      )
+		  );
+		  $styleArrayBold = array(
+		      'borders' => array(
+		          'allborders' => array(
+		              'style' => PHPExcel_Style_Border::BORDER_MEDIUM
+		          )
+		      )
+		  );
 		foreach ($data['data']['keluar'] as $item) {
+			$this->excel->getActiveSheet()->getStyle('A' . $a . ':'. 'G' . $a)->applyFromArray($styleArray);
+            $this->excel->getActiveSheet()->getStyle('A' . $a . ':' . 'G' . $a)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_TOP);
+			
 			$this->excel->getActiveSheet()->setCellValue('A' . $a, $i);
 			$this->excel->getActiveSheet()->setCellValue('B' . $a, $this->pustaka->tanggal_indo_string($item->tanggal));
 			$this->excel->getActiveSheet()->setCellValue('C' . $a, $item->limbah);
@@ -202,10 +230,12 @@ class Keluar extends CI_Controller {
 				$objDrawing->setPath('uploads/keluar/' . $item->id_keluar);
 				$objDrawing->setCoordinates('D' . $a);                      
 				$objDrawing->setWidth(100); 
-				$objDrawing->setHeight(35); 
+				$objDrawing->setHeight(100); 
 				$objDrawing->setWorksheet($this->excel->getActiveSheet());
 			}
-
+			$this->excel->getActiveSheet()->getColumnDimension('D')->setWidth(19);
+			$this->excel->getActiveSheet()->getRowDimension($a)->setRowHeight(75);
+		
 			$this->excel->getActiveSheet()->setCellValue('E' . $a, $item->jumlah);
 			$this->excel->getActiveSheet()->setCellValue('F' . $a, $item->pengangkut);
 			$this->excel->getActiveSheet()->setCellValue('G' . $a, $item->no_dokumen);
@@ -214,12 +244,17 @@ class Keluar extends CI_Controller {
 			$a++;
 			$jumlah += $item->jumlah;
 		}
-		$this->excel->getActiveSheet()->setCellValue('A' . $a, 'Total');
-		$this->excel->getActiveSheet()->mergeCells('A' . $a . ':D' . $a);
-		$this->excel->getActiveSheet()->getStyle('A' . $a)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-		$this->excel->getActiveSheet()->setCellValue('E' . $a, $jumlah);
+		$this->excel->getActiveSheet()->getStyle('D' . $a . ':'. 'E' . $a)->applyFromArray($styleArray);
 
-		$filename='DATA LIMBAH KELUAR.xlsx'; 
+		$this->excel->getActiveSheet()->mergeCells('A' . $a . ':C' . $a);
+		$this->excel->getActiveSheet()->setCellValue('D' . $a, 'Total');
+		$this->excel->getActiveSheet()->getStyle('D' . $a)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+		$this->excel->getActiveSheet()->setCellValue('E' . $a, $jumlah);
+		$this->excel->getActiveSheet()->getStyle('D' . $a . ':' . 'E' . $a)->getFont()->setBold(true);
+
+		$this->excel->getActiveSheet()->getStyle('A5:G5')->applyFromArray($styleArrayBold);
+
+		$filename='DATA LIMBAH KELUAR _ UNIT ' . strtoupper($this->session->unit) . ' _ ' . 'TRIWULAN-' . $triwulan . ' TAHUN ' . $data['data']['tahun'] . ' _ ' . date('d-m-Y H-i-s') . '.xlsx'; 
 		header('Content-Type: application/vnd.ms-excel'); 
 		header('Content-Disposition: attachment;filename="'.$filename.'"'); 
 		header('Cache-Control: max-age=0'); 
