@@ -124,8 +124,8 @@
                     <i class="fa fa-building text-aqua"></i>
                     <span><?php echo $item->unit; ?></span>
                     <span class="pull-right-container">
-                      <small class="label pull-right bg-red"><div id="reminder_danger_<?php echo $item->id; ?>"></div></small>
-                      <small class="label pull-right bg-orange"><div id="reminder_warning_<?php echo $item->id; ?>"></div></small>
+                      <small class="label pull-right bg-red data-toggle="tooltip" title="Sudah Expired""><div id="reminder_danger_<?php echo $item->id; ?>"></div></small>
+                      <small class="label pull-right bg-orange" data-toggle="tooltip" title="Harus Segera Dikeluarkan"><div id="reminder_warning_<?php echo $item->id; ?>"></div></small>
                     </span>
                 </a>
             </li>
