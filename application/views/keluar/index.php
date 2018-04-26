@@ -52,6 +52,7 @@
           <th>Tanggal Keluar</th>
           <th>Limbah</th>
           <th>Foto</th>
+          <th>Manifest</th>
           <th>Jumlah (KG)</th>
           <th>Tujuan Penyerahan</th>
           <th>NO Dokumen</th>
@@ -68,6 +69,13 @@
             <td><?php echo $this->pustaka->tanggal_indo_string($item->tanggal); ?></td>
             <td><?php echo $item->limbah; ?></td>
               <td><img src="<?php echo file_exists('uploads/keluar/' . $item->id_keluar) ? base_url('uploads/keluar/' . $item->id_keluar) : base_url('assets/no-images.jpg'); ?>" style="height: 100px; width: 100px;"></td>
+              <td>
+                <?php
+                if (file_exists('uploads/manifest' . $item->id)) {
+                  ?><a href="<?php echo 'uploads/manifest' . $item->id ?>">Download</a> <?php
+                }
+                ?>
+              </td>
             <td><?php echo $item->jumlah; ?></td>
             <td><?php echo 'Pengangkut ' . $item->pengangkut; ?></td>
             <td><?php echo $item->no_dokumen; ?></td>
