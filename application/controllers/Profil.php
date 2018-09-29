@@ -17,6 +17,9 @@ class Profil extends CI_Controller {
 		foreach ($this->input->post('data') as $key => $value) {
 			$data[$key] = $value;
 		}
+		if ($data['email'] == '') {
+			$data['email'] = null;
+		}
 		$where['id'] = $this->input->post('id');
 		$this->db->update('user', $data, $where);
 		$this->session->set_userdata('nama', $data['nama']);
@@ -24,10 +27,6 @@ class Profil extends CI_Controller {
 	}
 
 	function aksi_ubah_password() {
-		// $this->m_profil->ubah_profil(
-		// 	hash("sha512", $this->input->post('password')),
-		// 	$this->input->post('id')
-		// );
 
 		foreach ($this->input->post('data') as $key => $value) {
 			$data[$key] = $value;
@@ -37,8 +36,6 @@ class Profil extends CI_Controller {
 		$this->db->update('user', $data, $where);
 
 		redirect(base_url());
-
-		// var_dump($this->input->post('data'));
 	}
 
 }

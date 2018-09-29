@@ -32,13 +32,13 @@
         <br>
 
           <font color=blue>
-            Jenis:
-          <?php echo $data['limbah']->jenis; ?></font>        
+            Sifat:
+          <?php echo $data['limbah']->sifat; ?></font>        
         <br>
         
           <font color=black>
-            Golongan:
-          <?php echo $data['limbah']->golongan; ?></font>        
+            Kategori:
+          <?php echo $data['limbah']->kategori; ?></font>        
         <br>
 
           <font color=blue>
@@ -65,8 +65,8 @@
           <tr>
             <td><?php echo $item->sub_limbah; ?></td>
               <td>
-                <a class="btn btn-info" href="<?php echo base_url('sublimbah/ubah/'.$item->id) ?>"><i class="fa fa-pencil"></i> </a>
-                <a class="btn btn-danger" onclick="hapus('<?php echo $item->id; ?>')"><i class="fa fa-trash"></i> </a>
+                <a data-toggle="tooltip" title="Edit" class="btn btn-info" href="<?php echo base_url('sublimbah/ubah/'.$item->id) ?>"><i class="fa fa-pencil"></i> </a>
+                <a data-toggle="tooltip" title="Delete" class="btn btn-danger" onclick="hapus('<?php echo $item->id; ?>')"><i class="fa fa-trash"></i> </a>
               </td>
           </tr>
           <?php
@@ -81,16 +81,22 @@
 <script type="text/javascript">
 function hapus(id) {
   swal({
-    title: "Are you sure?",
-    text: "You will not be able to recover this imaginary file!",
+    title: "Apakah Anda Yakin?",
+    text: "Data akan dihapus!",
     type: "warning",
     showCancelButton: true,
     confirmButtonColor: "#DD6B55",
-    confirmButtonText: "Yes, delete it!",
+    confirmButtonText: "Hapus!",
     closeOnConfirm: false
   },
   function(){
     window.location = "<?php echo base_url('sublimbah/aksi_hapus/'); ?>" + id;
   });
 }
+</script>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
 </script>

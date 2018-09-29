@@ -37,13 +37,13 @@
     <table id="lookup" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
       <thead>
         <tr>
-          <th rowspan="2">Limbah</th>
-          <th rowspan="2">Sisa</th>
-          <th colspan="2">Harus Dikeluarkan</th>
+          <th rowspan="2"><center>Limbah</center></th>
+          <th rowspan="2"><center>Sisa</center></th>
+          <th colspan="2"><center>Harus Dikeluarkan</center></th>
         </tr>
         <tr>
-          <th>Sisa Hari</th>
-          <th>Tanggal</th>
+          <th><center>Sisa Hari</center></th>
+          <th><center>Tanggal</center></th>
         </tr>
       </thead>
       <tbody>

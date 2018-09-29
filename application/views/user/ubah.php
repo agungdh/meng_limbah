@@ -20,6 +20,11 @@
     </div>
 
     <div class="form-group">
+      <label for="email">E-Mail</label>
+          <input type="text" class="form-control" id="email" placeholder="Isi E-Mail" name="data[email]" value="<?php echo $data['user']->email; ?>">          
+    </div>
+
+    <div class="form-group">
       <label for="level">Level</label>
           <select id="level" class="form-control select2" name="data[level]">
             <option <?php echo $data['user']->level == 1 ? "selected" : null ?> value="1">Administrator</option>

@@ -100,8 +100,8 @@
               <td><?php echo $item2->sumber; ?></td>
               <td><?php echo $item_jumlah; ?></td>
                <td>
-                <a class="btn btn-info" href="<?php echo base_url('masuk/ubah/'.$item2->id_masuk) ?>"><i class="fa fa-pencil"></i> </a>
-                <a class="btn btn-danger" onclick="hapus('<?php echo $item2->id_masuk; ?>')"><i class="fa fa-trash"></i> </a>
+                <a data-toggle="tooltip" title="Edit" class="btn btn-info" href="<?php echo base_url('masuk/ubah/'.$item2->id_masuk) ?>"><i class="fa fa-pencil"></i> </a>
+                <a data-toggle="tooltip" title="Delete" class="btn btn-danger" onclick="hapus('<?php echo $item2->id_masuk; ?>')"><i class="fa fa-trash"></i> </a>
               </td>
             </tr>
             <?php
@@ -130,16 +130,22 @@
 <script type="text/javascript">
 function hapus(id) {
   swal({
-    title: "Are you sure?",
-    text: "You will not be able to recover this imaginary file!",
+    title: "Apakah Anda Yakin?",
+    text: "Data akan dihapus!",
     type: "warning",
     showCancelButton: true,
     confirmButtonColor: "#DD6B55",
-    confirmButtonText: "Yes, delete it!",
+    confirmButtonText: "Hapus!",
     closeOnConfirm: false
   },
   function(){
     window.location = "<?php echo base_url('masuk/aksi_hapus/'); ?>" + id;
   });
 }
+</script>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
 </script>

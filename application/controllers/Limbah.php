@@ -16,8 +16,8 @@ class Limbah extends CI_Controller {
 
 	function tambah() {
 		$data['isi'] = "limbah/tambah";
-		$data['data']['jenis'] = $this->m_universal->get('jenis');
-		$data['data']['golongan'] = $this->m_universal->get('golongan');
+		$data['data']['sifat'] = $this->m_universal->get('sifat');
+		$data['data']['kategori'] = $this->m_universal->get('kategori');
 
 		$this->load->view("template/template", $data);	
 	}
@@ -33,8 +33,8 @@ class Limbah extends CI_Controller {
 
 	function ubah($id_limbah) {
 		$data['isi'] = "limbah/ubah";
-		$data['data']['jenis'] = $this->m_universal->get('jenis');
-		$data['data']['golongan'] = $this->m_universal->get('golongan');
+		$data['data']['sifat'] = $this->m_universal->get('sifat');
+		$data['data']['kategori'] = $this->m_universal->get('kategori');
 		$data['data']['limbah'] = $this->m_universal->get_id('limbah', $id_limbah);
 		
 		$this->load->view("template/template", $data);

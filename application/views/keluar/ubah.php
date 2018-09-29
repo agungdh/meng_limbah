@@ -27,7 +27,7 @@
     </div>
 
     <div class="form-group">
-      <label for="foto">Foto</label>
+      <label for="foto">Foto Manifest</label>
           <br>
           <img src="<?php echo file_exists('uploads/keluar/' . $data['keluar']->id) ? base_url('uploads/keluar/' . $data['keluar']->id) : base_url('assets/no-images.jpg'); ?>" height="150" width="150">
           <input type="file" name="foto">          
@@ -64,7 +64,7 @@
 
     <div class="form-group">
       <label for="no_dokumen">NO Dokumen</label>
-          <input value="<?php echo $data['keluar']->no_dokumen; ?>" required type="text" class="form-control" id="no_dokumen" placeholder="Isi NO Dokumen" name="no_dokumen">          
+          <input required type="text" class="form-control" id="no_dokumen" placeholder="Isi NO Dokumen" name="no_dokumen">          
     </div>
 
 

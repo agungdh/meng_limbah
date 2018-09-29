@@ -15,7 +15,7 @@
         <div class="login-logo">
           <a><b>Login</b></a>
           <br>
-          <a href="<?php echo base_url(); ?>">Aplikasi Monitoring Limbah B3 PLN</a>
+          <a href="<?php echo base_url(); ?>">Aplikasi Monitoring Data Limbah B3 PLN</a>
         </div><!-- /.login-logo -->
         <!-- <p class="login-box-msg">Isi Username dan Password</p> -->
         <form role="form" method="post" name="loginForm" id="loginForm" action="<?php echo base_url('welcome/aksi_login'); ?>">

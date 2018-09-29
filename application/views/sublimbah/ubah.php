@@ -10,9 +10,9 @@
       <br>
       <label for="limbah">Limbah : <?php echo $data['limbah']->limbah; ?></label>
       <br>
-      <label for="jenis">Jenis : <?php echo $data['limbah']->jenis; ?></label>
+      <label for="sifat">Sifat : <?php echo $data['limbah']->sifat; ?></label>
       <br>
-      <label for="golongan">Golongan : <?php echo $data['limbah']->golongan; ?></label>
+      <label for="kategori">Kategori : <?php echo $data['limbah']->kategori; ?></label>
       <br>
       <label for="masa_berlaku_hari">Masa Berlaku : <?php echo $data['limbah']->masa_berlaku_hari; ?> Hari</label>
     </div>

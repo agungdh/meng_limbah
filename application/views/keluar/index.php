@@ -11,8 +11,7 @@
 <div class="box box-primary">
   <div class="box-header with-border">
     <div class="form-group">
-      <a class="logo" href="<?php echo base_url('assets/logo-pln.png') ?>"></a>
-                
+      <a class="logo" href="<?php echo base_url('assets/logo-pln.png') ?>"></a> 
                 <div class="body">
                   <div class="col-md-2">
                   <center>
@@ -27,8 +26,7 @@
                     </center>
                   </div>
                 </div>
-                <br/>
-      
+                <br/>      
       <a href='<?php echo base_url("keluar/tambah"); ?>'><button class="btn btn-success"><i class="fa fa-plus"></i> Limbah Keluar</button></a><br><br>
       <a href='<?php echo base_url("keluar/export?triwulan=" . $data['triwulan'] . '&tahun=' . $data['tahun']); ?>'><button class="btn btn-primary"><i class="fa fa-upload"></i> Export Limbah</button></a>
     </div>
@@ -51,7 +49,7 @@
         <tr>
           <th>Tanggal Keluar</th>
           <th>Limbah</th>
-          <th>Foto</th>
+          <th>Foto Manifest</th>
           <th>Jumlah (KG)</th>
           <th>Tujuan Penyerahan</th>
           <th>NO Dokumen</th>
@@ -72,8 +70,8 @@
             <td><?php echo 'Pengangkut ' . $item->pengangkut; ?></td>
             <td><?php echo $item->no_dokumen; ?></td>
               <td>
-                <a class="btn btn-info" href="<?php echo base_url('keluar/ubah/'.$item->id_keluar); ?>"><i class="fa fa-pencil"></i> </a>
-                <a class="btn btn-danger" onclick="hapus('<?php echo $item->id_keluar; ?>')"><i class="fa fa-trash"></i> </a>
+                <a data-toggle="tooltip" title="Edit" class="btn btn-info" href="<?php echo base_url('keluar/ubah/'.$item->id_keluar); ?>"><i class="fa fa-pencil"></i> </a>
+                <a data-toggle="tooltip" title="Delete" class="btn btn-danger" onclick="hapus('<?php echo $item->id_keluar; ?>')"><i class="fa fa-trash"></i> </a>
               </td>
           </tr>
           <?php
@@ -92,16 +90,22 @@
 <script type="text/javascript">
 function hapus(id) {
   swal({
-    title: "Are you sure?",
-    text: "You will not be able to recover this imaginary file!",
+    title: "Apakah Anda Yakin?",
+    text: "Data akan dihapus!",
     type: "warning",
     showCancelButton: true,
     confirmButtonColor: "#DD6B55",
-    confirmButtonText: "Yes, delete it!",
+    confirmButtonText: "Hapus!",
     closeOnConfirm: false
   },
   function(){
     window.location = "<?php echo base_url('keluar/aksi_hapus/'); ?>" + id;
   });
 }
+</script>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
 </script>

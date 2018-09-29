@@ -1,88 +1,94 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Rekap extends CI_Controller {
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+class Trigger extends CI_Controller {
 	function __construct(){
 		parent::__construct();
+
 		$this->load->library('pustaka');
 	}
 
-	function admin($id_unit) {
-		$data['isi'] = "rekap/index";
-		$data['data']['rekap'] = $this->unit($id_unit);
-		// var_dump($data['data']['rekap']);
-		$this->load->view("template/template", $data);
+	
+	function index() {
+		$configEmail = $this->db->get('email')->row();
+
+        $i = 0;
+        foreach ($this->db->get('unit')->result() as $item) {
+            $rekap['unit'] = $this->db->get_where('unit', ['id' => $item->id])->row();
+            $rekap['data'] = json_decode(file_get_contents(base_url('rekap/unit_menu/' . $item->id)));
+
+            if ($rekap['data']->warning != 0 || $rekap['data']->danger != 0) {
+            	foreach ($this->db->get_where('user', ['id_unit' => $rekap['unit']->id])->result() as $item2) {
+            		if ($item2->email != null) {
+            			$data[$i]['id_unit'] = $rekap['unit']->id;
+            			$data[$i]['unit'] = $rekap['unit']->unit;
+            			$data[$i]['email'] = $item2->email;
+            			$data[$i]['danger'] = $rekap['data']->danger;
+            			$data[$i]['warning'] = $rekap['data']->warning;
+            			$data[$i]['rekap'] = $this->unit($rekap['unit']->id);
+
+            			$i++;
+            		}
+            	}
+            }
+        }
+
+        // var_dump($data); die;
+        $i = 0;
+        foreach ($data as $item) {
+        	$send[$i]['email'] = $item['email'];
+        	$send[$i]['html'] = $this->load->view('email', ['data' => $item], TRUE);
+
+        	$i++;
+        }
+
+        foreach ($send as $item) {
+        	// echo $item['email'];
+        	// echo $item['html'];
+
+        	$this->sendMail($configEmail->host, $configEmail->encryption, $configEmail->username, $configEmail->password, $configEmail->port, $item['email'], 'Notifikasi E-Mail', $item['html']);
+        }
 	}
 
-	function data($id_unit = null) {
-		$data['isi'] = "rekap/index";
-		$data['data']['unit'] = $this->db->get_where('unit', array('id' => $id_unit ?: $this->session->id))->row();
-		$data['data']['rekap'] = $this->unit($data['data']['unit']->id);
-		// var_dump($data['data']['rekap']);
-		$this->load->view("template/template", $data);
-	}
+	private function sendMail($server, $encryption, $email, $password, $port, $toEmail, $subject, $body) {
+		$data = new \stdClass();
 
-	function semua() {
-		foreach ($this->db->get('unit')->result() as $item) {
-			$unit[] = $this->unit($item->id);
+		$mail = new PHPMailer(true);                              
+		try {
+		    $mail->isSMTP();                                      
+		    $mail->Host = $server;  
+		    $mail->SMTPOptions = [ 'ssl' => [
+								     'verify_peer' => false,
+								     'verify_peer_name' => false,
+								     'allow_self_signed' => true
+								 	]
+		    					];
+		    $mail->SMTPAuth = true;                               
+		    $mail->Username = $email;                 
+		    $mail->Password = $password;                           
+		    $mail->SMTPSecure = $encryption;                            
+		    $mail->Port = $port;                                    
+
+		    $mail->setFrom($email);
+		    $mail->addAddress($toEmail);               
+		    
+		    $mail->isHTML(true);                                  
+		    $mail->Subject = $subject;
+		    $mail->Body    = $body;
+
+		    $mail->send();
+		    
+		    $data->success = true;
+		} catch (Exception $e) {
+		    $data->message = $mail->ErrorInfo;
+
+		    $data->success = false;
 		}
-		// $unit[] = json_decode($this->unit(1));
-		// $unit[] = $this->unit(1);
-		var_dump($unit);
-		// echo $unit[0];
-		// return $unit;
-	}
 
-	function unit_menu($id_unit){
-		$warning = $danger = 0;
-		foreach ($this->db->get('limbah')->result() as $item) {
-			//masuk
-			$this->db->select_sum('jumlah');
-			$where['id_unit'] = $id_unit;
-			$where['id_limbah'] = $item->id;
-			$this->db->where($where);
-			$jumlah_masuk = $this->db->get('v_masuk_id_limbah')->row()->jumlah ?: 0;
-			unset($where);
-
-			//keluar
-			$this->db->select_sum('jumlah');
-			$where['id_unit'] = $id_unit;
-			$where['id_limbah'] = $item->id;
-			$this->db->where($where);
-			$jumlah_keluar = $this->db->get('keluar')->row()->jumlah ?: 0;
-			unset($where);							
-
-			//jumlah
-			$jumlah = $jumlah_masuk - $jumlah_keluar;
-			$sisa_hari = null;
-			if ($jumlah != 0) {
-				$data = $this->index($id_unit, $item->id);
-				// var_dump($data->tanggal_deadline_dibuang); exit();
-				$tanggal_deadline_dibuang = $data->tanggal_deadline_dibuang;
-				$sisa_hari = $data->sisa_hari;
-			} else {
-				$tanggal_deadline_dibuang = $sisa_hari = null;
-			}
-			// var_dump($sisa_hari);
-			if ($sisa_hari !== null) {
-				if ($sisa_hari < 1) {
-					$color = "#ff0000";
-					$danger++;
-				} elseif ($sisa_hari <= 90) {
-					$color = "#ff8e38";
-					$warning++;
-				} else {
-					$color = null;
-				}							
-			} else {
-				$color = null;
-			}
-		}
-		
-		$objek = new stdClass();
-		$objek->danger = $danger;
-		$objek->warning = $warning;
-		echo json_encode($objek);
+		return $data;
 	}
 
 	function unit($id_unit){
@@ -107,7 +113,7 @@ class Rekap extends CI_Controller {
 			$jumlah = $jumlah_masuk - $jumlah_keluar;
 			$sisa_hari = null;
 			if ($jumlah != 0) {
-				$data = $this->index($id_unit, $item->id);
+				$data = $this->index2($id_unit, $item->id);
 				// var_dump($data->tanggal_deadline_dibuang); exit();
 				$tanggal_deadline_dibuang = $data->tanggal_deadline_dibuang;
 				$sisa_hari = $data->sisa_hari;
@@ -145,90 +151,7 @@ class Rekap extends CI_Controller {
 		return $return;
 	}
 
-	function test1($id_unit){
-		?>
-		<!DOCTYPE html>
-		<html>
-		<head>
-			<title></title>
-		</head>
-		<body>
-
-		<table border="1">
-			<thead>
-				<tr>
-					<th rowspan="2">Limbah</th>
-					<th rowspan="2">Sisa</th>
-					<th colspan="2">Harus Dibuang</th>
-				</tr>
-				<tr>
-					<th>Sisa Hari</th>
-					<th>Tanggal</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php
-					// $this->db->where('id', 12);
-					foreach ($this->db->get('limbah')->result() as $item) {
-						?>
-						<?php
-						//masuk
-						$this->db->select_sum('jumlah');
-						$where['id_unit'] = $id_unit;
-						$where['id_limbah'] = $item->id;
-						$this->db->where($where);
-						$jumlah_masuk = $this->db->get('v_masuk_id_limbah')->row()->jumlah ?: 0;
-						unset($where);
-
-						//keluar
-						$this->db->select_sum('jumlah');
-						$where['id_unit'] = $id_unit;
-						$where['id_limbah'] = $item->id;
-						$this->db->where($where);
-						$jumlah_keluar = $this->db->get('keluar')->row()->jumlah ?: 0;
-						unset($where);							
-
-						//jumlah
-						$jumlah = $jumlah_masuk - $jumlah_keluar;
-						$sisa_hari = null;
-						if ($jumlah != 0) {
-							$data = $this->index($id_unit, $item->id);
-							// var_dump($data->tanggal_deadline_dibuang); exit();
-							$tanggal_deadline_dibuang = $data->tanggal_deadline_dibuang;
-							$sisa_hari = $data->sisa_hari;
-						} else {
-							$tanggal_deadline_dibuang = $sisa_hari = null;
-						}
-						// var_dump($sisa_hari);
-						if ($sisa_hari != null) {
-							if ($sisa_hari < 1) {
-								$color = "#ff0000";
-							} elseif ($sisa_hari <= 90) {
-								$color = "#ff8e38";
-							} else {
-								$color = null;
-							}							
-						} else {
-							$color = null;
-						}
-						?>
-						<tr bgcolor="<?php echo $color; ?>">
-							<td><?php echo $item->limbah; ?></td>
-							<td><?php echo $jumlah_masuk . " - " . $jumlah_keluar . " = " . $jumlah; ?></td>
-							<td><?php echo $sisa_hari ?: '-'; ?></td>
-							<td><?php echo $tanggal_deadline_dibuang ?: '-'; ?></td>
-						</tr>
-						<?php
-					}
-					?>
-			</tbody>
-		</table>
-		</body>
-		</html>
-		<?php
-	}
-
-	function index($id_unit, $id_limbah) {
+	function index2($id_unit, $id_limbah) {
 		$stop = 0;
 		$where['id_unit'] = $id_unit;
 		$where['id_limbah'] = $id_limbah;
@@ -344,19 +267,5 @@ class Rekap extends CI_Controller {
 		return $data;
 	}
 
-	function paragraf_awal() {
-		echo "<p>";
-	}
 
-	function paragraf_akhir() {
-		echo "</p>";
-	}
-
-	function ganti_baris() {
-		echo "<br>";
-	}
-
-	function buat_garis() {
-		echo "<hr>";
-	}
 }

@@ -41,7 +41,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <span class="hidden-xs">
 					  <?php 
 						//echo 'Hi: ' . $_SESSION['namauser']; 
-            echo "Hi " . $this->session->username . " !!!";
+            echo "Hi " . $this->session->nama . " !!!";
 					  ?>
 				  </span>
                 </a>
@@ -50,8 +50,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <li class="user-header">
                     <img src="<?php echo base_url() . "assets/"; ?>dist/img/avatar1.png" class="img-circle" alt="User Image">
                     <p>
-                      <?php echo $this->session->username; //echo $_SESSION['user_login']; ?>
-                      <small><?php echo $this->session->nama; //echo $_SESSION['namauser']; ?></small>
+                      <?php echo $this->session->nama; //echo $_SESSION['user_login']; ?>
+                      <small><?php echo $this->session->username; //echo $_SESSION['namauser']; ?></small>
                     </p>
                   </li>
                   <!-- Menu Footer-->

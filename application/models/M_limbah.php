@@ -5,10 +5,10 @@ class M_limbah extends CI_Model{
 	}
 
 	function ambil_limbah(){
-		$sql = "SELECT l.id, l.id_jenis, l.id_golongan, l.kode, l.limbah, j.jenis, g.golongan, g.masa_berlaku_hari
-				FROM limbah l, jenis j, golongan g
-				WHERE l.id_jenis = j.id
-				AND l.id_golongan = g.id";
+		$sql = "SELECT l.id, l.id_sifat, l.id_kategori, l.kode, l.limbah, j.sifat, g.kategori, g.masa_berlaku_hari
+				FROM limbah l, sifat j, kategori g
+				WHERE l.id_sifat = j.id
+				AND l.id_kategori = g.id";
 		$query = $this->db->query($sql, array());
 		$row = $query->result();
 		return $row;

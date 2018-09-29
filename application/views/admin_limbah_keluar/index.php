@@ -50,7 +50,7 @@
         <tr>
           <th>Tanggal Keluar</th>
           <th>Limbah</th>
-          <th>Foto</th>
+          <th>Foto Manifest</th>
           <th>Jumlah (KG)</th>
           <th>Tujuan Penyerahan</th>
           <th>NO Dokumen</th>

@@ -6,10 +6,10 @@ class M_test extends CI_Model{
 
 	// function ambil_limbah_masuk(){
 	// 	$sql = "SELECT *
-	// 			FROM sub_limbah sl, limbah l, golongan g, jenis j, masuk m, sumber s
+	// 			FROM sub_limbah sl, limbah l, kategori g, sifat j, masuk m, sumber s
 	// 			WHERE sl.id_limbah = l.id
-	// 			AND l.id_jenis = j.id
-	// 			AND l.id_golongan = g.id
+	// 			AND l.id_sifat = j.id
+	// 			AND l.id_kategori = g.id
 	// 			AND m.id_sub_limbah = sl.id
 	// 			AND m.id_sumber = s.id";
 	// 	$query = $this->db->query($sql, array());
@@ -20,10 +20,10 @@ class M_test extends CI_Model{
 
 	function ambil_parent_limbah(){
 		$sql = "SELECT id_limbah, limbah
-				FROM sub_limbah sl, limbah l, golongan g, jenis j, masuk m, sumber s
+				FROM sub_limbah sl, limbah l, kategori g, sifat j, masuk m, sumber s
 				WHERE sl.id_limbah = l.id
-				AND l.id_jenis = j.id
-				AND l.id_golongan = g.id
+				AND l.id_sifat = j.id
+				AND l.id_kategori = g.id
 				AND m.id_sub_limbah = sl.id
 				AND m.id_sumber = s.id
 				GROUP BY id_limbah";
@@ -35,10 +35,10 @@ class M_test extends CI_Model{
 
 	function ambil_child_limbah($id_limbah){
 		$sql = "SELECT *
-				FROM sub_limbah sl, limbah l, golongan g, jenis j, masuk m, sumber s
+				FROM sub_limbah sl, limbah l, kategori g, sifat j, masuk m, sumber s
 				WHERE sl.id_limbah = l.id
-				AND l.id_jenis = j.id
-				AND l.id_golongan = g.id
+				AND l.id_sifat = j.id
+				AND l.id_kategori = g.id
 				AND m.id_sub_limbah = sl.id
 				AND m.id_sumber = s.id
 				AND l.id = ?";

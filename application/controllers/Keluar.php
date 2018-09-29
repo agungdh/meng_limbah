@@ -70,13 +70,13 @@ class Keluar extends CI_Controller {
 			$this->input->post('pengangkut'),
 			$this->input->post('jumlah'),
 			$this->input->post('no_dokumen')
+
 		);
 
 		$triwulan = $this->pustaka->ambil_triwulan_dari_tanggal($this->input->post('tanggal'));
 		$tahun = date('Y', strtotime($this->input->post('tanggal')));
 
 		move_uploaded_file($_FILES['foto']['tmp_name'], 'uploads/keluar/' . $this->input->post('id'));
-		
 		redirect(base_url('keluar?tahun=' . $tahun . '&triwulan=' . $triwulan));
 	}
 
@@ -196,7 +196,7 @@ class Keluar extends CI_Controller {
 		$this->excel->getActiveSheet()->setCellValue('A5', 'NO');
 		$this->excel->getActiveSheet()->setCellValue('B5', 'TANGGAL KELUAR');
 		$this->excel->getActiveSheet()->setCellValue('C5', 'LIMBAH');
-		$this->excel->getActiveSheet()->setCellValue('D5', 'FOTO');
+		$this->excel->getActiveSheet()->setCellValue('D5', 'SCAN/FOTO MANIFEST');
 		$this->excel->getActiveSheet()->setCellValue('E5', 'JUMLAH (KG)');
 		$this->excel->getActiveSheet()->setCellValue('F5', 'TUJUAN PENYERAHAN');
 		$this->excel->getActiveSheet()->setCellValue('G5', 'NO DOKUMEN');
@@ -263,5 +263,6 @@ class Keluar extends CI_Controller {
 		
 		$objWriter->save('php://output');
 	}
+
 
 }

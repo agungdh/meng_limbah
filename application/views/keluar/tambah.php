@@ -19,7 +19,7 @@
     </div>
 
     <div class="form-group">
-      <label for="foto">Foto</label>
+      <label for="foto">Foto Manifest</label>
           <input type="file" id="foto" name="foto">          
     </div>
 
@@ -50,7 +50,6 @@
       <label for="no_dokumen">NO Dokumen</label>
           <input required type="text" class="form-control" id="no_dokumen" placeholder="Isi NO Dokumen" name="no_dokumen">          
     </div>
-
 
     </div><!-- /.box-body -->
 

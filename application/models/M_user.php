@@ -43,14 +43,15 @@ class M_user extends CI_Model{
 		return $row;
 	}
 
-	function tambah_user($nama, $username, $password, $level, $id_unit){
+	function tambah_user($nama, $username, $password, $level, $id_unit, $email){
 		$sql = "INSERT INTO user
 				SET nama = ?,
 				username = ?,
 				password = ?,
 				level = ?,
-				id_unit = ?";
-		$query = $this->db->query($sql, array($nama, $username, $password, $level, $id_unit));
+				id_unit = ?,
+				email = ?";
+		$query = $this->db->query($sql, array($nama, $username, $password, $level, $id_unit, $email));
 	}
 
 	function ubah_user($password, $id){

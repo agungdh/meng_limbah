@@ -42,9 +42,9 @@
         <tr>
           <th>Kode</th>
           <th>Limbah</th>
-          <th>Jenis</th>
-          <th>Golongan</th>
-          <th>Masa Berlaku (Hari)</th>
+          <th>Sifat</th>
+          <th>Kategori</th>
+          <th>Masa Penyimpanan Maksimal (Hari)</th>
           <th>Proses</th>
         </tr>
       </thead>
@@ -55,13 +55,13 @@
           <tr>
             <td><?php echo $item->kode; ?></td>
             <td><?php echo $item->limbah; ?></td>
-            <td><?php echo $item->jenis; ?></td>
-            <td><?php echo $item->golongan; ?></td>
+            <td><?php echo $item->sifat; ?></td>
+            <td><?php echo $item->kategori; ?></td>
             <td><?php echo $item->masa_berlaku_hari; ?></td>
               <td>
                 <a class="btn btn-primary" href="<?php echo base_url('sublimbah/index/'.$item->id) ?>"><i class="fa fa-share"></i> Sub Limbah</a>
-                <a class="btn btn-info" href="<?php echo base_url('limbah/ubah/'.$item->id) ?>"><i class="fa fa-pencil"></i> </a>
-                <a class="btn btn-danger" onclick="hapus('<?php echo $item->id; ?>')"><i class="fa fa-trash"></i> </a>
+                <a data-toggle="tooltip" title="Edit" class="btn btn-info" href="<?php echo base_url('limbah/ubah/'.$item->id) ?>"><i class="fa fa-pencil"></i> </a>
+                <a data-toggle="tooltip" title="Delete" class="btn btn-danger" onclick="hapus('<?php echo $item->id; ?>')"><i class="fa fa-trash"></i> </a>
               </td>
           </tr>
           <?php
@@ -76,16 +76,22 @@
 <script type="text/javascript">
 function hapus(id) {
   swal({
-    title: "Are you sure?",
-    text: "You will not be able to recover this imaginary file!",
+    title: "Apakah Anda Yakin?",
+    text: "Data akan dihapus!",
     type: "warning",
     showCancelButton: true,
     confirmButtonColor: "#DD6B55",
-    confirmButtonText: "Yes, delete it!",
+    confirmButtonText: "Hapus!",
     closeOnConfirm: false
   },
   function(){
     window.location = "<?php echo base_url('limbah/aksi_hapus/'); ?>" + id;
   });
 }
+</script>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
 </script>

@@ -22,12 +22,18 @@ class User extends CI_Controller {
 	}
 
 	function aksi_tambah() {
+		if ($this->input->post('email') == '') {
+			$email = null;
+		} else {
+			$email = $this->input->post('email');
+		}
 		$this->m_user->tambah_user(
 			$this->input->post('nama'),
 			$this->input->post('username'),
 			hash('sha512', $this->input->post('password')),
 			$this->input->post('level'),
-			$this->input->post('unit')
+			$this->input->post('unit'),
+			$email
 		);
 
 		redirect(base_url('user'));
@@ -44,6 +50,9 @@ class User extends CI_Controller {
 	function aksi_ubah() {
 		foreach ($this->input->post('data') as $key => $value) {
 			$data[$key] = $value;
+		}
+		if ($data['email'] == '') {
+			$data['email'] = null;
 		}
 		$where['id'] = $this->input->post('id');
 		$this->db->update('user', $data, $where);

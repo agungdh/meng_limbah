@@ -16,12 +16,12 @@
     </div>
 
     <div class="form-group">
-      <label for="jenis">Jenis</label>
-          <select id="jenis" class="form-control select2" name="data[id_jenis]">
+      <label for="sifat">Sifat</label>
+          <select id="sifat" class="form-control select2" name="data[id_sifat]">
             <?php
-            foreach ($data['jenis'] as $item) {
+            foreach ($data['sifat'] as $item) {
               ?>
-              <option value="<?php echo $item->id; ?>"><?php echo $item->jenis; ?></option>
+              <option value="<?php echo $item->id; ?>"><?php echo $item->sifat; ?></option>
               <?php
             }
             ?>
@@ -29,12 +29,12 @@
     </div>
 
     <div class="form-group">
-      <label for="golongan">Golongan (Masa Berlaku)</label>
-          <select id="golongan" class="form-control select2" name="data[id_golongan]">
+      <label for="kategori">Kategori (Masa Penyimpanan Maksimal)</label>
+          <select id="kategori" class="form-control select2" name="data[id_kategori]">
             <?php
-            foreach ($data['golongan'] as $item) {
+            foreach ($data['kategori'] as $item) {
               ?>
-              <option value="<?php echo $item->id; ?>"><?php echo $item->golongan . ' (' . $item->masa_berlaku_hari . ' Hari)'; ?></option>
+              <option value="<?php echo $item->id; ?>"><?php echo $item->kategori . ' (' . $item->masa_berlaku_hari . ' Hari)'; ?></option>
               <?php
             }
             ?>

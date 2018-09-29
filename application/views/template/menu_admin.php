@@ -22,10 +22,10 @@
         	</i> Data Limbah</a>
         </li>
         <li>
-        	<a href="<?php echo base_url("universal/index/golongan"); ?>"><i class="fa fa-table text-aqua">       		
+        	<a href="<?php echo base_url("universal/index/kategori"); ?>"><i class="fa fa-table text-aqua">       		
         	</i> Data Kategori</a>
         <li>
-        	<a href="<?php echo base_url("universal/index/jenis"); ?>"><i class="fa fa-table text-aqua">       		
+        	<a href="<?php echo base_url("universal/index/sifat"); ?>"><i class="fa fa-table text-aqua">       		
         	</i> Data Sifat</a>
         </li>
         <li>
@@ -41,8 +41,12 @@
         	</i> Data Unit</a>
         </li>
         <li>
-        	<a href="<?php echo base_url("user"); ?>"><i class="fa fa-users text-aqua">
-        	</i> Data User</a>
+            <a href="<?php echo base_url("user"); ?>"><i class="fa fa-users text-aqua">
+            </i> Data User</a>
+        </li>
+        <li>
+        	<a href="<?php echo base_url("email"); ?>"><i class="fa fa-envelope text-aqua">
+        	</i> Data E-Mail</a>
         </li>
     </ul>
 </li>
@@ -109,7 +113,7 @@
 
 <li>
 	<a href="#">
-		<i class="fa fa-balance-scale text-aqua"></i>
+		<i class="fa fa-list text-aqua"></i>
 		<span>Data Rekap Limbah</span>
 		<span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
@@ -124,8 +128,8 @@
                     <i class="fa fa-building text-aqua"></i>
                     <span><?php echo $item->unit; ?></span>
                     <span class="pull-right-container">
-                      <small class="label pull-right bg-red"><div id="reminder_danger_<?php echo $item->id; ?>"></div></small>
-                      <small class="label pull-right bg-orange"><div id="reminder_warning_<?php echo $item->id; ?>"></div></small>
+                      <small data-toggle="tooltip" title="Melebihi Masa Penyimpanan Maksimal !" class="label pull-right bg-red"><div id="reminder_danger_<?php echo $item->id; ?>"></div></small>
+                      <small data-toggle="tooltip" title="Hampir Melebihi Masa Penyimpanan Maksimal !" class="label pull-right bg-orange"><div id="reminder_warning_<?php echo $item->id; ?>"></div></small>
                     </span>
                 </a>
             </li>
@@ -136,3 +140,9 @@
 </li>
 
 </ul>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
+</script>

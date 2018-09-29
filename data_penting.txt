@@ -1,4 +1,0 @@
-web : https://apps.agungdh.com/phpmyadmin/
-host : agungdh.com
-username : agungdhc_tika_son
-password : tikason123

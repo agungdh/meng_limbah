@@ -18,6 +18,11 @@
     </div>
 
     <div class="form-group">
+      <label for="email">E-Mail</label>
+          <input type="text" class="form-control" id="email" placeholder="Isi E-Mail" name="email">          
+    </div>
+
+    <div class="form-group">
       <label for="password">Password</label>
           <input required type="password" class="form-control" id="password" placeholder="Isi Password" name="password">          
     </div>

@@ -6,10 +6,10 @@ class M_masuk extends CI_Model{
 
 	function ambil_parent_limbah_semuasemua($b1, $b2, $thn){
 		$sql = "SELECT id_limbah, limbah
-				FROM sub_limbah sl, limbah l, golongan g, jenis j, masuk m, sumber s
+				FROM sub_limbah sl, limbah l, kategori g, sifat j, masuk m, sumber s
 				WHERE sl.id_limbah = l.id
-				AND l.id_jenis = j.id
-				AND l.id_golongan = g.id
+				AND l.id_sifat = j.id
+				AND l.id_kategori = g.id
 				AND m.id_sub_limbah = sl.id
 				AND m.id_sumber = s.id
 				AND month(tanggal) BETWEEN ? AND ?
@@ -22,10 +22,10 @@ class M_masuk extends CI_Model{
 
 	function ambil_parent_limbah($id_unit, $b1, $b2, $thn){
 		$sql = "SELECT id_limbah, limbah
-				FROM sub_limbah sl, limbah l, golongan g, jenis j, masuk m, sumber s
+				FROM sub_limbah sl, limbah l, kategori g, sifat j, masuk m, sumber s
 				WHERE sl.id_limbah = l.id
-				AND l.id_jenis = j.id
-				AND l.id_golongan = g.id
+				AND l.id_sifat = j.id
+				AND l.id_kategori = g.id
 				AND m.id_sub_limbah = sl.id
 				AND m.id_sumber = s.id
 				AND m.id_unit = ?
@@ -39,10 +39,10 @@ class M_masuk extends CI_Model{
 
 	function ambil_child_limbah_semuasemua($id_limbah, $b1, $b2, $thn){
 		$sql = "SELECT *, m.id id_masuk
-				FROM sub_limbah sl, limbah l, golongan g, jenis j, masuk m, sumber s
+				FROM sub_limbah sl, limbah l, kategori g, sifat j, masuk m, sumber s
 				WHERE sl.id_limbah = l.id
-				AND l.id_jenis = j.id
-				AND l.id_golongan = g.id
+				AND l.id_sifat = j.id
+				AND l.id_kategori = g.id
 				AND m.id_sub_limbah = sl.id
 				AND m.id_sumber = s.id
 				AND l.id = ?
@@ -57,10 +57,10 @@ class M_masuk extends CI_Model{
 
 	function ambil_child_limbah($id_limbah, $id_unit, $b1, $b2, $thn){
 		$sql = "SELECT *, m.id id_masuk
-				FROM sub_limbah sl, limbah l, golongan g, jenis j, masuk m, sumber s
+				FROM sub_limbah sl, limbah l, kategori g, sifat j, masuk m, sumber s
 				WHERE sl.id_limbah = l.id
-				AND l.id_jenis = j.id
-				AND l.id_golongan = g.id
+				AND l.id_sifat = j.id
+				AND l.id_kategori = g.id
 				AND m.id_sub_limbah = sl.id
 				AND m.id_sumber = s.id
 				AND l.id = ?

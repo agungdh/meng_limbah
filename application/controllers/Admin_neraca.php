@@ -83,8 +83,14 @@ class Admin_neraca extends CI_Controller {
     $this->load->library('excel');
     
     $this->excel->setActiveSheetIndex(0);
+    $this->excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
     
     $this->excel->getActiveSheet()->setTitle('Sheet 1');
+
+    foreach(range('A','H') as $columnID) {
+        $this->excel->getActiveSheet()->getColumnDimension($columnID)
+            ->setAutoSize(true);
+    }
     
     $this->excel->getActiveSheet()->setCellValue('A1', 'DATA LIMBAH B3 YANG KELUAR DARI TPS');
     $this->excel->getActiveSheet()->getStyle('A1')->getFont()->setSize(20);
@@ -103,6 +109,7 @@ class Admin_neraca extends CI_Controller {
     $this->excel->getActiveSheet()->mergeCells('A3:H3');
     $this->excel->getActiveSheet()->getStyle('A3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
      
+    $this->excel->getActiveSheet()->getStyle('A5:H5')->getFont()->setBold(true);
     $this->excel->getActiveSheet()->setCellValue('A5', 'NO');
     $this->excel->getActiveSheet()->setCellValue('B5', 'LIMBAH');
     $this->excel->getActiveSheet()->setCellValue('C5', 'SUMBER');
@@ -119,6 +126,22 @@ class Admin_neraca extends CI_Controller {
         $jumlah_limbah_masuk_bulan_ini = 0;
         $jumlah_limbah_lalu_bulan_ini = 0;
         $jumlah_sisa_limbah_di_tps = 0;
+
+        $styleArray = array(
+          'borders' => array(
+              'allborders' => array(
+                  'style' => PHPExcel_Style_Border::BORDER_THIN
+              )
+            )
+        );
+        $styleArrayBold = array(
+            'borders' => array(
+                'allborders' => array(
+                    'style' => PHPExcel_Style_Border::BORDER_MEDIUM
+                )
+            )
+        );
+
         foreach ($data['limbah'] as $item) {
           $limbah = $item->limbah;
           // $tanggal = $data['tahun'] . '-' . str_pad($data['bulan'],2,"0",STR_PAD_LEFT) . '-' . '01';
@@ -136,6 +159,9 @@ class Admin_neraca extends CI_Controller {
           $jumlah_limbah_lalu_bulan_ini += $keluar;
           $jumlah_sisa_limbah_di_tps += $sisa;
 
+      $this->excel->getActiveSheet()->getStyle('A' . $a . ':'. 'H' . $a)->applyFromArray($styleArray);
+      $this->excel->getActiveSheet()->getStyle('A' . $a . ':' . 'H' . $a)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_TOP);
+
       $this->excel->getActiveSheet()->setCellValue('A' . $a, $i);
       $this->excel->getActiveSheet()->setCellValue('B' . $a, $limbah);
       $this->excel->getActiveSheet()->setCellValue('C' . $a, $sumber);
@@ -148,6 +174,8 @@ class Admin_neraca extends CI_Controller {
       $i++;
       $a++;
     }
+    $this->excel->getActiveSheet()->getStyle('B' . $a . ':'. 'G' . $a)->applyFromArray($styleArray);
+    $this->excel->getActiveSheet()->getStyle('A5:H5')->applyFromArray($styleArrayBold);
 
     $this->excel->getActiveSheet()->setCellValue('B' . $a, "TOTAL");
     $this->excel->getActiveSheet()->mergeCells('B' . $a . ':C' . $a);
@@ -198,8 +226,14 @@ class Admin_neraca extends CI_Controller {
     $this->load->library('excel');
     
     $this->excel->setActiveSheetIndex(0);
+    $this->excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
     
     $this->excel->getActiveSheet()->setTitle('Sheet 1');
+
+    foreach(range('A','H') as $columnID) {
+        $this->excel->getActiveSheet()->getColumnDimension($columnID)
+            ->setAutoSize(true);
+    }
     
     $this->excel->getActiveSheet()->setCellValue('A1', 'DATA LIMBAH B3 YANG KELUAR DARI TPS');
     $this->excel->getActiveSheet()->getStyle('A1')->getFont()->setSize(20);
@@ -212,6 +246,7 @@ class Admin_neraca extends CI_Controller {
     $this->excel->getActiveSheet()->mergeCells('A2:H2');
     $this->excel->getActiveSheet()->getStyle('A2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
      
+    $this->excel->getActiveSheet()->getStyle('A4:H4')->getFont()->setBold(true);
     $this->excel->getActiveSheet()->setCellValue('A4', 'NO');
     $this->excel->getActiveSheet()->setCellValue('B4', 'LIMBAH');
     $this->excel->getActiveSheet()->setCellValue('C4', 'SUMBER');
@@ -228,6 +263,22 @@ class Admin_neraca extends CI_Controller {
         $jumlah_limbah_masuk_bulan_ini = 0;
         $jumlah_limbah_lalu_bulan_ini = 0;
         $jumlah_sisa_limbah_di_tps = 0;
+
+        $styleArray = array(
+          'borders' => array(
+              'allborders' => array(
+                  'style' => PHPExcel_Style_Border::BORDER_THIN
+              )
+            )
+        );
+        $styleArrayBold = array(
+            'borders' => array(
+                'allborders' => array(
+                    'style' => PHPExcel_Style_Border::BORDER_MEDIUM
+                )
+            )
+        );
+
         foreach ($data['limbah'] as $item) {
           $limbah = $item->limbah;
           // $tanggal = $data['tahun'] . '-' . str_pad($data['bulan'],2,"0",STR_PAD_LEFT) . '-' . '01';
@@ -245,6 +296,9 @@ class Admin_neraca extends CI_Controller {
           $jumlah_limbah_lalu_bulan_ini += $keluar;
           $jumlah_sisa_limbah_di_tps += $sisa;
 
+      $this->excel->getActiveSheet()->getStyle('A' . $a . ':'. 'H' . $a)->applyFromArray($styleArray);
+      $this->excel->getActiveSheet()->getStyle('A' . $a . ':' . 'H' . $a)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_TOP);
+
       $this->excel->getActiveSheet()->setCellValue('A' . $a, $i);
       $this->excel->getActiveSheet()->setCellValue('B' . $a, $limbah);
       $this->excel->getActiveSheet()->setCellValue('C' . $a, $sumber);
@@ -257,6 +311,9 @@ class Admin_neraca extends CI_Controller {
       $i++;
       $a++;
     }
+
+   $this->excel->getActiveSheet()->getStyle('B' . $a . ':'. 'G' . $a)->applyFromArray($styleArray);
+    $this->excel->getActiveSheet()->getStyle('A4:H4')->applyFromArray($styleArrayBold);
 
     $this->excel->getActiveSheet()->setCellValue('B' . $a, "TOTAL");
     $this->excel->getActiveSheet()->mergeCells('B' . $a . ':C' . $a);

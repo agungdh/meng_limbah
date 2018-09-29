@@ -96,7 +96,7 @@ class Admin_limbah_masuk extends CI_Controller {
 		        ->setAutoSize(true);
 		}
 
-		$this->excel->getActiveSheet()->setCellValue('A1', 'DATA LIMBAH B3 YANG MASUK DARI TPS');
+		$this->excel->getActiveSheet()->setCellValue('A1', 'DATA LIMBAH B3 YANG MASUK DI TPS');
 		$this->excel->getActiveSheet()->getStyle('A1')->getFont()->setSize(20);
 		$this->excel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
 		$this->excel->getActiveSheet()->mergeCells('A1:F1');

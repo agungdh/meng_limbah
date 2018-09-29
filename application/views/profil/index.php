@@ -19,6 +19,11 @@
           <input value="<?php echo $data['user']->nama; ?>" required type="text" class="form-control" id="nama" placeholder="Isi Nama" name="data[nama]">          
     </div>
 
+    <div class="form-group">
+      <label for="nama">E-Mail</label>
+          <input value="<?php echo $data['user']->email; ?>" type="text" class="form-control" id="email" placeholder="Isi E-Mail" name="data[email]">          
+    </div>
+
     </div><!-- /.box-body -->
 
     <div class="box-footer">
